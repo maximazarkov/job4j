@@ -14,7 +14,7 @@ public class Calculate {
      * @param args - args
 	 * @since 0.1 (17.02.2019)
      */
-    public static void main (String[] args){
+    public static void main(String[] args) {
         System.out.println("hello Job4j");
     }
 
@@ -24,7 +24,7 @@ public class Calculate {
 	 * @return Echo plus your name.
 	 * @since 0.2 (20.02.2019)
      */
-    public String echo (String name){
+    public String echo(String name) {
         return "Echo, echo, echo : " + name;
     }
 }

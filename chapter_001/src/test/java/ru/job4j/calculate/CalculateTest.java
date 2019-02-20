@@ -20,11 +20,11 @@ public class CalculateTest {
      */
 	/*public void when...Then... () {}*/
 	@Test
-    public void whenTakeNameThenThreeEchoPlusName(){
+    public void whenTakeNameThenThreeEchoPlusName() {
 		//Определяем ввод данных
-		String input="Azarkov Maxim";
+		String input = "Azarkov Maxim";
 		// определяем ожидаемый результат (или поведение)
-		String expect="Echo, echo, echo : Azarkov Maxim";
+		String expect = "Echo, echo, echo : Azarkov Maxim";
 		//Составление списка действий и сценария. После выполния будет произведено какое-то действие, изменено состояние программы, либо выведено результат
 		Calculate calc = new Calculate();
 		String result = calc.echo(input);
@@ -36,11 +36,11 @@ public class CalculateTest {
      * Test echo(null) NPE.
      */
 	@Test
-    public void whenTakeNullThenThreeEchoPlusNull(){
+    public void whenTakeNullThenThreeEchoPlusNull() {
 		//Определяем ввод данных
-		String input="Null";
+		String input = "Null";
 		// определяем ожидаемый результат (или поведение)
-		String expect="Echo, echo, echo : Null";
+		String expect = "Echo, echo, echo : Null";
 		//Составление списка действий и сценария. После выполния будет произведено какое-то действие, изменено состояние программы, либо выведено результат
 		Calculate calc = new Calculate();
 		String result = calc.echo(input);
@@ -54,7 +54,7 @@ public class CalculateTest {
      */
 	/*public void when...Then... () {}*/
 	@Test
-    public void whenAddOneToOneThenTwo(){
+    public void whenAddOneToOneThenTwo() {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(out));
 		Calculate.main(null);

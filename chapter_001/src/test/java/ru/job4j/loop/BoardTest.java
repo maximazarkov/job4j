@@ -42,4 +42,5 @@ public class BoardTest {
                 String.format("X X X%s X X %sX X X%s X X %s", ln, ln, ln, ln)
                 )
         );
-    }}
+    }
+}

@@ -1,6 +1,5 @@
 package ru.job4j.array;
 
-
 /**
  * Check.
  * @author Azarkov Maxim.
@@ -23,22 +22,13 @@ public class Check {
      */
     public boolean mono(boolean[] data) {
         boolean result = false;
-        int count = 0;
-        //IDEA предложила именить код на foreach...
-        //for (int i = 0; i < data.length; i++) {
-        //    if (data[i]) count++;
-        //}
-        // вот что получилось
-        for (boolean iData:data) {
-            // можно воспользоватся тернарным оператором,
-            // но думаю, будет не рационально, по этому if...
-            if (iData) {
-                count++;
+        for (int i = 0; i < data.length - 1; i++) {
+            if (data[i] == data[i + 1]) {
+                result = true;
+                break;
             }
         }
-        if (count == data.length || count == 0) {
-            result = true;
-        }
+
         return result;
     }
 }

@@ -21,14 +21,16 @@ public class Check {
      * @return boolean true if all true or false else false
      */
     public boolean mono(boolean[] data) {
-        boolean result = false;
+        boolean result = true;
         for (int i = 0; i < data.length - 1; i++) {
-            if (data[i] == data[i + 1]) {
-                result = true;
+            //if (data[i] == data[i + 1]) { этот случай нас не интересует
+            //if (data[i] != data[i + 1]) { и тогда резулт фолс и брейк
+            //и изначально считайте что все элементы одинаковые
+            if (data[i] != data[i + 1]) {
+                result = false;
                 break;
             }
         }
-
         return result;
     }
 }

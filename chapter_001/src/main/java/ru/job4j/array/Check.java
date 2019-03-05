@@ -6,19 +6,19 @@ package ru.job4j.array;
  * @version $Id$.
  * @since 0.1.
  */
-/*
-*3. Метод должен проверить, что все элементы в массиве являются true или false.
-Например.
-{true, true, true} - вернет true;
-{true, false, true} - вернет false;
-{false, false, false} - вернет true;
-*/
 public class Check {
 
     /**
-     * mono - check all false or all true in array
-     * @param data - array
-     * @return boolean true if all true or false else false
+     * mono - проверка всех false или всех true в массиве.
+     * @param data - array.
+     * @return возвращает true, если все значения  true или false иначе возвращается false.
+     * <p>
+     * 3. Метод проверяет, что все элементы в массиве являются true или false.
+     * Например:
+     * {true, true, true} - вернет true;
+     * {true, false, true} - вернет false;
+     * {false, false, false} - вернет true;
+     * </p>
      */
     public boolean mono(boolean[] data) {
         boolean result = true;

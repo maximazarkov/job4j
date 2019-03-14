@@ -1,7 +1,7 @@
 package ru.mazarkov.professions;
 
 class Diagnose {
-	Patient patient;
+	private Patient patient;
 	Diagnose(Patient p) {
 		this.patient = p;
 	}

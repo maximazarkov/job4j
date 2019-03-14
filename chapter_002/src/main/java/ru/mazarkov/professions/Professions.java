@@ -1,8 +1,8 @@
 package ru.mazarkov.professions;
 
 class Professions {
-	public String name;
-	public String profession;
+	private String name;
+	private String profession;
 	
 	public String getName() {
 		return new String();

@@ -7,17 +7,17 @@ import java.util.Objects;
 *@version $Id$.
 *@since 0.1
 */
-public class Item{
+public class Item {
 	private String id;
 	private String name;
 	private String desc;
 	private long time;
 	
 	/**
-	*конструктор. содает элемент типа Item - заявка.
-	*@param name - имя заявки.
-	*@param desс - описание заявки.
-	*@param time - время создания заявки.
+	*РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ. СЃРѕРґР°РµС‚ СЌР»РµРјРµРЅС‚ С‚РёРїР° Item - Р·Р°СЏРІРєР°.
+	*@param name - РёРјСЏ Р·Р°СЏРІРєРё.
+	*@param desСЃ - РѕРїРёСЃР°РЅРёРµ Р·Р°СЏРІРєРё.
+	*@param time - РІСЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ Р·Р°СЏРІРєРё.
 	*@since 0.1.
 	*/
 	public Item(String name, String desc, long time) {
@@ -27,8 +27,8 @@ public class Item{
 	}
 	
 	/**
-	У*setId - принимает значение уникального ключа заявки. уникальный ключ заявки - id элемента массива Item. Генерируется с помощью hash-функции.
-	*@param id - значение уникального ключа заявки типа String.
+	РЈ*setId - РїСЂРёРЅРёРјР°РµС‚ Р·РЅР°С‡РµРЅРёРµ СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ РєР»СЋС‡Р° Р·Р°СЏРІРєРё. СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєР»СЋС‡ Р·Р°СЏРІРєРё - id СЌР»РµРјРµРЅС‚Р° РјР°СЃСЃРёРІР° Item. Р“РµРЅРµСЂРёСЂСѓРµС‚СЃСЏ СЃ РїРѕРјРѕС‰СЊСЋ hash-С„СѓРЅРєС†РёРё.
+	*@param id - Р·РЅР°С‡РµРЅРёРµ СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ РєР»СЋС‡Р° Р·Р°СЏРІРєРё С‚РёРїР° String.
 	*@since 0.1.
 	*/
 	public void setId(String id) {
@@ -36,8 +36,8 @@ public class Item{
 	}
 
 	/**
-	*getId - возвращает уникального ключа заявки.
-	*@retern значение уникального ключа заявки
+	*getId - РІРѕР·РІСЂР°С‰Р°РµС‚ СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ РєР»СЋС‡Р° Р·Р°СЏРІРєРё.
+	*@retern Р·РЅР°С‡РµРЅРёРµ СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ РєР»СЋС‡Р° Р·Р°СЏРІРєРё
 	*@since 0.1
 	*/
 	public String getId() {
@@ -45,75 +45,76 @@ public class Item{
 	}
 	
 	/**
-	*setName - принимает название заявки.
-	*@param name - значение названия заявки типа String.
+	*setName - РїСЂРёРЅРёРјР°РµС‚ РЅР°Р·РІР°РЅРёРµ Р·Р°СЏРІРєРё.
+	*@param name - Р·РЅР°С‡РµРЅРёРµ РЅР°Р·РІР°РЅРёСЏ Р·Р°СЏРІРєРё С‚РёРїР° String.
 	*@since 0.1
 	*/
-	public void setName(String name){
+	public void setName(String name) {
 		this.name = name;
 	}
 	
 	/**
-	*getId - возвращает названия заявки.
-	*@retern значение названия заявки типа String.
+	*getId - РІРѕР·РІСЂР°С‰Р°РµС‚ РЅР°Р·РІР°РЅРёСЏ Р·Р°СЏРІРєРё.
+	*@retern Р·РЅР°С‡РµРЅРёРµ РЅР°Р·РІР°РЅРёСЏ Р·Р°СЏРІРєРё С‚РёРїР° String.
 	*@since 0.1.
 	*/
-	public String getName(){
+	public String getName() {
 		return this.name;
 	}
 
 	/**
-	*setDesc - принимает описание заявки.
-	*@param desc - значение значение описания заявки типа String.
+	*setDesc - РїСЂРёРЅРёРјР°РµС‚ РѕРїРёСЃР°РЅРёРµ Р·Р°СЏРІРєРё.
+	*@param desc - Р·РЅР°С‡РµРЅРёРµ Р·РЅР°С‡РµРЅРёРµ РѕРїРёСЃР°РЅРёСЏ Р·Р°СЏРІРєРё С‚РёРїР° String.
 	*@since 0.1.
 	*/
-	public void setDesc(String desc){
+	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 	
 	/**
-	*getDesc - возвращает описание заявки.
-	*@retern значение описания заявки типа String.
+	*getDesc - РІРѕР·РІСЂР°С‰Р°РµС‚ РѕРїРёСЃР°РЅРёРµ Р·Р°СЏРІРєРё.
+	*@retern Р·РЅР°С‡РµРЅРёРµ РѕРїРёСЃР°РЅРёСЏ Р·Р°СЏРІРєРё С‚РёРїР° String.
 	*@since 0.1.
 	*/
-	public String getDesc(){
+	public String getDesc() {
 		return this.desc;
 	}
 	
 	/**
-	*setTime - принимает время создания заявки.
-	*@param desc - значение времени создания заявки типа long.
+	*setTime - РїСЂРёРЅРёРјР°РµС‚ РІСЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ Р·Р°СЏРІРєРё.
+	*@param desc - Р·РЅР°С‡РµРЅРёРµ РІСЂРµРјРµРЅРё СЃРѕР·РґР°РЅРёСЏ Р·Р°СЏРІРєРё С‚РёРїР° long.
 	*@since 0.1.
 	*/
-	public void setTime(long time){
+	public void setTime(long time) {
 		this.time = time;
 	}
 
 	/**
-	*getTime - возвращает время создания заявки.
-	*@retern значение времени создания заявки типа long.
+	*getTime - РІРѕР·РІСЂР°С‰Р°РµС‚ РІСЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ Р·Р°СЏРІРєРё.
+	*@retern Р·РЅР°С‡РµРЅРёРµ РІСЂРµРјРµРЅРё СЃРѕР·РґР°РЅРёСЏ Р·Р°СЏРІРєРё С‚РёРїР° long.
 	*@since 0.1.
 	*/
-	public long getTime(){
+	public long getTime() {
 		return this.time;
 	}
 	
 	/////////////////////////////
-	// пока не известная функция
+	// РїРѕРєР° РЅРµ РёР·РІРµСЃС‚РЅР°СЏ С„СѓРЅРєС†РёСЏ
 	/////////////////////////////
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 		Item item = (Item) o;
-		return time == item.time &&
-				Objects.equals(id, item.id) &&
-				Objects.equals(name, item.name) &&
-				Objects.equals(desc, item.desc);
+		return time == item.time && Objects.equals(id, item.id) && Objects.equals(name, item.name) && Objects.equals(desc, item.desc);
 	}
 	
 	/////////////////////////////
-	// пока не известная функция
+	// РїРѕРєР° РЅРµ РёР·РІРµСЃС‚РЅР°СЏ С„СѓРЅРєС†РёСЏ
 	/////////////////////////////
 	@Override
 	public int hashCode() {

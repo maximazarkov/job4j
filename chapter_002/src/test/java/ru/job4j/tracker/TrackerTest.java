@@ -5,13 +5,13 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /*
-*  добавление заявок - public Item add(Item item);
-*  редактирование заявок - public boolean replace(String id, Item item);
-*  удаление заявок - public boolean delete(String id);
-*  получение списка всех заявок - public Item[] findAll();
-*  получение списка по имени - public Item[] findByName(String key);
-*  получение заявки по id - public Item findById(String id);
-*  5. На все методы необходимо написать тесты. 
+*  РґРѕР±Р°РІР»РµРЅРёРµ Р·Р°СЏРІРѕРє - public Item add(Item item);
+*  СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ Р·Р°СЏРІРѕРє - public boolean replace(String id, Item item);
+*  СѓРґР°Р»РµРЅРёРµ Р·Р°СЏРІРѕРє - public boolean delete(String id);
+*  РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РІСЃРµС… Р·Р°СЏРІРѕРє - public Item[] findAll();
+*  РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РїРѕ РёРјРµРЅРё - public Item[] findByName(String key);
+*  РїРѕР»СѓС‡РµРЅРёРµ Р·Р°СЏРІРєРё РїРѕ id - public Item findById(String id);
+*  5. РќР° РІСЃРµ РјРµС‚РѕРґС‹ РЅРµРѕР±С…РѕРґРёРјРѕ РЅР°РїРёСЃР°С‚СЊ С‚РµСЃС‚С‹. 
 */
 
 public class TrackerTest {
@@ -19,7 +19,7 @@ public class TrackerTest {
     public void whenAddNewItemThenTrackerHasSameItem() {
         Tracker tracker = new Tracker();
         long created = System.currentTimeMillis();
-        Item item = new Item("test1","testDescription",created);
+        Item item = new Item("test1", "testDescription", created);
         tracker.add(item);
         Item result = tracker.findById(item.getId());
         assertThat(result.getName(), is(item.getName()));
@@ -28,16 +28,16 @@ public class TrackerTest {
 	@Test
 	public void whenReplaceNameThenReturnNewName() {
 		Tracker tracker = new Tracker();
-		Item previous = new Item("test1","testDescription",123L);
-		// Добавляем заявку в трекер. Теперь в объект проинициализирован id.
+		Item previous = new Item("test1", "testDescription", 123L);
+		// Р”РѕР±Р°РІР»СЏРµРј Р·Р°СЏРІРєСѓ РІ С‚СЂРµРєРµСЂ. РўРµРїРµСЂСЊ РІ РѕР±СЉРµРєС‚ РїСЂРѕРёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ id.
 		tracker.add(previous);
-		// Создаем новую заявку.
-		Item next = new Item("test2","testDescription2",1234L);
-		// Проставляем старый id из previous, который был сгенерирован выше.
+		// РЎРѕР·РґР°РµРј РЅРѕРІСѓСЋ Р·Р°СЏРІРєСѓ.
+		Item next = new Item("test2", "testDescription2", 1234L);
+		// РџСЂРѕСЃС‚Р°РІР»СЏРµРј СЃС‚Р°СЂС‹Р№ id РёР· previous, РєРѕС‚РѕСЂС‹Р№ Р±С‹Р» СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅ РІС‹С€Рµ.
 		next.setId(previous.getId());
-		// Обновляем заявку в трекере.
+		// РћР±РЅРѕРІР»СЏРµРј Р·Р°СЏРІРєСѓ РІ С‚СЂРµРєРµСЂРµ.
 		tracker.replace(previous.getId(), next);
-		// Проверяем, что заявка с таким id имеет новые имя test2.
+		// РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ Р·Р°СЏРІРєР° СЃ С‚Р°РєРёРј id РёРјРµРµС‚ РЅРѕРІС‹Рµ РёРјСЏ test2.
 		assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
 	}
 	

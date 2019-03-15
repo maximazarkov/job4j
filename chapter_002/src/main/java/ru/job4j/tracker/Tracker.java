@@ -1,23 +1,31 @@
 package ru.job4j.tracker;
 
+import java.util.*;
+
 /**
  * @version $Id$
  * @since 0.1
  */
 public class Tracker {
     /**
-     * Массив для хранение заявок.
+     * РњР°СЃСЃРёРІ РґР»СЏ С…СЂР°РЅРµРЅРёРµ Р·Р°СЏРІРѕРє.
      */
     private final Item[] items = new Item[100];
-
-    /**
-     * Указатель ячейки для новой заявки.
+	
+	 /**
+     * РЈРєР°Р·Р°С‚РµР»СЊ СЏС‡РµР№РєРё РґР»СЏ РЅРѕРІРѕР№ Р·Р°СЏРІРєРё.
      */
     private int position = 0;
 
+	 /**
+     * СЃСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚, РґР»СЏ РіРµРЅРµСЂР°С†РёРё СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР».
+     */
+
+	private static final Random RN = new Random();
+	
     /**
-     * Метод реализаущий добавление заявки в хранилище.
-     * @param item новая заявка
+     * РњРµС‚РѕРґ СЂРµР°Р»РёР·Р°СѓС‰РёР№ РґРѕР±Р°РІР»РµРЅРёРµ Р·Р°СЏРІРєРё РІ С…СЂР°РЅРёР»РёС‰Рµ.
+     * @param item РЅРѕРІР°СЏ Р·Р°СЏРІРєР°
      */
     public Item add(Item item) {
         item.setId(this.generateId());
@@ -26,58 +34,105 @@ public class Tracker {
     }
 
 	 /**
-     * Метод реализаущий редактирование заявок в хранилище.
-	 * @param id уникальный ключ заяки.
-     * @param item новая заявка.
+     * РњРµС‚РѕРґ СЂРµР°Р»РёР·Р°СѓС‰РёР№ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ Р·Р°СЏРІРѕРє РІ С…СЂР°РЅРёР»РёС‰Рµ.
+	 * @param id СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєР»СЋС‡ Р·Р°СЏРєРё.
+     * @param item РЅРѕРІР°СЏ Р·Р°СЏРІРєР°.
      */
 	public boolean replace(String id, Item item) {
-	    //Требуется реализовать метод
-		return false;
+	    //РўСЂРµР±СѓРµС‚СЃСЏ СЂРµР°Р»РёР·РѕРІР°С‚СЊ РјРµС‚РѕРґ
+		boolean result = false;
+		for (Item itm : items) {
+			if (itm != null && itm.getId().equals(id)) {
+				itm = item;
+				result = true;
+				break;
+			}
+		}
+		return result;
 	}
 	
 	/**
-     * Метод реализаущий удаление заявок в хранилище.
-	 * @param id уникальный ключ заяки.
+     * РњРµС‚РѕРґ СЂРµР°Р»РёР·Р°СѓС‰РёР№ СѓРґР°Р»РµРЅРёРµ Р·Р°СЏРІРѕРє РІ С…СЂР°РЅРёР»РёС‰Рµ.
+	 * @param id СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєР»СЋС‡ Р·Р°СЏРєРё.
      */
 	public boolean delete(String id) {
-	    //Требуется реализовать метод
-		return false;
+	    //РўСЂРµР±СѓРµС‚СЃСЏ СЂРµР°Р»РёР·РѕРІР°С‚СЊ РјРµС‚РѕРґ
+		//System.arraycopy (sourceArr, 5, destArr, 0, 5);
+		
+/*
+    public String[] remove(String[] array) {
+        //РџРѕСЃР»Рµ СѓРґР°Р»РµРЅРёСЏ РґСѓР±Р»РёРєР°С‚РѕРІ РІ РјР°СЃСЃРёРІРµ {"РџСЂРёРІРµС‚", "РњРёСЂ", "РџСЂРёРІРµС‚", "РЎСѓРїРµСЂ", "РњРёСЂ"} РґРѕР»Р¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊСЃСЏ {"РџСЂРёРІРµС‚", "РњРёСЂ", "РЎСѓРїРµСЂ"}
+        int numDupl = 0; // РєРѕР»РёС‡РµСЃС‚РІРѕ РґСѓРїР»РµРєР°С‚РѕРІ
+        for (int i = 0; i < array.length; i++) {
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[i].equals(array[j])) {
+                    String temp = array[array.length - numDupl - 1];
+                    array[array.length - numDupl - 1] = array[j];
+                    array[j] = temp;
+                    numDupl++;
+                }
+                if (j >= array.length - numDupl - 1) {
+                    break;
+                }
+            }
+        }
+        return Arrays.copyOf(array, numDupl + 1);
+    }
+*/
+		boolean result = false;
+		
+		for (int i = 0; i != position; i++) {
+			if (items[i] != null && items[i].getId().equals(id)) {
+				System.arraycopy(this.items, this.position - i, items, i, this.position - i - 1);
+				result = true;
+			}
+		}
+		return result;
 	}
 	
 	/**
-     * Метод реализаущий получение списка всех заявок из хранилища.
-	 * @param id уникальный ключ заяки.
+     * РњРµС‚РѕРґ СЂРµР°Р»РёР·Р°СѓС‰РёР№ РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РІСЃРµС… Р·Р°СЏРІРѕРє РёР· С…СЂР°РЅРёР»РёС‰Р°.
+	 * @param id СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєР»СЋС‡ Р·Р°СЏРєРё.
      */
 	public Item[] findAll() {
-	    //Требуется реализовать метод
-		return new Item[];
+		Item[]  result = new Item[position];
+		for (int i = 0; i != position; i++) {
+				result[i] = this.items[i];
+		}
+		return result;
 	}
 	
 	/**
-     * Метод реализаущий получение списка по имени из хранилища.
+     * РњРµС‚РѕРґ СЂРµР°Р»РёР·Р°СѓС‰РёР№ РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РїРѕ РёРјРµРЅРё РёР· С…СЂР°РЅРёР»РёС‰Р°.
 	 * @param key - ...
      */
 	public Item[] findByName(String key) {
-	    //Требуется реализовать метод
-		return new Item[];
+	    //РўСЂРµР±СѓРµС‚СЃСЏ СЂРµР°Р»РёР·РѕРІР°С‚СЊ РјРµС‚РѕРґ
+		Item[] result = new Item[position];
+		return result;
 	}
 	
 	/**
-     * Метод реализаущий получение заявки по id из хранилища.
-	 * @param id - уникальный ключ заявки.
+     * РњРµС‚РѕРґ СЂРµР°Р»РёР·Р°СѓС‰РёР№ РїРѕР»СѓС‡РµРЅРёРµ Р·Р°СЏРІРєРё РїРѕ id РёР· С…СЂР°РЅРёР»РёС‰Р°.
+	 * @param id - СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєР»СЋС‡ Р·Р°СЏРІРєРё.
      */
 	public Item findById(String id) {
-	    //Требуется реализовать метод
-		eturn new Item[];
+		Item result = null;
+		for (Item item : items) {
+			if (item != null && item.getId().equals(id)) {
+				result = item;
+				break;
+			}
+		}
+		return result;
 	}
 	
     /**
-     * Метод генерирует уникальный ключ для заявки.
-     * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
-     * @return Уникальный ключ.
+     * РњРµС‚РѕРґ РіРµРЅРµСЂРёСЂСѓРµС‚ СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєР»СЋС‡ РґР»СЏ Р·Р°СЏРІРєРё.
+     * РўР°Рє РєР°Рє Сѓ Р·Р°СЏРІРєРё РЅРµС‚ СѓРЅРёРєР°Р»СЊРЅРѕСЃС‚Рё РїРѕР»РµР№, РёРјРµРЅРё Рё РѕРїРёСЃР°РЅРёРµ. Р”Р»СЏ РёРґРµРЅС‚РёС„РёРєР°С†РёРё РЅР°Рј РЅСѓР¶РµРЅ СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєР»СЋС‡.
+     * @return РЈРЅРёРєР°Р»СЊРЅС‹Р№ РєР»СЋС‡.
      */
     private String generateId() {
-        //Реализовать метод генерации.
-        return null;
+		return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
 }

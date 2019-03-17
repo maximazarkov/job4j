@@ -34,7 +34,7 @@ public class Tracker {
     }
 
 	 /**
-     * Метод реализаущий редактирование заявок в хранилище.
+     * Метод реализаущий редактирование заявок в хранилище по уникальному ключу.
 	 * @param id уникальный ключ заяки.
      * @param item новая заявка.
      */
@@ -43,7 +43,9 @@ public class Tracker {
 		boolean result = false;
 		for (Item itm : items) {
 			if (itm != null && itm.getId().equals(id)) {
-				itm = item;
+				itm.setName(item.getName());
+				itm.setDesc(item.getDesc());
+				itm.setTime(item.getTime());
 				result = true;
 				break;
 			}
@@ -59,31 +61,12 @@ public class Tracker {
 	    //Требуется реализовать метод
 		//System.arraycopy (sourceArr, 5, destArr, 0, 5);
 		
-/*
-    public String[] remove(String[] array) {
-        //После удаления дубликатов в массиве {"Привет", "Мир", "Привет", "Супер", "Мир"} должно получиться {"Привет", "Мир", "Супер"}
-        int numDupl = 0; // количество дуплекатов
-        for (int i = 0; i < array.length; i++) {
-            for (int j = i + 1; j < array.length; j++) {
-                if (array[i].equals(array[j])) {
-                    String temp = array[array.length - numDupl - 1];
-                    array[array.length - numDupl - 1] = array[j];
-                    array[j] = temp;
-                    numDupl++;
-                }
-                if (j >= array.length - numDupl - 1) {
-                    break;
-                }
-            }
-        }
-        return Arrays.copyOf(array, numDupl + 1);
-    }
-*/
 		boolean result = false;
 		
 		for (int i = 0; i != position; i++) {
 			if (items[i] != null && items[i].getId().equals(id)) {
-				System.arraycopy(this.items, this.position - i, items, i, this.position - i - 1);
+				System.arraycopy(this.items, this.position - i, items, i, this.position - i);
+				position--;
 				result = true;
 			}
 		}
@@ -92,7 +75,7 @@ public class Tracker {
 	
 	/**
      * Метод реализаущий получение списка всех заявок из хранилища.
-	 * @param id уникальный ключ заяки.
+	 * @return - all elements by Tracker
      */
 	public Item[] findAll() {
 		Item[]  result = new Item[position];
@@ -108,7 +91,20 @@ public class Tracker {
      */
 	public Item[] findByName(String key) {
 	    //Требуется реализовать метод
-		Item[] result = new Item[position];
+		// думаю, что создавать пустой массив и пересоздавать новый массив - избыточно и расточительно
+		// по этому, сначала проверим, есть ли совпадения, а затем создадим новый массив
+		//Item[] result = new Item[position];
+		int pos = 0;
+		for (int i = 0; i != position; i++) {
+			pos += this.items[i].getName() == key ? 1 : 0;
+		}
+		Item[] result = new Item[pos];
+		pos = 0;
+		for (int i = 0; i != position; i++) {
+			if (this.items[i].getName() == key) {
+				result[pos++] = this.items[i];
+			}
+		}
 		return result;
 	}
 	

@@ -41,15 +41,11 @@ public class Tracker {
 	public boolean replace(String id, Item item) {
 	    //Требуется реализовать метод
 		boolean result = false;
-		for (Item itm : items) {
-			if (itm != null && itm.getId().equals(id)) {
-				itm.setName(item.getName());
-				itm.setDesc(item.getDesc());
-				itm.setTime(item.getTime());
-				result = true;
-				break;
-			}
-		}
+		for (int i=0; i != items.length; i++) {
+            if (items[i] != null && items[i].getId().equals(id)) {
+                items[i] = item;
+            }
+        }
 		return result;
 	}
 	
@@ -65,7 +61,8 @@ public class Tracker {
 		
 		for (int i = 0; i != position; i++) {
 			if (items[i] != null && items[i].getId().equals(id)) {
-				System.arraycopy(this.items, this.position - i, items, i, this.position - i);
+//				System.arraycopy(this.items, this.position - i, items, i, this.position - i);
+                System.arraycopy(this.items, i + 1, items, i, this.position - i);
 				position--;
 				result = true;
 			}
@@ -78,11 +75,7 @@ public class Tracker {
 	 * @return - all elements by Tracker
      */
 	public Item[] findAll() {
-		Item[]  result = new Item[position];
-		for (int i = 0; i != position; i++) {
-				result[i] = this.items[i];
-		}
-		return result;
+        return Arrays.copyOf(this.items, this.position);
 	}
 	
 	/**
@@ -96,12 +89,12 @@ public class Tracker {
 		//Item[] result = new Item[position];
 		int pos = 0;
 		for (int i = 0; i != position; i++) {
-			pos += this.items[i].getName() == key ? 1 : 0;
+			pos += this.items[i].getName().equals(key) ? 1 : 0;
 		}
 		Item[] result = new Item[pos];
 		pos = 0;
 		for (int i = 0; i != position; i++) {
-			if (this.items[i].getName() == key) {
+			if (this.items[i].getName().equals(key)) {
 				result[pos++] = this.items[i];
 			}
 		}

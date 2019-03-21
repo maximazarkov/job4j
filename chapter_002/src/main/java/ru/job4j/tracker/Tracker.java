@@ -25,13 +25,12 @@ public class Tracker {
 	
     /**
      * Метод реализаущий добавление заявки в хранилище.
-     * @param item новая заявка
-     */
-    public Item add(Item item) {
+	 * @param item новая заявка
+	 */
+    public void add(Item item) {
         item.setId(this.generateId());
         this.items[this.position++] = item;
-        return item;
-    }
+	}
 
 	 /**
      * Метод реализаущий редактирование заявок в хранилище по уникальному ключу.
@@ -39,7 +38,6 @@ public class Tracker {
      * @param item новая заявка.
      */
 	public boolean replace(String id, Item item) {
-	    //Требуется реализовать метод
 		boolean result = false;
 		for (int i = 0; i != position; i++) {
             if (items[i] != null && items[i].getId().equals(id)) {
@@ -57,14 +55,9 @@ public class Tracker {
 	 * @param id уникальный ключ заяки.
      */
 	public boolean delete(String id) {
-	    //Требуется реализовать метод
-		//System.arraycopy (sourceArr, 5, destArr, 0, 5);
-		
 		boolean result = false;
-		
 		for (int i = 0; i != position; i++) {
 			if (items[i] != null && items[i].getId().equals(id)) {
-//				System.arraycopy(this.items, this.position - i, items, i, this.position - i);
                 System.arraycopy(this.items, i + 1, items, i, this.position - i);
 				position--;
 				result = true;
@@ -80,6 +73,7 @@ public class Tracker {
 	public Item[] findAll() {
         return Arrays.copyOf(this.items, this.position);
 	}
+
 	
 	/**
      * Метод реализаущий получение списка по имени из хранилища.

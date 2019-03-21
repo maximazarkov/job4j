@@ -16,7 +16,7 @@ public class Item {
 	/**
 	*конструктор. содает элемент типа Item - заявка.
 	*@param name - имя заявки.
-	*@param desс - описание заявки.
+	*@param desc - описание заявки.
 	*@param time - время создания заявки.
 	*@since 0.1.
 	*/
@@ -37,7 +37,7 @@ public class Item {
 
 	/**
 	*getId - возвращает уникального ключа заявки.
-	*@retern значение уникального ключа заявки
+	*@return значение уникального ключа заявки
 	*@since 0.1
 	*/
 	public String getId() {
@@ -55,7 +55,7 @@ public class Item {
 	
 	/**
 	*getId - возвращает названия заявки.
-	*@retern значение названия заявки типа String.
+	*@return значение названия заявки типа String.
 	*@since 0.1.
 	*/
 	public String getName() {
@@ -73,7 +73,7 @@ public class Item {
 	
 	/**
 	*getDesc - возвращает описание заявки.
-	*@retern значение описания заявки типа String.
+	*@return значение описания заявки типа String.
 	*@since 0.1.
 	*/
 	public String getDesc() {
@@ -82,7 +82,7 @@ public class Item {
 	
 	/**
 	*setTime - принимает время создания заявки.
-	*@param desc - значение времени создания заявки типа long.
+	*@param time - значение времени создания заявки типа long.
 	*@since 0.1.
 	*/
 	public void setTime(long time) {
@@ -91,7 +91,7 @@ public class Item {
 
 	/**
 	*getTime - возвращает время создания заявки.
-	*@retern значение времени создания заявки типа long.
+	*@return значение времени создания заявки типа long.
 	*@since 0.1.
 	*/
 	public long getTime() {

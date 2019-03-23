@@ -59,6 +59,7 @@ public class StartUI {
     public StartUI(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
+        this.init();
     }
 
     /**
@@ -169,12 +170,16 @@ public class StartUI {
         System.out.println("---------------- Поиск заявки по Id ---------------");
         String id = this.input.ask("Введите Id заявки:");
         Item item = this.tracker.findById(id);
-        System.out.println("Время создания заявки:" + item.getTime());
-        System.out.println("Id заявки:" + item.getId());
-        System.out.println("Имя заявки: " + item.getName());
-        System.out.println("Текст заявки: ");
-        System.out.println(item.getDesc());
-        System.out.println("---------------------------------------------------");
+        if (item != null) {
+            System.out.println("Время создания заявки:" + item.getTime());
+            System.out.println("Id заявки:" + item.getId());
+            System.out.println("Имя заявки: " + item.getName());
+            System.out.println("Текст заявки: ");
+            System.out.println(item.getDesc());
+            System.out.println("---------------------------------------------------");
+        } else {
+            System.out.println("----------------- Заявки отсуствуют -----------------0");
+        }
     }
 
     /**
@@ -185,15 +190,18 @@ public class StartUI {
         String key = this.input.ask("Введите имя заявки:");
         System.out.println("date\t\t\t[id]\t\t\tname::desc");
         int count = 0;
-        for (Item item : this.tracker.findByName(key)) {
-            System.out.print(item.getTime());
-            System.out.print("\t[");
-            System.out.print(item.getId());
-            System.out.print("]\t");
-            System.out.print(item.getName());
-            System.out.print("::");
-            System.out.println(item.getDesc());
-            count++;
+        Item[] items = this.tracker.findByName(key);
+        if (items != null) {
+            for (Item item : items) {
+                System.out.print(item.getTime());
+                System.out.print("\t[");
+                System.out.print(item.getId());
+                System.out.print("]\t");
+                System.out.print(item.getName());
+                System.out.print("::");
+                System.out.println(item.getDesc());
+                count++;
+            }
         }
         System.out.println("-----------\tВсего найдено заявок: " + count);
         System.out.println("---------------------------------------------------");
@@ -202,6 +210,7 @@ public class StartUI {
 
 
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        //new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ConsoleInput(), new Tracker());
     }
 }

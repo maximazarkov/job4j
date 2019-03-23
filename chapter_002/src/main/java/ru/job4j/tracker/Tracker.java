@@ -61,6 +61,7 @@ public class Tracker {
                 System.arraycopy(this.items, i + 1, items, i, this.position - i);
 				position--;
 				result = true;
+				break;
 			}
 		}
 		return result;
@@ -84,15 +85,18 @@ public class Tracker {
 		// думаю, что создавать пустой массив и пересоздавать новый массив - избыточно и расточительно
 		// по этому, сначала проверим, есть ли совпадения, а затем создадим новый массив
 		//Item[] result = new Item[position];
-		int pos = 0;
-		for (int i = 0; i != position; i++) {
-			pos += this.items[i].getName().equals(key) ? 1 : 0;
-		}
-		Item[] result = new Item[pos];
-		pos = 0;
-		for (int i = 0; i != position; i++) {
-			if (this.items[i].getName().equals(key)) {
-				result[pos++] = this.items[i];
+		Item[] result = null;
+		if (items != null) {
+			int pos = 0;
+			for (int i = 0; i != position; i++) {
+				pos += this.items[i].getName().equals(key) ? 1 : 0;
+			}
+			result = new Item[pos];
+			pos = 0;
+			for (int i = 0; i != position; i++) {
+				if (this.items[i].getName().equals(key)) {
+					result[pos++] = this.items[i];
+				}
 			}
 		}
 		return result;

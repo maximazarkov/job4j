@@ -1,10 +1,69 @@
 package ru.job4j.tracker;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
+
+    // сохраним дефолный вывод на консоль, чтобы потом к нему вернуться
+    private final PrintStream stdout = System.out;
+
+    // создадим буфер для результата
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    @Before
+    public void loadOutputBefore() {
+        System.out.println("execute Before method");
+        System.setOut(new PrintStream(this.out));
+    }
+
+    @After
+    public void backOutputAfter() {
+        System.setOut(this.stdout);
+        System.out.println("execute After method");
+    }
+
+
+    @Test
+    public void whenShowAllItems() {
+        Tracker tracker = new Tracker();     // создаём Tracker
+        Item item = new Item("a", "a", 123L);
+        tracker.add(item);
+        //создаём StubInput с последовательностью действий(производим замену заявки)
+        Input input = new StubInput(new String[]{"1", "6"});
+        // создаём StartUI и вызываем метод init()
+        new StartUI(input, tracker);
+        StringBuilder sb = new StringBuilder();
+        sb.append("0. Add new Item\\r\\n");
+        sb.append("1. Show all items\\r\\n");
+        sb.append("2. Edit item\\r\\n");
+        sb.append("3. Delete item\\r\\n");
+        sb.append("4. Find item by Id\\r\\n");
+        sb.append("5. Find items by name\\r\\n");
+        sb.append("6. Exit Program\\r\\n");
+        sb.append("------------ Отображение всех заявки --------------\\r\\n");
+        sb.append("date\\t\\t\\t[id]\\t\\t\\tname::desc\\r\\n");
+        sb.append("123\\t[" + item.getId() + "]\\ta::a\\r\\n");
+        sb.append("-----------\\tВсего найдено заявок: 1\\r\\n");
+        sb.append("---------------------------------------------------\\r\\n");
+        sb.append("0. Add new Item\\r\\n");
+        sb.append("1. Show all items\\r\\n");
+        sb.append("2. Edit item\\r\\n");
+        sb.append("3. Delete item\\r\\n");
+        sb.append("4. Find item by Id\\r\\n");
+        sb.append("5. Find items by name\\r\\n");
+        sb.append("6. Exit Program\\r\\n");
+        //assertThat(new String(out.toByteArray()), is(sb.toString()));
+        assertThat(out.toString(), is(sb.toString()));
+
+    }
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {

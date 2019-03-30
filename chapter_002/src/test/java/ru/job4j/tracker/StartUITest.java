@@ -18,6 +18,8 @@ public class StartUITest {
     // создадим буфер для результата
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
+    public static StringBuilder menu = new StringBuilder();
+
     @Before
     public void loadOutputBefore() {
         System.out.println("execute Before method");
@@ -33,6 +35,21 @@ public class StartUITest {
 
     @Test
     public void whenShowAllItems() {
+
+        menu.append("0. Add new Item");
+        menu.append(System.lineSeparator());
+        menu.append("1. Show all items");
+        menu.append(System.lineSeparator());
+        menu.append("2. Edit item");
+        menu.append(System.lineSeparator());
+        menu.append("3. Delete item");
+        menu.append(System.lineSeparator());
+        menu.append("4. Find item by Id");
+        menu.append(System.lineSeparator());
+        menu.append("5. Find items by name");
+        menu.append(System.lineSeparator());
+        menu.append("6. Exit Program");
+
         Tracker tracker = new Tracker();     // создаём Tracker
         Item item = new Item("a", "a", 123L);
         tracker.add(item);
@@ -41,25 +58,20 @@ public class StartUITest {
         // создаём StartUI и вызываем метод init()
         new StartUI(input, tracker);
         StringBuilder sb = new StringBuilder();
-        sb.append("0. Add new Item\\r\\n");
-        sb.append("1. Show all items\\r\\n");
-        sb.append("2. Edit item\\r\\n");
-        sb.append("3. Delete item\\r\\n");
-        sb.append("4. Find item by Id\\r\\n");
-        sb.append("5. Find items by name\\r\\n");
-        sb.append("6. Exit Program\\r\\n");
-        sb.append("------------ Отображение всех заявки --------------\\r\\n");
-        sb.append("date\\t\\t\\t[id]\\t\\t\\tname::desc\\r\\n");
-        sb.append("123\\t[" + item.getId() + "]\\ta::a\\r\\n");
-        sb.append("-----------\\tВсего найдено заявок: 1\\r\\n");
-        sb.append("---------------------------------------------------\\r\\n");
-        sb.append("0. Add new Item\\r\\n");
-        sb.append("1. Show all items\\r\\n");
-        sb.append("2. Edit item\\r\\n");
-        sb.append("3. Delete item\\r\\n");
-        sb.append("4. Find item by Id\\r\\n");
-        sb.append("5. Find items by name\\r\\n");
-        sb.append("6. Exit Program\\r\\n");
+        sb.append(menu.toString());
+        sb.append(System.lineSeparator());
+        sb.append("------------ Отображение всех заявки --------------");
+        sb.append(System.lineSeparator());
+        sb.append("date\\t\\t\\t[id]\\t\\t\\tname::desc");
+        sb.append(System.lineSeparator());
+        sb.append("123\\t[" + item.getId() + "]\\ta::a");
+        sb.append(System.lineSeparator());
+        sb.append("-----------\\tВсего найдено заявок: 1");
+        sb.append(System.lineSeparator());
+        sb.append("---------------------------------------------------");
+        sb.append(System.lineSeparator());
+        sb.append(menu.toString());
+        sb.append(System.lineSeparator());
         //assertThat(new String(out.toByteArray()), is(sb.toString()));
         assertThat(out.toString(), is(sb.toString()));
 

@@ -18,7 +18,16 @@ public class StartUITest {
     // создадим буфер для результата
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-    public static StringBuilder menu = new StringBuilder();
+    public final static String LS = System.lineSeparator();
+    public final static String MENU = new StringBuilder()
+        .append("0. Add new Item").append(LS)
+        .append("1. Show all items").append(LS)
+        .append("2. Edit item").append(LS)
+        .append("3. Delete item").append(LS)
+        .append("4. Find item by Id").append(LS)
+        .append("5. Find items by name").append(LS)
+        .append("6. Exit Program").toString();
+
 
     @Before
     public void loadOutputBefore() {
@@ -32,49 +41,67 @@ public class StartUITest {
         System.out.println("execute After method");
     }
 
-
     @Test
     public void whenShowAllItems() {
-
-        menu.append("0. Add new Item");
-        menu.append(System.lineSeparator());
-        menu.append("1. Show all items");
-        menu.append(System.lineSeparator());
-        menu.append("2. Edit item");
-        menu.append(System.lineSeparator());
-        menu.append("3. Delete item");
-        menu.append(System.lineSeparator());
-        menu.append("4. Find item by Id");
-        menu.append(System.lineSeparator());
-        menu.append("5. Find items by name");
-        menu.append(System.lineSeparator());
-        menu.append("6. Exit Program");
-
         Tracker tracker = new Tracker();     // создаём Tracker
         Item item = new Item("a", "a", 123L);
         tracker.add(item);
-        //создаём StubInput с последовательностью действий(производим замену заявки)
         Input input = new StubInput(new String[]{"1", "6"});
-        // создаём StartUI и вызываем метод init()
         new StartUI(input, tracker);
         StringBuilder sb = new StringBuilder();
-        sb.append(menu.toString());
-        sb.append(System.lineSeparator());
-        sb.append("------------ Отображение всех заявки --------------");
-        sb.append(System.lineSeparator());
-        sb.append("date\\t\\t\\t[id]\\t\\t\\tname::desc");
-        sb.append(System.lineSeparator());
-        sb.append("123\\t[" + item.getId() + "]\\ta::a");
-        sb.append(System.lineSeparator());
-        sb.append("-----------\\tВсего найдено заявок: 1");
-        sb.append(System.lineSeparator());
-        sb.append("---------------------------------------------------");
-        sb.append(System.lineSeparator());
-        sb.append(menu.toString());
-        sb.append(System.lineSeparator());
+        sb.append(MENU).append(LS);
+        sb.append("------------ Отображение всех заявки --------------").append(LS);
+        sb.append(String.format("Item{id='%S', name='%s', desc='%s', time=%s}",
+                item.getId(),
+                item.getName(),
+                item.getDesc(),
+                item.getTime())).append(LS);
+        sb.append("---------------------------------------------------").append(LS);
+        sb.append(MENU).append(LS);
         //assertThat(new String(out.toByteArray()), is(sb.toString()));
         assertThat(out.toString(), is(sb.toString()));
+    }
 
+    @Test
+    public void whenFindItemsById() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("a", "a", 123L);
+        tracker.add(item);
+        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
+        new StartUI(input, tracker);
+        StringBuilder sb = new StringBuilder();
+        sb.append(MENU).append(LS);
+        sb.append("---------------- Поиск заявки по Id ---------------").append(LS);
+        sb.append(String.format("Item{id='%S', name='%s', desc='%s', time=%s}",
+                item.getId(),
+                item.getName(),
+                item.getDesc(),
+                item.getTime())).append(LS);
+        sb.append("---------------------------------------------------").append(LS);
+        sb.append(MENU).append(LS);
+        //assertThat(new String(out.toByteArray()), is(sb.toString()));
+        assertThat(out.toString(), is(sb.toString()));
+    }
+
+    @Test
+    public void whenFindItemsByName() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("a", "a", 123L);
+        tracker.add(item);
+        Input input = new StubInput(new String[]{"5", "a", "6"});
+        new StartUI(input, tracker);
+        StringBuilder sb = new StringBuilder();
+        sb.append(MENU).append(LS);
+        sb.append("-------------- Поиск заявки по имени --------------").append(LS);
+        sb.append(String.format("Item{id='%S', name='%s', desc='%s', time=%s}",
+                item.getId(),
+                item.getName(),
+                item.getDesc(),
+                item.getTime())).append(LS);
+        sb.append("---------------------------------------------------").append(LS);
+        sb.append(MENU).append(LS);
+        //assertThat(new String(out.toByteArray()), is(sb.toString()));
+        assertThat(out.toString(), is(sb.toString()));
     }
 
     @Test

@@ -118,19 +118,9 @@ public class StartUI {
      */
     private void showAllItem() {
         System.out.println("------------ Отображение всех заявки --------------");
-        System.out.println("date\t\t\t[id]\t\t\tname::desc");
-        int count = 0;
         for (Item item : this.tracker.findAll()) {
-            System.out.print(item.getTime());
-            System.out.print("\t[");
-            System.out.print(item.getId());
-            System.out.print("]\t");
-            System.out.print(item.getName());
-            System.out.print("::");
-            System.out.println(item.getDesc());
-            count++;
+            System.out.println(item);
         }
-        System.out.println("-----------\tВсего найдено заявок: " + count);
         System.out.println("---------------------------------------------------");
     }
 
@@ -171,11 +161,7 @@ public class StartUI {
         String id = this.input.ask("Введите Id заявки:");
         Item item = this.tracker.findById(id);
         if (item != null) {
-            System.out.println("Время создания заявки:" + item.getTime());
-            System.out.println("Id заявки:" + item.getId());
-            System.out.println("Имя заявки: " + item.getName());
-            System.out.println("Текст заявки: ");
-            System.out.println(item.getDesc());
+            System.out.println(item);
             System.out.println("---------------------------------------------------");
         } else {
             System.out.println("----------------- Заявки отсуствуют -----------------0");
@@ -188,22 +174,15 @@ public class StartUI {
     private void findNameItem() {
         System.out.println("-------------- Поиск заявки по имени --------------");
         String key = this.input.ask("Введите имя заявки:");
-        System.out.println("date\t\t\t[id]\t\t\tname::desc");
-        int count = 0;
+//        int count = 0;
         Item[] items = this.tracker.findByName(key);
         if (items != null) {
             for (Item item : items) {
-                System.out.print(item.getTime());
-                System.out.print("\t[");
-                System.out.print(item.getId());
-                System.out.print("]\t");
-                System.out.print(item.getName());
-                System.out.print("::");
-                System.out.println(item.getDesc());
-                count++;
+                System.out.println(item);
+//                count++;
             }
         }
-        System.out.println("-----------\tВсего найдено заявок: " + count);
+//        System.out.println("-----------\tВсего найдено заявок: " + count);
         System.out.println("---------------------------------------------------");
 
     }

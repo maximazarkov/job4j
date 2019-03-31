@@ -120,4 +120,18 @@ public class Item {
 	public int hashCode() {
 		return Objects.hash(id, name, desc, time);
 	}
+
+	/////////////////////////////
+	// перегрузим метод toString()
+	/////////////////////////////
+	@Override
+	public String toString() {
+		return "Item{" +
+				"id='" + id + '\'' +
+				", name='" + name + '\'' +
+				", desc='" + desc + '\'' +
+				", time=" + time +
+				'}';
+	}
+
 }

@@ -1,73 +1,72 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuTracker {
-
+    /**
+     * @param хранит ссылку на объект .
+     */
     private Input input;
+    /**
+     * @param хранит ссылку на объект .
+     */
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[7];
+    /**
+     * @param хранит ссылку на массив типа UserAction.
+     */
+    private List<UserAction> actions = new ArrayList<>();
 
+    /**
+     * Конструктор.
+     *
+     * @param input   объект типа Input
+     * @param tracker объект типа Tracker
+     */
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
 
-    public void init() {
-        //how to init
+    /**
+     * Метод для получения длинны массива меню.
+     *
+     * @return длину массива
+     */
+    public int getActionsLentgh() {
+        return this.actions.size();
     }
 
+    /**
+     * Метод заполняет массив.
+     */
     public void fillActions() {
-        this.actions[0] = new AddItem(this.input, this.tracker)
+        this.actions.add(new AddItem(0, "Add new Item"));
+        this.actions.add(new ShowAllItems(1, "Show all items"));
+        this.actions.add(new EditItem(2, "Edit item"));
+        this.actions.add(new DeleteItem(3, "Delete item"));
+        this.actions.add(new FindItemById(4, "Find item by Id"));
+        this.actions.add(new FindItemsByName(5, "Find items by name"));
+        this.actions.add(new ExitProgram(6, "Exit Program"));
     }
 
+    /**
+     * Метод в зависимости от указанного ключа, выполняет соотвествующие действие.
+     *
+     * @param key ключ операции
+     */
+    public void select(int key) {
+        this.actions.get(key).execute(this.input, this.tracker);
+    }
+
+    /**
+     * Метод выводит на экран меню.
+     */
     public void show() {
         for (UserAction action : this.actions) {
-            System.out.println(action.info());
-        }
-    }
-
-    private class AddItem implements UserAction {
-        public int key() {
-            return 0;
-        }
-
-        public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Добавление новой заявки --------------");
-            String name = this.input.ask("Введите имя заявки :");
-            String desc = this.input.ask("Введите описание заявки :");
-        }
-
-        public String info() {
-            return String.format("%s. %s", this.key(), "Add the new item");
-        }
-    }
-
-    public void showMenu() {
-        System.out.println("0. Add new Item");
-        System.out.println("1. Show all items");
-        System.out.println("2. Edit item");
-        System.out.println("3. Delete item");
-        System.out.println("4. Find item by Id");
-        System.out.println("5. Find items by name");
-        System.out.println("6. Exit Program");
-    }
-
-
-    /*
-// провел жксперимент с int. в классе MenuTracker создал тестовый метод void select(int index)
-// в будущем, как я понимаю нужно будет прикрутить к нему некий метод Action (в замен void).
-            int index;
-            try {
-                index = Integer.parseInt(answer);
+            if (action != null) {
+                System.out.println(action.info());
             }
-            catch (NumberFormatException e)
-            {
-                index = -1;
-            }
-
-            menu.select(index);
-*/
-//    public Action select(int index) {
- //   public void select(int index) {
- //       System.out.println("Selected index: " + index);
- //   }
+        }
+    }
 }

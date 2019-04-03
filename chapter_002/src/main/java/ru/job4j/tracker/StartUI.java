@@ -69,35 +69,38 @@ public class StartUI {
 
         boolean exit = false;
 
-        // по UML у нас должен быть класс MenuTracker.
-        // перетащу в него метод showMenu для тренировки
-        MenuTracker menu = new MenuTracker();
-        while (!exit) {
-            menu.showMenu();
-            String answer = this.input.ask("Введите пункт меню : ");
-            if (ADD.equals(answer)) {
-                //добавление заявки вынесено в отдельный метод.
-                this.createItem();
-            } else if (SHOWALL.equals(answer)) {
-                //отображение всех заявок
-                this.showAllItem();
-            } else if (EDIT.equals(answer)) {
-                //редактирование заявки
-                this.editItem();
-            } else if (DELETE.equals(answer)) {
-                //удаление заявки
-                this.deleteItem();
-            } else if (FINDID.equals(answer)) {
-                //поиск завяки по Id
-                this.findIdItem();
-            } else if (FINDNAME.equals(answer)) {
-                //поиск заяки по имени
-                this.findNameItem();
-                // выход из программы
-            } else if (EXIT.equals(answer)) {
-                exit = true;
-            }
-        }
+        MenuTracker menu = new MenuTracker(this.input,this.tracker);
+        do {
+
+        } while(!"y".equals(this.input.ask("Exit? y")));
+
+//        while (!exit) {
+//
+//            menu.showMenu();
+//            String answer = this.input.ask("Введите пункт меню : ");
+//            if (ADD.equals(answer)) {
+//                //добавление заявки вынесено в отдельный метод.
+//                this.createItem();
+//            } else if (SHOWALL.equals(answer)) {
+//                //отображение всех заявок
+//                this.showAllItem();
+//            } else if (EDIT.equals(answer)) {
+//                //редактирование заявки
+//                this.editItem();
+//            } else if (DELETE.equals(answer)) {
+//                //удаление заявки
+//                this.deleteItem();
+//            } else if (FINDID.equals(answer)) {
+//                //поиск завяки по Id
+//                this.findIdItem();
+//            } else if (FINDNAME.equals(answer)) {
+//                //поиск заяки по имени
+//                this.findNameItem();
+//                // выход из программы
+//            } else if (EXIT.equals(answer)) {
+//                exit = true;
+//            }
+//        }
     }
 
     /**
@@ -105,9 +108,7 @@ public class StartUI {
      */
     // как я понимаю - далее идут методы, которые пойду в класс Action. пока оставляю сдесь
     private void createItem() {
-        System.out.println("------------ Добавление новой заявки --------------");
-        String name = this.input.ask("Введите имя заявки :");
-        String desc = this.input.ask("Введите описание заявки :");
+
         Item item = new Item(name, desc, System.currentTimeMillis());
         this.tracker.add(item);
         System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");

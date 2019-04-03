@@ -2,6 +2,45 @@ package ru.job4j.tracker;
 
 public class MenuTracker {
 
+    private Input input;
+    private Tracker tracker;
+    private UserAction[] actions = new UserAction[7];
+
+    public MenuTracker(Input input, Tracker tracker) {
+        this.input = input;
+        this.tracker = tracker;
+    }
+
+    public void init() {
+        //how to init
+    }
+
+    public void fillActions() {
+        this.actions[0] = new AddItem(this.input, this.tracker)
+    }
+
+    public void show() {
+        for (UserAction action : this.actions) {
+            System.out.println(action.info());
+        }
+    }
+
+    private class AddItem implements UserAction {
+        public int key() {
+            return 0;
+        }
+
+        public void execute(Input input, Tracker tracker) {
+            System.out.println("------------ Добавление новой заявки --------------");
+            String name = this.input.ask("Введите имя заявки :");
+            String desc = this.input.ask("Введите описание заявки :");
+        }
+
+        public String info() {
+            return String.format("%s. %s", this.key(), "Add the new item");
+        }
+    }
+
     public void showMenu() {
         System.out.println("0. Add new Item");
         System.out.println("1. Show all items");

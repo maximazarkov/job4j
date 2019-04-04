@@ -4,8 +4,8 @@ package ru.job4j.tracker;
  * Класс реализует редактирование заявки в хранилище.
  */
 public class EditItem implements UserAction {
-    int key;
-    String info;
+    private int key;
+    private String info;
 
     public EditItem(int key, String info) {
         this.key = key;

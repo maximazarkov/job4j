@@ -4,8 +4,8 @@ package ru.job4j.tracker;
  * Класс реализует вывод всеех заявок из хранилища.
  */
 public class ShowAllItems implements UserAction {
-    int key;
-    String info;
+    private int key;
+    private String info;
 
     public ShowAllItems(int key, String info) {
         this.key = key;

@@ -4,8 +4,9 @@ package ru.job4j.tracker;
  * Класс реализует добавленяи новый заявки в хранилище.
  */
 public class AddItem implements UserAction {
-    int key;
-    String info;
+
+    private int key;
+    private String info;
 
     public AddItem(int key, String info) {
         this.key = key;

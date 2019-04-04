@@ -1,8 +1,8 @@
 package ru.job4j.tracker;
 
 public class ExitProgram implements UserAction {
-    int key;
-    String info;
+    private int key;
+    private String info;
 
     public ExitProgram(int key, String info) {
         this.key = key;

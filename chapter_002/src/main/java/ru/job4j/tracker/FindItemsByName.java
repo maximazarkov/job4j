@@ -4,8 +4,8 @@ package ru.job4j.tracker;
  * Класс реализует поиск заявки из хранилища по имени.
  */
 public class FindItemsByName implements UserAction {
-    int key;
-    String info;
+    private int key;
+    private String info;
 
     public FindItemsByName(int key, String info) {
         this.key = key;

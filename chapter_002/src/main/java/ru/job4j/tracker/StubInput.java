@@ -29,9 +29,23 @@ public class StubInput implements Input {
      * Как если бы мы симулировали поведение пользователя.
      * Для этого при каждом вызове метода ask мы увеличиваем счетчик и
      * при следующем вызове он вернет нам новое значение.
+     *
+     * @param question - ...
+     * @return - ...
      */
     @Override
     public String ask(String question) {
         return this.value[this.position++];
+    }
+
+    /**
+     * В текущем релизе данный метод является заглушкой для реализации наследования RuntimeExchange()
+     * @param quastion - ...
+     * @param range - ...
+     * @return - ...
+     */
+    public int ask(String quastion, int[] range) {
+        //throw new UnsupportedOperationException("Unsupported operation");
+        return -1;
     }
 }

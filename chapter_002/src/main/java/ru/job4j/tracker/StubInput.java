@@ -45,7 +45,19 @@ public class StubInput implements Input {
      * @return - ...
      */
     public int ask(String quastion, int[] range) {
-        //throw new UnsupportedOperationException("Unsupported operation");
-        return -1;
+        int key = Integer.valueOf(this.value[this.position++]);
+        boolean exist = false; // по умолчанию считаем, что данные введены с ошибкой
+        // провгоним значние через диапазон меню
+        for (int value : range) {
+            if (value == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of menu range.");
+        }
     }
 }

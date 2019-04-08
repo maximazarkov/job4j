@@ -12,7 +12,8 @@ public class StartUI {
      /**
      * Константа для выхода из цикла.
      */
-    private static final String EXIT = "6";
+    //private static final String EXIT = "6";
+     private static final int EXIT = 6;
 
     /**
      * Получение данных от пользователя.
@@ -60,8 +61,8 @@ public class StartUI {
             //String answer = input.ask("Введите пункт меню : ");
             int answer = input.ask("Введите пункт меню : ", range);
             menu.select(Integer.valueOf(answer));
-            menu.select(input.ask("select:", range));
-            if (EXIT.equals(answer)) {
+            //menu.select(input.ask("select:", range));
+            if (EXIT == answer) {
                 exit = true;
             }
         }

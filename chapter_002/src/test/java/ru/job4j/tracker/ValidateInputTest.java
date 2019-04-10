@@ -44,4 +44,18 @@ public class ValidateInputTest {
                 )
         );
     }
+
+    @Test
+    public void whenInvalidInputKey() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[] {"-1", "1"})
+        );
+        input.ask("Enter", new int[] {1});
+        assertThat(
+                this.mem.toString(),
+                is(
+                        String.format("Please select key from menu.%n")
+                )
+        );
+    }
 }

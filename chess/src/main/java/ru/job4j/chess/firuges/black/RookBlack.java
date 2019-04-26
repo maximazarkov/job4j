@@ -2,6 +2,7 @@ package ru.job4j.chess.firuges.black;
 
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.Figures;
 
 /**
  *
@@ -9,21 +10,18 @@ import ru.job4j.chess.firuges.Figure;
  * @version $Id$
  * @since 0.1
  */
-public class RookBlack implements Figure {
-    private final Cell position;
-
+public class RookBlack extends Figures implements Figure {
     public RookBlack(final Cell position) {
-        this.position = position;
-    }
-
-    @Override
-    public Cell position() {
-        return this.position;
+        super(position);
     }
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] { dest };
+        Cell[] steps = new Cell[0];
+        if (((source.y + dest.y < 8) || (source.y - dest.y >= 0)) && source.x == dest.x) {
+            steps = new Cell[] { dest };
+        }
+        return steps;
     }
 
     @Override

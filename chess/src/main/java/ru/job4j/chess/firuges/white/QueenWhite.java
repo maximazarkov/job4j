@@ -1,7 +1,8 @@
-package ru.job4j.chess.firuges.black;
+package ru.job4j.chess.firuges.white;
 
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.Figures;
 
 /**
  *
@@ -9,16 +10,9 @@ import ru.job4j.chess.firuges.Figure;
  * @version $Id$
  * @since 0.1
  */
-public class QeenBlack implements Figure {
-    private final Cell position;
-
-    public QeenBlack(final Cell position) {
-        this.position = position;
-    }
-
-    @Override
-    public Cell position() {
-        return this.position;
+public class QueenWhite extends Figures implements Figure {
+    public QueenWhite(final Cell position) {
+        super(position);
     }
 
     @Override
@@ -28,6 +22,6 @@ public class QeenBlack implements Figure {
 
     @Override
     public Figure copy(Cell dest) {
-        return new QeenBlack(dest);
+        return new QueenWhite(dest);
     }
 }

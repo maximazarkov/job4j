@@ -20,6 +20,8 @@ public class PawnBlack extends Figures implements Figure {
         Cell[] steps = new Cell[0];
         if (source.y == dest.y + 1 && source.x == dest.x) {
             steps = new Cell[] { dest };
+        } else if (source.y == 6 && source.y == dest.y + 2 && source.x == dest.x) {
+            steps = new Cell[] { dest };
         }
         return steps;
     }

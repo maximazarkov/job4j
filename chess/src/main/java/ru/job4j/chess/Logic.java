@@ -1,7 +1,7 @@
 package ru.job4j.chess;
 
 import ru.job4j.chess.firuges.Cell;
-import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.Figure; // цепляемся к интерфесу
 
 import java.util.Optional;
 
@@ -21,18 +21,24 @@ public class Logic {
     }
 
     public boolean move(Cell source, Cell dest) {
-        boolean rst = false;
-        int index = this.findBy(source);
-        if (index != -1) {
+        // TODO необходимо подроблее разобраться с логикой и переписать комментарии
+        // предварительное описание логики шахмат
+        boolean rst = false;                 // влаг возможности перемещения фигуры
+        int index = this.findBy(source);     // проверим, что фигура существует и сравнима позицию. при ошибке получим -1
+        int destination = this.findBy(dest); // проверим, что ...  -1
+        if (index != -1 && destination != -1) { // убедимся, что мы можем переместить фигуру
+            // получим массив ячеек от
             Cell[] steps = this.figures[index].way(source, dest);
+            // Если нас все устраивает, то переместим фигуру простым копирвоанием, иначе оставляем фигуру на месте
             if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
                 rst = true;
                 this.figures[index] = this.figures[index].copy(dest);
             }
         }
-        return rst;
+        return rst; // если фигура перенесена, возвращаем true.
     }
 
+    // метод удаления фигуры после переноса/удаления с поля.
     public void clean() {
         for (int position = 0; position != this.figures.length; position++) {
             this.figures[position] = null;

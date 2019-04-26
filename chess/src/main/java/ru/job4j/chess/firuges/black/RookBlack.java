@@ -18,7 +18,13 @@ public class RookBlack extends Figures implements Figure {
     @Override
     public Cell[] way(Cell source, Cell dest) {
         Cell[] steps = new Cell[0];
-        if (((source.y + dest.y < 8) || (source.y - dest.y >= 0)) && source.x == dest.x) {
+        if (source.y == dest.y + 1 && source.x == dest.x) {
+            steps = new Cell[] { dest };
+        } else if (source.y == dest.y - 1 && source.x == dest.x) {
+            steps = new Cell[] { dest };
+        } else if (source.y == dest.y && source.x == dest.x + 1) {
+            steps = new Cell[] { dest };
+        } else if (source.y == dest.y && source.x == dest.x - 1) {
             steps = new Cell[] { dest };
         }
         return steps;

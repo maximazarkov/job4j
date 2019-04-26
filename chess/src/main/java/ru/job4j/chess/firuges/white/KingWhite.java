@@ -17,7 +17,25 @@ public class KingWhite extends Figures implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] { dest };
+        Cell[] steps = new Cell[0];
+        if (source.y == dest.y + 1 && source.x == dest.x + 1) {
+            steps = new Cell[] { dest };
+        } else if (source.y == dest.y + 1 && source.x == dest.x - 1) {
+            steps = new Cell[] { dest };
+        } else if (source.y == dest.y - 1 && source.x == dest.x + 1) {
+            steps = new Cell[] { dest };
+        } else if (source.y == dest.y - 1 && source.x == dest.x - 1) {
+            steps = new Cell[] { dest };
+        } else if (source.y == dest.y + 1 && source.x == dest.x) {
+            steps = new Cell[] { dest };
+        } else if (source.y == dest.y && source.x == dest.x + 1) {
+            steps = new Cell[] { dest };
+        } else if (source.y == dest.y - 1 && source.x == dest.x) {
+            steps = new Cell[] { dest };
+        } else if (source.y == dest.y && source.x == dest.x - 1) {
+            steps = new Cell[] { dest };
+        }
+        return steps;
     }
 
     @Override

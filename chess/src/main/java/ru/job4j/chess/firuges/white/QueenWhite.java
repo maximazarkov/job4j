@@ -1,5 +1,6 @@
 package ru.job4j.chess.firuges.white;
 
+import ru.job4j.chess.exception.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 import ru.job4j.chess.firuges.Figures;
@@ -34,6 +35,8 @@ public class QueenWhite extends Figures implements Figure {
             steps = new Cell[] { dest };
         } else if (source.y == dest.y && source.x == dest.x - 1) {
             steps = new Cell[] { dest };
+        } else {
+            throw new ImpossibleMoveException("Ферзь не может двигаться в этом направлении");
         }
         return steps;
     }

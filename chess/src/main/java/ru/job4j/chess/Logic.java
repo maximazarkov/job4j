@@ -1,5 +1,6 @@
 package ru.job4j.chess;
 
+import ru.job4j.chess.exception.*;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure; // цепляемся к интерфесу
 
@@ -20,13 +21,23 @@ public class Logic {
         this.figures[this.index++] = figure;
     }
 
-    public boolean move(Cell source, Cell dest) {
+
+    /*
+    * TODO
+    *  8. Метод должен проверить
+   - Что в заданной ячейки есть фигура. если нет. то выкинуть исключение
+   - Если фигура есть. Проверить может ли она так двигаться. Если нет то упадет исключение
+   - Проверить что полученный путь. не занят фигурами. Если занят выкинуть исключение
+   - Если все отлично. Записать в ячейку новое новое положение Figure figure.copy(Cell dest)
+    * */
+    public boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         // TODO необходимо подроблее разобраться с логикой и переписать комментарии
         // предварительное описание логики шахмат
         boolean rst = false;                 // влаг возможности перемещения фигуры
         int index = this.findBy(source);     // проверим, что фигура существует и сравнима позицию. при ошибке получим -1
-        int destination = this.findBy(dest); // проверим, что ...  -1
-        if (index != -1 && destination != -1) { // убедимся, что мы можем переместить фигуру
+//        int destination = this.findBy(dest); // проверим, что ...  -1
+//        if (index != -1 && destination != -1) { // убедимся, что мы можем переместить фигуру
+        if (index != -1) { // вренулся к начальной реализаци на время
             // получим массив ячеек от
             Cell[] steps = this.figures[index].way(source, dest);
             // Если нас все устраивает, то переместим фигуру простым копирвоанием, иначе оставляем фигуру на месте

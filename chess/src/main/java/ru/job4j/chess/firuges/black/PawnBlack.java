@@ -1,5 +1,6 @@
 package ru.job4j.chess.firuges.black;
 
+import ru.job4j.chess.exception.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 import ru.job4j.chess.firuges.Figures;
@@ -22,6 +23,8 @@ public class PawnBlack extends Figures implements Figure {
             steps = new Cell[] { dest };
         } else if (source.y == 6 && source.y == dest.y + 2 && source.x == dest.x) {
             steps = new Cell[] { dest };
+        } else {
+            throw new ImpossibleMoveException("Пешка не может двигаться в этом направлении");
         }
         return steps;
     }

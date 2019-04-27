@@ -1,5 +1,6 @@
 package ru.job4j.chess.firuges.white;
 
+import ru.job4j.chess.exception.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 import ru.job4j.chess.firuges.Figures;
@@ -22,8 +23,12 @@ public class BishopWhite extends Figures implements Figure {
      * т.е. если прыжок будет более чем на одну клетку.
      * */
 
+    /*
+    * //TODO выбросить исключение ImpossibleMoveException, если фигура не может ити на место назначение.
+     * */
+
     @Override
-    public Cell[] way(Cell source, Cell dest) {
+    public Cell[] way(Cell source, Cell dest)throws ImpossibleMoveException {
         Cell[] steps = new Cell[0];
         if (source.y == dest.y + 1 && source.x == dest.x + 1) {
             steps = new Cell[] { dest };
@@ -33,6 +38,8 @@ public class BishopWhite extends Figures implements Figure {
             steps = new Cell[] { dest };
         } else if (source.y == dest.y - 1 && source.x == dest.x - 1) {
             steps = new Cell[] { dest };
+        } else {
+            throw new ImpossibleMoveException("Слон не может двигаться в этом направлении");
         }
         return steps;
     }

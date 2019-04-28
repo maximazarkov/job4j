@@ -16,44 +16,31 @@ public class BishopBlack extends Figures implements Figure {
         super(position);
     }
 
-    /*
-    * //TODO
-    * Bishop умеет ходить только на одну клетку по диагонали.
-    * необходимо придумать, как он сможт прыгать на массив влеток,
-    * т.е. если прыжок будет более чем на одну клетку.
-    * */
-
-    /*
-    * TODO
-    *  Движение слона происходит по диагонали.
-Мы знаем начальную и конечную точку движения фигуры. По этим координатам мы можем понять движется ли слон по диагонали.
-if (!isDiagonal(source, dest)) {
-   throw ...
-}
-Если он находиться на диагонали. то мы может вычислить дельты шагов.
-Слон может двигаться в четыре стороны. Эти движения можно описать двумя дельтами +1 -1.
-Например. если слон двигается вниз влево, то дельты будет -1 -1.
-Cell[] steps = new Cell[size];
-int deltaX = ...
-int deltaY = ...;
-for (.... ) {
-    steps[index] = ...
-}
-return steps;
-То есть метод Cell[] move(Cell source, Cell dest) - максимум будет занимать 10 строк кода. Ты можешь себя сам проверить по этому условию.
-По завершению проекта шахматы сделай пост в социальной сети про это приложение. По аналогии с задачей крестики нолики.
-    * */
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        Cell[] steps = new Cell[0];
-        if (source.y == dest.y + 1 && source.x == dest.x + 1) {
-            steps = new Cell[] { dest };
-        } else if (source.y == dest.y + 1 && source.x == dest.x - 1) {
-            steps = new Cell[] { dest };
-        } else if (source.y == dest.y - 1 && source.x == dest.x + 1) {
-            steps = new Cell[] { dest };
-        } else if (source.y == dest.y - 1 && source.x == dest.x - 1) {
-            steps = new Cell[] { dest };
+//        Cell[] steps = new Cell[0];
+        //в замен size логичнее применить route (количество клеток до целевой клетки)
+//        int routеX = Math.abs(source.x - dest.x); // по оси Х
+//        int routeY = Math.abs(source.y - dest.y); // по оси Y
+        int route = Math.abs(source.y - dest.y);    // при движении по диагонали подойдет как X так и Y
+        Cell[] steps = new Cell[route];
+        if (source.y == dest.y + route && source.x == dest.x + route) {
+
+            for (int i=0; i < steps.length; i++) {
+                steps[i] = checkCell(source.x - i - 1, source.y - i - 1);
+            }
+        } else if (source.y == dest.y + route && source.x == dest.x - route) {
+            for (int i=0; i < steps.length; i++) {
+                steps[i] = checkCell(source.x + i + 1, source.y - i - 1);
+            }
+        } else if (source.y == dest.y - route && source.x == dest.x + route) {
+            for (int i=0; i < steps.length; i++) {
+                steps[i] = checkCell(source.x - i - 1, source.y + i + 1);
+            }
+        } else if (source.y == dest.y - route && source.x == dest.x - route) {
+            for (int i=0; i < steps.length; i++) {
+                steps[i] = checkCell(source.x + i + 1, source.y + i + 1);
+            }
         } else {
             throw new ImpossibleMoveException("Слон не может двигаться в этом направлении");
         }
@@ -63,5 +50,16 @@ return steps;
     @Override
     public Figure copy(Cell dest) {
         return new BishopBlack(dest);
+    }
+
+    public Cell checkCell(int x, int y) {
+        for (Cell cell : Cell.values()) {
+            if (cell.x == x && cell.y == y) {
+                System.out.println("checkCell: " + cell.x + ", " + cell.y + " - " + cell);
+                return cell;
+            }
+        }
+        System.out.println("checkCell is NULL");
+        return null;
     }
 }

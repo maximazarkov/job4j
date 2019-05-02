@@ -16,36 +16,9 @@ public class BishopWhite extends Figures implements Figure {
         super(position);
     }
 
-    /*
-     * //TODO
-     * Bishop умеет ходить только на одну клетку по диагонали.
-     * необходимо придумать, как он сможт прыгать на массив влеток,
-     * т.е. если прыжок будет более чем на одну клетку.
-     * */
-
-    /*
-    * //TODO выбросить исключение ImpossibleMoveException, если фигура не может ити на место назначение.
-     * */
-
-    @Override
-    public Cell[] way(Cell source, Cell dest)throws ImpossibleMoveException {
-        Cell[] steps = new Cell[0];
-        if (source.y == dest.y + 1 && source.x == dest.x + 1) {
-            steps = new Cell[] { dest };
-        } else if (source.y == dest.y + 1 && source.x == dest.x - 1) {
-            steps = new Cell[] { dest };
-        } else if (source.y == dest.y - 1 && source.x == dest.x + 1) {
-            steps = new Cell[] { dest };
-        } else if (source.y == dest.y - 1 && source.x == dest.x - 1) {
-            steps = new Cell[] { dest };
-        } else {
-            throw new ImpossibleMoveException("Слон не может двигаться в этом направлении");
-        }
-        return steps;
-    }
-
     @Override
     public Figure copy(Cell dest) {
         return new BishopWhite(dest);
     }
+
 }

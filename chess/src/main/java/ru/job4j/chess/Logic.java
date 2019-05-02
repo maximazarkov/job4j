@@ -36,16 +36,18 @@ public class Logic {
                         throw new OccupiedWayException("Данная клетка занята");
                     }
 
-                    if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
+                    //if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
+                    if (steps.length > 0 && steps[step].equals(dest)) {
                         rst = true;
                         this.figures[index] = this.figures[index].copy(dest);
                     }
                 }
             } else {
-                throw  new FigureNotFoundException("Фигура не найдена");
+                throw new FigureNotFoundException("В этой клетке нет фигур");
             }
-        } catch (FigureNotFoundException fnfe) {    // данный exception возможно нужно будет вынести во внешний try...
-            System.out.println(fnfe.getMessage());
+        //перехватим исключения ImpossibleMoveException и OccupiedWayException
+        // в методе Logic, т.к. если перехватить исключения в методе классе Chess,
+        // то будут артефакты при проресовке фигур - они перестанут привязываться к сетке
         } catch (ImpossibleMoveException ime) {
             System.out.println(ime.getMessage());
         } catch (OccupiedWayException owe) {

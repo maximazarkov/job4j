@@ -20,9 +20,9 @@ public class PawnWhite extends Figures implements Figure {
     @Override
     public Cell[] way(Cell source, Cell dest) {
         Cell[] steps = new Cell[0];
-        if (source.y == dest.y - 1 && source.x == dest.x) {
-            steps = new Cell[] { dest };
-        } else if (source.y == 1 && source.y == dest.y - 2 && source.x == dest.x) {
+        if ((source.y == dest.y - 1
+                || (source.y == 1 && source.y == dest.y - 2))
+                && source.x == dest.x) {
             steps = new Cell[] { dest };
         } else {
             throw new ImpossibleMoveException("Пешка не может двигаться в этом направлении");

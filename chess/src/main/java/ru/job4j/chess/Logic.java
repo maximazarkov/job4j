@@ -25,18 +25,16 @@ public class Logic {
         int destination = this.findBy(dest); // проверим, что место назначения доступно
         try {
             if (index != -1) {
-                // получим массив ячеек от фигуры
+                // получим массив ячеек пути перемезания фигуры
                 Cell[] steps = this.figures[index].way(source, dest);
-                // Если нас все устраивает, то переместим фигуру простым копироанием, иначе оставляем фигуру на месте
-
                 for (int step = 0; step < steps.length; step++) {
                     int empty = findBy(steps[step]);
-                    System.out.println("Logic: source: " + source + ", destination: " + destination + ", empty: " + empty);
+                    //System.out.println("Logic: source: " + source + ", destination: " + destination + ", empty: " + empty);
                     if (empty != -1 || destination != -1) {
                         throw new OccupiedWayException("Данная клетка занята");
                     }
 
-                    //if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
+                    // Если нас все устраивает, то переместим фигуру простым копироанием, иначе оставляем фигуру на месте
                     if (steps.length > 0 && steps[step].equals(dest)) {
                         rst = true;
                         this.figures[index] = this.figures[index].copy(dest);

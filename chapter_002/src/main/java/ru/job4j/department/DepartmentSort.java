@@ -5,6 +5,42 @@ public abstract class  DepartmentSort implements Service {
 
     public abstract void sortDivisions(String[] divisions);
 
+    String[] parsedertment(String[] divisions) {
+        String[] resultTmp = new String[20];
+        int resultCount = 0;
+        for(String div : divisions) {
+            String[] tmp = div.split("\\\\");
+            for (int j=0; j < tmp.length; j++) {
+                boolean addItem = true;
+
+                String res = tmp[0];
+                if (j != 0 ) {
+
+                    for(int k = 1; k <= j; k++) {
+                        res += "\\" + tmp[k];
+                    }
+                }
+
+                for(int i = 0; i < resultCount; i++) {
+                    if (res.equals(resultTmp[i])) {
+                        addItem = false;
+                        break;
+                    }
+                }
+                if(addItem) {
+                    resultTmp[resultCount++] = res;
+                }
+
+            }
+            //          System.out.println("-------------------------");
+        }
+
+//        System.out.println(resultCount);
+        String[] result = new String[resultCount];
+        System.arraycopy(resultTmp, 0, result, 0, resultCount);
+        return result;
+    }
+
     /**
      * Вывод на печать талицы шаблонов
      */

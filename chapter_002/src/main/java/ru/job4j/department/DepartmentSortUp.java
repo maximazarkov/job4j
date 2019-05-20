@@ -12,9 +12,14 @@ class DepartmentSortUp extends DepartmentSort implements Service {
 
         System.out.println("-------------------------");
         System.out.println("Сортировка по возрастанию");
-        for (String item : parsedertment(divisions)) {
-            System.out.println(item);
-        }
+//        for (String item : parsedepartment(divisions)) {
+//            System.out.println(item);
+//        }
+        createTempl();
+//        printTempl();
+        printDepartment(parseDepartment(divisions));
+
+
     }
 
     //неявно реализуем интерфейс

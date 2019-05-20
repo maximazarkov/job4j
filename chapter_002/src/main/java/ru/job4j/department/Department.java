@@ -18,7 +18,7 @@ public class Department {
     public static void main(String[] args) {
         //sorting(DepartmentSort.factory);
         sorting(DepartmentSortUp.factory);
-        sorting(DepartmentSortDown.factory);
+        //sorting(DepartmentSortDown.factory);
 
     }
 }

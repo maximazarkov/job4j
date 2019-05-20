@@ -7,7 +7,7 @@ class DepartmentSortDown extends DepartmentSort implements Service {
     public void sortDivisions(String[] divisions) {
         System.out.println("-------------------------");
         System.out.println("Сортировка по убыванию");
-        String[] items = parsedertment(divisions);
+        String[] items = parsedepartment(divisions);
         for (int i=items.length-1; i !=0; i-- ) {
             System.out.println(items[i]);
         }

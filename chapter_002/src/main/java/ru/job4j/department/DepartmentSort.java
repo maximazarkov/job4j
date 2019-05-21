@@ -5,35 +5,6 @@ public abstract class  DepartmentSort implements Service {
 
     public abstract void sortDivisions(String[] divisions);
 
-
-    private boolean checkDubleBrunch(String[][] tree, String sndStr, int countBrunch) {
-        for (int brunch = 0; brunch < countBrunch; brunch++) {
-            fstStr = tree[brunch][level];
-        }
-    }
-
-    private boolean addBrunch(String[][] tree, String[] resultBrunch, int level, int countBrunch) {
-        boolean result = false;
-        String fstStr;
-        String sndStr;
-
-        if ((level + 1 >= resultBrunch.length) ||
-                (resultBrunch[level + 1] != null) ||
-                (tree[countBrunch][level + 1] == null)) {
-            fstStr = tree[countBrunch-1][level];
-            sndStr = resultBrunch[level];
-        } else {
-            fstStr = tree[countBrunch][level] + "\\" + tree[countBrunch][level + 1];
-            sndStr = resultBrunch[level]+ "\\" + resultBrunch[level + 1];
-        }
-
-        if(fstStr.equals(sndStr)) {
-                result = true;
-        }
-        return result;
-    }
-
-
     /**
      *
      * @param divisions - массив департаментов и отделов
@@ -47,31 +18,67 @@ public abstract class  DepartmentSort implements Service {
         int countBrunch = 0;
         for(String div : divisions) {
             resultBrunch = div.split("\\\\");
-            for(int index = 0; index < resultBrunch.length; index++) {
+            for(int indexBrunch = 0; indexBrunch < resultBrunch.length; indexBrunch++) {
 
-                // если попалась первая стройка, то просто запишем первый эелемент в отдельную ветку
-                //и перейдем ко второму элементу строки
+                // если попалась первая стройка, то не зависимо от количества элементов в строке
+                // просто запишем первый эелемент в отдельную ветку и перейдем ко второму
+                // элементу строки для записи его в следующую ветку
                 if(countBrunch == 0) {
-                    resultTree[countBrunch++][index] = resultBrunch[index];
+                    resultTree[countBrunch++][0] = resultBrunch[0];
                     continue;
                 }
 
-                // если вылезли за край ветки, то просто вносим последний элемент и переходим
-                // к слудующей строке
-                if((index + 1 >= resultBrunch.length)) {
-                    System.out.println(addBrunch(resultTree, resultBrunch, index, countBrunch));
-                    resultTree[countBrunch++][index] = resultBrunch[index];
-                    continue;
-                }
-                if(resultBrunch[index] != null) {
-                    resultTree[countBrunch][index] = resultBrunch[index];
+                //если элементы в строке закончились, переходим к следующей строке
+                if(resultBrunch[indexBrunch] == null) {
+                    break;
+                } else {
+                    //формируем новую ветку
+                    for(int index=0; index <= indexBrunch; index++) {
+                        //System.out.println(equalsBrunch(resultTree, resultBrunch, index));
+                        if(equalsBrunch(resultTree, resultBrunch, index)) {
+                            addBrunch(resultTree[countBrunch], resultBrunch);
+                            //resultTree[countBrunch][index] = resultBrunch[index];
+                        }
+                        continue;
+                    }
+                    countBrunch++;
                 }
             }
-            countBrunch++;
         }
         return resultTree;
-
     }
+
+    private void addBrunch(String[] tree, String[] brunch) {
+        for(int index = 0; index < brunch.length; index++) {
+            tree[index] = brunch[index];
+        }
+    }
+
+    private boolean equalsBrunch(String[][] tree, String[] brunch, int countElement) {
+        String fstStr;
+        String sndStr = brunch[0];
+
+        if (countElement > 0) {
+            for (int index = 0; index < brunch.length - 1; index++) {
+                sndStr +=  "\\" + brunch[index + 1];
+            }
+        }
+
+
+        for (int countBrunch = 0; countBrunch < tree.length; countBrunch++) {
+            if (tree[countBrunch][0] != null) {
+                fstStr = tree[countBrunch][0];
+                for (int index = 0; index < countElement; index++) {
+                    fstStr += "\\" + tree[countBrunch][index + 1];
+                }
+                if(fstStr.equals(sndStr)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
 //    public String toString(){
     public void printDepartment(String[][] items){

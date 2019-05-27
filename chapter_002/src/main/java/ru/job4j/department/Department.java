@@ -1,24 +1,78 @@
 package ru.job4j.department;
 
+import java.io.*;
+import java.util.*;
+
+/**
+ * Программа Department сортировки департаментов создана в учебных целях, в качестве экзаменационной работы по ООП.
+ * В данную работу для тренировки были включены API по работе с файлом, а так же с Collection framework.
+ * задача решена с помощью применения паттерна Фабрика
+ * Так же в задаче применены внутренние классы в целях закрепления материала
+ *
+ * @author Азарков Максим
+ */
 public class Department {
-     private static String[] divisions =  {
-            "K1\\SK1", 
-            "K1\\SK2", 
-            "K1\\SK1\\SSK1",
-            "K1\\SK1\\SSK2",
-            "K2",
-            "K2\\SK1\\SSK1",
-            "K2\\SK1\\SSK2"
-    };
+
+    private static ArrayList<String> divisions1 = new ArrayList<String>();
+    private static TreeSet<String> divisions2 = new TreeSet<String>();
+
+    private void getDivisions(){
+        try {
+            //по какой-то причине просто указанное имя файла вызвало Exception - file not found.
+            //временно добавлен полный путь к файлу
+            String pathFile="c:\\projects\\job4j\\chapter_002\\src\\main\\java\\ru\\job4j\\department\\";
+            File file = new File(pathFile + "departmentList.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                addDivision(line);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void addDivision(String lineToParse) {
+        String[] tokens = lineToParse.split("\\\\");
+        String subTokens = tokens[0];
+        for(int index=1; index < tokens.length; index++){
+            if(index % 2 == 0) {
+                subTokens += "\\" + tokens[index];
+            }
+            divisions1.add(subTokens);
+            divisions2.add(subTokens);
+        }
+    }
 
     public static void sorting(ServiceFactory fact) {
         Service s = fact.getService();
-        s.sortDivisions(divisions);
+        s.sortDivisions(divisions1);
+        s.sortDivisions(divisions2);
     }
-    public static void main(String[] args) {
-        //sorting(DepartmentSort.factory);
-        sorting(DepartmentSortUp.factory);
-        //sorting(DepartmentSortDown.factory);
 
+    private void printDivision() {
+        System.out.print("ArrayList: ");
+        System.out.println(divisions1);
+        System.out.print("TreeSet: ");
+        System.out.println(divisions2);
+        System.out.println();
+    }
+
+    private void go() {
+        getDivisions();
+        System.out.println("-- Загруженные данные --");
+        printDivision();
+
+        System.out.println("-- Сортировка по возрастанию --");
+        sorting(DepartmentSortUp.factory);
+        printDivision();
+
+        System.out.println("-- Сортировка по убыванию --");
+        sorting(DepartmentSortDown.factory);
+        printDivision();
+    }
+
+    public static void main(String[] args) {
+        new Department().go();
     }
 }

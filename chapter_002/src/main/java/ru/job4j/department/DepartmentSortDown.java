@@ -1,17 +1,19 @@
 package ru.job4j.department;
 
-class DepartmentSortDown extends DepartmentSort implements Service {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.TreeSet;
+
+class DepartmentSortDown implements Service {
     private DepartmentSortDown() {}
 
-    @Override
-    public void sortDivisions(String[] divisions) {
-        System.out.println("-------------------------");
-        System.out.println("Сортировка по убыванию");
-        String[] items = parsedepartment(divisions);
-        for (int i=items.length-1; i !=0; i-- ) {
-            System.out.println(items[i]);
-        }
+    public void sortDivisions(ArrayList<String> divisions) {
+        Collections.sort(divisions, Collections.reverseOrder());}
+
+    public void sortDivisions(TreeSet<String> divisions) {
+//        divisions.(divisions, Collections.reverseOrder());
     }
+
 
     //неявно реализуем интерфейс
     public static ServiceFactory factory = new ServiceFactory() {

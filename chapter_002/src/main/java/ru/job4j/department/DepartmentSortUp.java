@@ -1,26 +1,22 @@
 package ru.job4j.department;
 
-class DepartmentSortUp extends DepartmentSort implements Service {
+import java.util.ArrayList;
+import java.util.TreeSet;
+import java.util.Collections;
+
+class DepartmentSortUp implements Service {
     private DepartmentSortUp() {}
 
     /**
-     *
-     * @param divisions
+     * Сортирует соллекцию ArrayList типа String.
+     * @author Азарков Максим
+     * @param divisions - коллекция ArrayList типа String
      */
-    @Override
-    public void sortDivisions(String[] divisions) {
-
-        System.out.println("-------------------------");
-        System.out.println("Сортировка по возрастанию");
-//        for (String item : parsedepartment(divisions)) {
-//            System.out.println(item);
-//        }
-        createTempl();
-//        printTempl();
-        printDepartment(parseDepartment(divisions));
-
-
+    public void sortDivisions(ArrayList<String> divisions) {
+        Collections.sort(divisions);
     }
+
+    public void sortDivisions(TreeSet<String> divisions) {}
 
     //неявно реализуем интерфейс
     public static ServiceFactory factory = new ServiceFactory() {

@@ -14,7 +14,7 @@ import java.util.*;
 public class Department {
 
     private static ArrayList<String> divisions1 = new ArrayList<String>();
-    private static TreeSet<String> divisions2 = new TreeSet<String>();
+    private static TreeSet<String> divisionsSorting;
 
     private void getDivisions(){
         try {
@@ -40,22 +40,25 @@ public class Department {
                 subTokens += "\\" + tokens[index];
             }
             divisions1.add(subTokens);
-            divisions2.add(subTokens);
         }
     }
 
+    /**
+     * Сортирует коллекцию ArrayList и TreeSet
+     * @param fact - "метод" фабрики, одна изреализаций
+     */
     public static void sorting(ServiceFactory fact) {
         Service s = fact.getService();
-        s.sortDivisions(divisions1);
-        s.sortDivisions(divisions2);
+        divisionsSorting = s.sortDivisions(divisions1, divisionsSorting);
     }
 
     private void printDivision() {
         System.out.print("ArrayList: ");
         System.out.println(divisions1);
-        System.out.print("TreeSet: ");
-        System.out.println(divisions2);
+        System.out.print("TreeSat: ");
+        System.out.println(divisionsSorting);
         System.out.println();
+
     }
 
     private void go() {

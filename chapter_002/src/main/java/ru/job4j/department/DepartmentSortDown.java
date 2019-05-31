@@ -32,13 +32,28 @@ class DepartmentSortDown implements Service {
 //        divSort = new TreeSet<>(cn.reversed());
 
         // Воспльзуемся лямбда выражением
-        Comparator<String> rc = (aStr, bStr) -> bStr.compareTo(aStr);
+        Comparator<String> rc = (aStr, bStr) -> {
+            int min = Math.min(aStr.length(), bStr.length());
+            for (int index = 0; index < min; index++) {
+                Character leftChar = aStr.charAt(index);
+                Character rightChar = bStr.charAt(index);
+                if (rightChar.compareTo(leftChar) != 0) {
+                    return rightChar - leftChar;
+                }
+            }
+            return aStr.length() - bStr.length();
+        };
+
         divSort = new TreeSet<>(rc);
 
         // добавим элементы соллекции ArrayList в TreeSet
         divSort.addAll(div);
 //        System.out.println(">>>" + divSort);
         return divSort;
+    }
+
+    interface StrLength {
+        int compare(String a, String b);
     }
 
 

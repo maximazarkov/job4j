@@ -25,13 +25,19 @@ public class Department {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = null;
             while ((line = reader.readLine()) != null) {
-                addDivision(line);
+                divisions1.addAll(recoverDivision(line));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
+    /**
+     * Метод парсинга строки департаментов. Восстанавливает родительский
+     * дапартаменты и сразу изменяет внешний контейнер. Данный подход считается не лучшим решением.
+     * @param lineToParse - строка для парсинга. парсын выполняется по символу "\"
+     * @deprecated - метод устарел. поддержка закончится с версии выше 1.1
+     */
     private void addDivision(String lineToParse) {
         String[] tokens = lineToParse.split("\\\\");
         String subTokens = tokens[0];
@@ -42,6 +48,27 @@ public class Department {
             divisions1.add(subTokens);
         }
     }
+
+    /**
+     * Утилита парсинга строки департаментов. Восстанавливает родительский дапартаменты
+     * @param lineToParse - строка для парсинга. парсын выполняется по символу "\"
+     * @return - отсортированный контейнер типа TreeSet()
+     * @since - введена в версии 1.1
+     */
+    public ArrayList<String> recoverDivision(String lineToParse) {
+        String[] tokens = lineToParse.split("\\\\");
+        ArrayList<String> result = new ArrayList<>();
+        result.add(tokens[0]);
+        String subTokens = tokens[0];
+        for(int index=1; index < tokens.length; index++){
+            if(tokens[index].length() != 0 ) {
+                subTokens += "\\" + tokens[index];
+            }
+            result.add(subTokens);
+        }
+        return result;
+    }
+
 
     /**
      * Сортирует коллекцию ArrayList и TreeSet

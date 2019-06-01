@@ -3,7 +3,7 @@ package ru.job4j.department;
 import java.util.*;
 
 class DepartmentSortDown implements Service {
-    private DepartmentSortDown() {}
+    public DepartmentSortDown() {}
 
     /**
      * @deprecated
@@ -43,6 +43,24 @@ class DepartmentSortDown implements Service {
             }
             return aStr.length() - bStr.length();
         };
+
+        /*
+        * Один из алгоритмов компаратора. Реализация не удалась*/
+//        Comparator<String> rc = (aStr, bStr) -> {
+//            int min = Math.min(aStr.length(), bStr.length());
+//            for (int index = 0; index < min; index++) {
+//                Character leftChar = aStr.charAt(index);
+//                Character rightChar = bStr.charAt(index);
+//                if (rightChar.compareTo(leftChar) > 0) {
+//                    return -1;
+//                }
+//            }
+//            if (aStr.equals(bStr)) {
+//                return 0;
+//            } else {
+//                return 1;
+//            }
+//        };
 
         divSort = new TreeSet<>(rc);
 

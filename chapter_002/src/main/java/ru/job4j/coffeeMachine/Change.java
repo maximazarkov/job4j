@@ -7,6 +7,8 @@ package ru.job4j.coffeeMachine;
  */
 public class Change {
 
+    int[] result;
+
     /**
      * Метод выдачи сдачи для автомата.
      * Пример. Мы засунули 50 рублей выбрали кофе за 35. Сдачу автомат выдаст 15 рублей
@@ -20,6 +22,8 @@ public class Change {
      * @since 1.0
      */
     public int[] change(int price, int value) {
+        if (price > value)
+            throw new NegativeArraySizeException("Недостаточно денежных средств");
         int change = value - price;
         int N10 = change / 10;
         change -= N10 * 10;
@@ -28,15 +32,15 @@ public class Change {
         int N2 = change / 2;
         change -= N2 * 2;
         int N1 = change;
-        int[] result = new int[N10 + N5 + N2 + N1];
-        addCoin(0, N10, 10, result);
-        addCoin(N10, N5, 5, result);
-        addCoin(N10 + N5, N2, 2,  result);
-        addCoin(N10 + N5 + N2, N1, 1, result);
+        result = new int[N10 + N5 + N2 + N1];
+        addCoin(0, N10, 10);
+        addCoin(N10, N5, 5);
+        addCoin(N10 + N5, N2, 2);
+        addCoin(N10 + N5 + N2, N1, 1);
         return result;
     }
 
-    private void addCoin (int count, int Nx, int coinValue, int[] result) {
+    private void addCoin (int count, int Nx, int coinValue){
         for (int i = count; i < count + Nx; i++) {
             result[i] = coinValue;
         }

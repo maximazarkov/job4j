@@ -3,23 +3,9 @@ package ru.job4j.tracker;
 /**
  * Класс реализует удаление заявки из хранилища.
  */
-public class DeleteItem implements UserAction {
-    private int key;
-    private String info;
-
+public class DeleteItem extends BaseAction {
     public DeleteItem(int key, String info) {
-        this.key = key;
-        this.info = info;
-    }
-
-    @Override
-    public int key() {
-        return this.key;
-    }
-
-    @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), this.info);
+        super(key, info);
     }
 
     @Override

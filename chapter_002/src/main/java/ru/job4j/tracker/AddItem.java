@@ -3,25 +3,26 @@ package ru.job4j.tracker;
 /**
  * Класс реализует добавленяи новый заявки в хранилище.
  */
-public class AddItem implements UserAction {
+public class AddItem extends BaseAction {
 
-    private int key;
-    private String info;
+//    private int key;
+//    private String info;
 
     public AddItem(int key, String info) {
-        this.key = key;
-        this.info = info;
+        //this.key = key;
+        //this.info = info;
+        super(key, info);
     }
 
-    @Override
-    public int key() {
-        return this.key;
-    }
+//    @Override
+//    public int key() {
+//        return this.key;
+//    }
 
-    @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), this.info);
-    }
+//    @Override
+//    public String info() {
+//        return String.format("%s. %s", this.key(), this.info);
+//    }
 
     @Override
     public void execute(Input input, Tracker tracker) {

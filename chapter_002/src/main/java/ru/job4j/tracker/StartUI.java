@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Azarkov Maxim
  * @version $Id$
@@ -9,7 +12,8 @@ public class StartUI {
      /**
      * Константа для выхода из цикла.
      */
-    private static final String EXIT = "6";
+    //private static final String EXIT = "6";
+     private static final int EXIT = 6;
 
     /**
      * Получение данных от пользователя.
@@ -45,12 +49,20 @@ public class StartUI {
 //    }
         boolean exit = false;
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        //List<Integer> range = new ArrayList<>();
         menu.fillActions();
+        int[] range = new int[menu.getActionsLentgh()];
+        for (int i = 0; i < menu.getActionsLentgh(); i++) {
+        //    range.add(i);
+            range[i] = i;
+        }
         while (!exit) {
             menu.show();
-            String answer = this.input.ask("Введите пункт меню : ");
+            //String answer = input.ask("Введите пункт меню : ");
+            int answer = input.ask("Введите пункт меню : ", range);
             menu.select(Integer.valueOf(answer));
-            if (EXIT.equals(answer)) {
+            //menu.select(input.ask("select:", range));
+            if (EXIT == answer) {
                 exit = true;
             }
         }
@@ -58,6 +70,7 @@ public class StartUI {
 
     public static void main(String[] args) {
         //new StartUI(new ConsoleInput(), new Tracker()).init();
-        new StartUI(new ConsoleInput(), new Tracker());
+        //new StartUI(new ValidateInput(), new Tracker());
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker());
     }
 }

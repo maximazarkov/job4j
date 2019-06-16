@@ -12,14 +12,25 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        //TODO добавить вставку в связанный список.
-        if (tasks.size() == 0) {
-            tasks.add(task);
+        int low = 0;
+        int high = tasks.size() - 1;
+        int mid = 0;
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (tasks.get(mid).getPriority() == task.getPriority()) {
+                break;
+            }
+            if (tasks.get(mid).getPriority() > task.getPriority()) {
+                high = mid - 1;
+            }
+            if (tasks.get(mid).getPriority() < task.getPriority()) {
+                low = mid + 1;
+            }
+        }
+        if ((mid == high)) {
+            tasks.add(mid + 1, task);
         } else {
-            for (int i = tasks.size() - 1; i >= 0; i--)
-                if (tasks.get(i).getPriority() >= task.getPriority()) {
-                    tasks.add(i, task);
-                }
+            tasks.add(mid, task);
         }
     }
 

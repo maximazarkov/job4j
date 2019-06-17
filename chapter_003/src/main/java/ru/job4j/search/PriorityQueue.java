@@ -1,6 +1,7 @@
 package ru.job4j.search;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class PriorityQueue {
     private LinkedList<Task> tasks = new LinkedList<Task>();
@@ -15,22 +16,28 @@ public class PriorityQueue {
         int low = 0;
         int high = tasks.size() - 1;
         int mid = 0;
+        ListIterator<Task> lit;
         while (low <= high) {
             mid = (low + high) / 2;
-            if (tasks.get(mid).getPriority() == task.getPriority()) {
+            lit = tasks.listIterator(mid);
+            int tsksPriority = lit.next().getPriority();
+            int tskPriority = task.getPriority();
+            if (tsksPriority == tskPriority) {
                 break;
             }
-            if (tasks.get(mid).getPriority() > task.getPriority()) {
+            if (tsksPriority > tskPriority) {
                 high = mid - 1;
             }
-            if (tasks.get(mid).getPriority() < task.getPriority()) {
+            if (tsksPriority < tskPriority) {
                 low = mid + 1;
             }
         }
         if ((mid == high)) {
-            tasks.add(mid + 1, task);
+            lit = tasks.listIterator(mid + 1);
+            lit.add(task);
         } else {
-            tasks.add(mid, task);
+            lit = tasks.listIterator(mid);
+            lit.add(task);
         }
     }
 

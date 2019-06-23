@@ -122,7 +122,100 @@ public class ConvertList2ArrayTest {
                 8
         );
         int[][] expect = {
-                {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}
+                {1}, {2}, {3}, {4}, {5}, {6}, {7}, {0}
+        };
+        assertThat(result, is(expect));
+    }
+
+    @Test
+    public void when1Elements1RowsThen1() {
+        ConvertList2Array list = new ConvertList2Array();
+        int[][] result = list.toArray(
+                Arrays.asList(1),
+                1
+        );
+        int[][] expect = {
+                {1}
+        };
+        assertThat(result, is(expect));
+    }
+
+    @Test
+    public void when1Elements2RowsThen2() {
+        ConvertList2Array list = new ConvertList2Array();
+        int[][] result = list.toArray(
+                Arrays.asList(1),
+                2
+        );
+        int[][] expect = {
+                {1}, {0}
+        };
+        assertThat(result, is(expect));
+    }
+
+    @Test
+    public void when2Elements1RowsThen3() {
+        ConvertList2Array list = new ConvertList2Array();
+        int[][] result = list.toArray(
+                Arrays.asList(1, 2),
+                1
+        );
+        int[][] expect = {
+                {1, 2, 0}
+        };
+        assertThat(result, is(expect));
+    }
+
+    @Test
+    public void when2Elements2RowsThen2() {
+        ConvertList2Array list = new ConvertList2Array();
+        int[][] result = list.toArray(
+                Arrays.asList(1, 2),
+                2
+        );
+        int[][] expect = {
+                {1}, {2}
+        };
+        assertThat(result, is(expect));
+    }
+
+    @Test
+    public void when2Elements3RowsThen3() {
+        ConvertList2Array list = new ConvertList2Array();
+        int[][] result = list.toArray(
+                Arrays.asList(1, 2),
+                3
+        );
+        int[][] expect = {
+                {1}, {2}, {0}
+        };
+        assertThat(result, is(expect));
+    }
+
+    @Test
+    public void when3Elements1RowsThen4() {
+        ConvertList2Array list = new ConvertList2Array();
+        int[][] result = list.toArray(
+                Arrays.asList(1, 2, 3),
+                1
+        );
+        int[][] expect = {
+                {1, 2, 3, 0}
+        };
+        assertThat(result, is(expect));
+    }
+
+
+    @Test
+    public void when3Elements3RowsThen3() {
+        ConvertList2Array list = new ConvertList2Array();
+        int[][] result = list.toArray(
+                Arrays.asList(1, 2, 3),
+                3
+        );
+        int[][] expect = {
+                {1}, {2}, {3}
+
         };
         assertThat(result, is(expect));
     }

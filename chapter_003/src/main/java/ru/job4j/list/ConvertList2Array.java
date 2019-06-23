@@ -19,15 +19,13 @@ public class ConvertList2Array {
     public int[][] toArray(List<Integer> list, int rows) {
         int cells = list.size() / rows + (list.size() == rows ? 0 : 1);
         int[][] array = new int[rows][cells];
-        if (list.size() >= rows) {
-            int row = 0;
-            int cell = 0;
-            for (Integer lst: list) {
-                array[row][cell++] = lst;
-                if (cell >= cells) {
-                    cell = 0;
-                    row++;
-                }
+        int row = 0;
+        int cell = 0;
+        for (Integer lst: list) {
+            array[row][cell++] = lst;
+            if (cell >= cells) {
+                cell = 0;
+                row++;
             }
         }
         return array;

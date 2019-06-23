@@ -3,11 +3,11 @@ package ru.job4j.coffeeMachine;
 /**
  * экзаменационная задача "кофемащина":
  * @author Azarkov Maxim
- * @version 1.0
+ * @version 1.1
  */
 public class Change {
 
-    int[] result;
+    int[] coins;
 
     /**
      * Метод выдачи сдачи для автомата.
@@ -25,25 +25,52 @@ public class Change {
         if (price > value)
             throw new NegativeArraySizeException("Недостаточно денежных средств");
         int change = value - price;
-        int N10 = change / 10;
-        change -= N10 * 10;
-        int N5 = change / 5;
-        change -= N5 * 5;
-        int N2 = change / 2;
-        change -= N2 * 2;
-        int N1 = change;
-        result = new int[N10 + N5 + N2 + N1];
-        addCoin(0, N10, 10);
-        addCoin(N10, N5, 5);
-        addCoin(N10 + N5, N2, 2);
-        addCoin(N10 + N5 + N2, N1, 1);
-        return result;
+        // т.к. по умоляанию значения в "кассете" с монетами все монеты расположены по убыванию
+        int count = 0;
+        Integer[] countCoins = new Integer[CoinCombinations.coinCombinations.length];
+        for (int i = 0; i < CoinCombinations.coinCombinations.length; i++) {
+            int coinValueCount = change / CoinCombinations.coinCombinations[i];
+            change -= coinValueCount * CoinCombinations.coinCombinations[i];
+            countCoins[i] = coinValueCount;
+            count += coinValueCount;
+        }
+        coins = new int[count];
+
+        count = 0;
+        for (int i = 0; i < CoinCombinations.coinCombinations.length; i++) {
+            addCoin(count, countCoins[i], CoinCombinations.coinCombinations[i]);
+            count += countCoins[i];
+        }
+        return coins;
     }
 
     private void addCoin (int count, int Nx, int coinValue){
         for (int i = count; i < count + Nx; i++) {
-            result[i] = coinValue;
+            coins[i] = coinValue;
         }
 
+    }
+
+    /**
+     * сласс представляет собой "магазин" монет, который можно загружать в банкомат
+     * один из вариантов. Выполнен в виде внутреннего класса (пока так мне показалось удобнее)
+     * @since 1.1 - аналог кассеты.
+     */
+    static class CoinCombinations {
+        /**
+         * в данной версии "кассета" представленна упорядоченным массиывом по убыванию
+         * при изменении веса или количества монет необходимо новые значения расположить по убыванию
+         */
+        private static int[] coinCombinations = {10, 5, 2, 1};
+
+        /*
+         * прототип метода, принимающий неотсортированный список монет, для сортировки и сохранении
+         * его в coinsCombinations.
+         * при реализации можно данный метод переделать в TreeSet
+         * @deprecated  - в данной версии не реализован. т.к. нет необходимости
+         */
+        //public createCoinsMagazine(int[] coinsValue) {
+        // принять данные, отсортировать, разместить в coinsCombinations
+        // }
     }
 }

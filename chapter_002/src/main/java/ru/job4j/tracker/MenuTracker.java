@@ -15,6 +15,7 @@ public class MenuTracker {
     /**
      * @param хранит ссылку на массив типа UserAction.
      */
+    // изначально был создан в ArrayList<>
     private List<UserAction> actions = new ArrayList<>();
 
     /**

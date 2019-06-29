@@ -10,12 +10,7 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
-	
-	 /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
+    private final List<Item> items = new ArrayList<>();
 
 	 /**
      * ссылка на объект, для генерации случайных чисел.
@@ -29,7 +24,7 @@ public class Tracker {
 	 */
     public void add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        this.items.add(item);
 	}
 
 	 /**
@@ -39,14 +34,17 @@ public class Tracker {
      */
 	public boolean replace(String id, Item item) {
 		boolean result = false;
-		for (int i = 0; i != position; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                item.setId(id);
-                items[i] = item;
-                result = true;
-                break;
-            }
-        }
+		Iterator<Item> it = items.iterator();
+		while (it.hasNext()) {
+			Item i = it.next();
+			if (i != null && i.getId().equals(id)) {
+				item.setId(id);
+				items.remove(i);
+				items.add(item);
+				result = true;
+				break;
+			}
+		}
 		return result;
 	}
 	
@@ -56,10 +54,11 @@ public class Tracker {
      */
 	public boolean delete(String id) {
 		boolean result = false;
-		for (int i = 0; i != position; i++) {
-			if (items[i] != null && items[i].getId().equals(id)) {
-                System.arraycopy(this.items, i + 1, items, i, this.position - i);
-				position--;
+		Iterator<Item> it = items.iterator();
+		while (it.hasNext()) {
+			Item i = it.next();
+			if (i != null && i.getId().equals(id)) {
+				items.remove(i);
 				result = true;
 				break;
 			}
@@ -72,7 +71,13 @@ public class Tracker {
 	 * @return - all elements by Tracker
      */
 	public Item[] findAll() {
-        return Arrays.copyOf(this.items, this.position);
+		Item[] findItems = new Item[items.size()];
+		Iterator<Item> it = items.iterator();
+		int index = 0;
+		while (it.hasNext()) {
+			findItems[index++] = it.next();
+		}
+		return findItems;
 	}
 
 	
@@ -81,23 +86,20 @@ public class Tracker {
 	 * @param key - ...
      */
 	public Item[] findByName(String key) {
-	    //Требуется реализовать метод
-		// думаю, что создавать пустой массив и пересоздавать новый массив - избыточно и расточительно
-		// по этому, сначала проверим, есть ли совпадения, а затем создадим новый массив
-		//Item[] result = new Item[position];
-		Item[] result = null;
-		if (items != null) {
-			int pos = 0;
-			for (int i = 0; i != position; i++) {
-				pos += this.items[i].getName().equals(key) ? 1 : 0;
+		List<Item> find = new ArrayList<>();
+		Iterator<Item> it = items.iterator();
+		while (it.hasNext()) {
+			Item i = it.next();
+			if (i.getName().equals(key)) {
+				find.add(i);
 			}
-			result = new Item[pos];
-			pos = 0;
-			for (int i = 0; i != position; i++) {
-				if (this.items[i].getName().equals(key)) {
-					result[pos++] = this.items[i];
-				}
-			}
+		}
+
+		Item[] result = new Item[find.size()];
+		it = find.iterator();
+		int index = 0;
+		while (it.hasNext()) {
+			result[index++] = it.next();
 		}
 		return result;
 	}

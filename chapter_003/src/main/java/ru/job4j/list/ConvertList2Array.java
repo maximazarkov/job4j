@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /*
 * Вам необходимо создать класс
@@ -80,17 +81,19 @@ public class ConvertList2Array {
 //        );
 
         /* упростим стрим апи до лямбда */
-        list.forEach(lst -> {
-                    for (int l : lst) {
-                        result.add(l);
-                    }
-                }
-        );
+//        list.forEach(lst -> {
+//                    for (int l : lst) {
+//                        result.add(l);
+//                    }
+//                }
+//        );
 
-        /* еще вариант упрощения. статический вызов не статического поля у обьъекта */
+        /* еще вариант упрощения. статический вызов не статического поля у обьекта */
         /* === НЕ УДАЛОСЬ РЕАЛИЗОВАТЬ === */
 //        list.forEach(System.out::println);
+//        return result;
 
-        return result;
+        /* === Пример Андрея Хынку === */
+        return list.stream().flatMapToInt(Arrays::stream).boxed().collect(Collectors.toList());
     }
 }

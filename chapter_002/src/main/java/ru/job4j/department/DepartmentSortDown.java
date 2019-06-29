@@ -3,14 +3,14 @@ package ru.job4j.department;
 import java.util.*;
 
 class DepartmentSortDown implements Service {
-    public DepartmentSortDown() {}
+    public DepartmentSortDown() { }
 
     /**
      * @deprecated
      * @param divisions
      */
     public void sortDivisions(ArrayList<String> divisions) {
-        Collections.sort(divisions, Collections.reverseOrder());}
+        Collections.sort(divisions, Collections.reverseOrder()); }
 
     /**
      * @deprecated

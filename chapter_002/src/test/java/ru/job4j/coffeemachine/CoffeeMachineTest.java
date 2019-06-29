@@ -1,4 +1,4 @@
-package ru.job4j.coffeeMachine;
+package ru.job4j.coffeemachine;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.not;
 
 
 
-public class coffeeMachineTest {
+public class CoffeeMachineTest {
 
     @Test
     public void whenCoffeeNx11Pay100ThenChange100MinesNx11() {

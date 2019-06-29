@@ -16,11 +16,11 @@ public class Department {
     private static ArrayList<String> divisions1 = new ArrayList<String>();
     private static TreeSet<String> divisionsSorting;
 
-    private void getDivisions(){
+    private void getDivisions() {
         try {
             //по какой-то причине просто указанное имя файла вызвало Exception - file not found.
             //временно добавлен полный путь к файлу
-            String pathFile="c:\\projects\\job4j\\chapter_002\\src\\main\\java\\ru\\job4j\\department\\";
+            String pathFile = "c:\\projects\\job4j\\chapter_002\\src\\main\\java\\ru\\job4j\\department\\";
             File file = new File(pathFile + "departmentList.txt");
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = null;
@@ -41,8 +41,8 @@ public class Department {
     private void addDivision(String lineToParse) {
         String[] tokens = lineToParse.split("\\\\");
         String subTokens = tokens[0];
-        for(int index=1; index < tokens.length; index++){
-            if(index % 2 == 0) {
+        for (int index = 1; index < tokens.length; index++) {
+            if (index % 2 == 0) {
                 subTokens += "\\" + tokens[index];
             }
             divisions1.add(subTokens);
@@ -60,8 +60,8 @@ public class Department {
         ArrayList<String> result = new ArrayList<>();
         result.add(tokens[0]);
         String subTokens = tokens[0];
-        for(int index=1; index < tokens.length; index++){
-            if(tokens[index].length() != 0 ) {
+        for (int index = 1; index < tokens.length; index++) {
+            if (tokens[index].length() != 0) {
                 subTokens += "\\" + tokens[index];
             }
             result.add(subTokens);

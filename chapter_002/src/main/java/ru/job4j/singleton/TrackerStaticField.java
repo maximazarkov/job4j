@@ -10,8 +10,8 @@ public class TrackerStaticField {
     private TrackerStaticField() {
     }
 
-    public static TrackerStaticField getInstance(){
-        if(instance == null) {
+    public static TrackerStaticField getInstance() {
+        if (instance == null) {
             instance = new TrackerStaticField();
         }
         return instance;

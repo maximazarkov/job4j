@@ -34,7 +34,7 @@ public class DepartmentSortTest {
         DepartmentSortUp dsu = new DepartmentSortUp();
 
         TreeSet<String> divisionsSorting = new TreeSet<String>();
-        divisionsSorting = dsu.sortDivisions(divisions1,divisionsSorting);
+        divisionsSorting = dsu.sortDivisions(divisions1, divisionsSorting);
         assertThat(result, is(divisionsSorting));
     }
 
@@ -62,7 +62,7 @@ public class DepartmentSortTest {
         result.add("K1\\SK1\\SSK2");
         result.add("K1\\SK1\\SSK1");
         DepartmentSortDown dsd = new DepartmentSortDown();
-        divisionsSorting = dsd.sortDivisions(divisions1,divisionsSorting);
+        divisionsSorting = dsd.sortDivisions(divisions1, divisionsSorting);
         assertThat(result, is(divisionsSorting));
     }
 

@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 /**
  * Класс реализует поиск заявки из хранилища по имени.
  */
@@ -12,7 +14,7 @@ public class FindItemsByName extends BaseAction {
     public void execute(Input input, Tracker tracker) {
         System.out.println("-------------- Поиск заявки по имени --------------");
         String key = input.ask("Введите имя заявки:");
-        Item[] items = tracker.findByName(key);
+        ArrayList<Item> items = tracker.findByName(key);
         if (items != null) {
             for (Item item : items) {
                 System.out.println(item);

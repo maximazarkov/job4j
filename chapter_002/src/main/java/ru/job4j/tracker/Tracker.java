@@ -34,17 +34,15 @@ public class Tracker {
      */
 	public boolean replace(String id, Item item) {
 		boolean result = false;
-		Iterator<Item> it = items.iterator();
-		while (it.hasNext()) {
-			Item i = it.next();
-			if (i != null && i.getId().equals(id)) {
-				item.setId(id);
-				items.remove(i);
-				items.add(item);
-				result = true;
-				break;
-			}
-		}
+        System.out.println(id);
+        int index = items.indexOf(findById(id));
+        if (index > -1) {
+            ListIterator<Item> it = items.listIterator(index);
+            it.next();
+            item.setId(id);
+            it.set(item);
+            result = true;
+        }
 		return result;
 	}
 	
@@ -54,15 +52,13 @@ public class Tracker {
      */
 	public boolean delete(String id) {
 		boolean result = false;
-		Iterator<Item> it = items.iterator();
-		while (it.hasNext()) {
-			Item i = it.next();
-			if (i != null && i.getId().equals(id)) {
-				items.remove(i);
-				result = true;
-				break;
-			}
-		}
+		int index = items.indexOf(findById(id));
+		if (index > -1) {
+            ListIterator<Item> it = items.listIterator(index);
+		    it.next();
+		    it.remove();
+            result = true;
+        }
 		return result;
 	}
 	
@@ -70,23 +66,19 @@ public class Tracker {
      * Метод реализаущий получение списка всех заявок из хранилища.
 	 * @return - all elements by Tracker
      */
-	public Item[] findAll() {
-		Item[] findItems = new Item[items.size()];
-		Iterator<Item> it = items.iterator();
-		int index = 0;
-		while (it.hasNext()) {
-			findItems[index++] = it.next();
-		}
-		return findItems;
-	}
+    public ArrayList<Item> findAll() {
+        ArrayList<Item>  findItems = new ArrayList<>();
+        Iterator<Item> it = items.iterator();
+        findItems.addAll(items);
+        return findItems;
+    }
 
-	
 	/**
      * Метод реализаущий получение списка по имени из хранилища.
 	 * @param key - ...
      */
-	public Item[] findByName(String key) {
-		List<Item> find = new ArrayList<>();
+	public ArrayList<Item> findByName(String key) {
+		ArrayList<Item> find = new ArrayList<>();
 		Iterator<Item> it = items.iterator();
 		while (it.hasNext()) {
 			Item i = it.next();
@@ -94,16 +86,10 @@ public class Tracker {
 				find.add(i);
 			}
 		}
-
-		Item[] result = new Item[find.size()];
-		it = find.iterator();
-		int index = 0;
-		while (it.hasNext()) {
-			result[index++] = it.next();
-		}
-		return result;
+		return find;
 	}
-	
+
+
 	/**
      * Метод реализаущий получение заявки по id из хранилища.
 	 * @param id - уникальный ключ заявки.

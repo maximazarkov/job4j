@@ -37,10 +37,8 @@ public class Tracker {
         System.out.println(id);
         int index = items.indexOf(findById(id));
         if (index > -1) {
-            ListIterator<Item> it = items.listIterator(index);
-            it.next();
             item.setId(id);
-            it.set(item);
+            items.set(index, item);
             result = true;
         }
 		return result;
@@ -54,9 +52,7 @@ public class Tracker {
 		boolean result = false;
 		int index = items.indexOf(findById(id));
 		if (index > -1) {
-            ListIterator<Item> it = items.listIterator(index);
-		    it.next();
-		    it.remove();
+            items.remove(index);
             result = true;
         }
 		return result;

@@ -35,15 +35,19 @@ public class Tracker {
 	public boolean replace(String id, Item item) {
 		boolean result = false;
         System.out.println(id);
-        int index = items.indexOf(findById(id));
-        if (index > -1) {
-            item.setId(id);
-            items.set(index, item);
-            result = true;
-        }
+        int index = 0;
+		for (Item it : items) {
+			if (it != null && it.getId().equals(id)) {
+				item.setId(id);
+				items.set(index, item);
+				result = true;
+				break;
+			}
+			index++;
+		}
 		return result;
 	}
-	
+
 	/**
      * Метод реализаущий удаление заявок в хранилище.
 	 * @param id уникальный ключ заяки.

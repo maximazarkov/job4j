@@ -10,12 +10,7 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
-	
-	 /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
+    private final List<Item> items = new ArrayList<>();
 
 	 /**
      * ссылка на объект, для генерации случайных чисел.
@@ -29,7 +24,7 @@ public class Tracker {
 	 */
     public void add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        this.items.add(item);
 	}
 
 	 /**
@@ -39,30 +34,34 @@ public class Tracker {
      */
 	public boolean replace(String id, Item item) {
 		boolean result = false;
-		for (int i = 0; i != position; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                item.setId(id);
-                items[i] = item;
-                result = true;
-                break;
-            }
-        }
+        System.out.println(id);
+        int index = 0;
+		for (Item it : items) {
+			if (it != null && it.getId().equals(id)) {
+				item.setId(id);
+				items.set(index, item);
+				result = true;
+				break;
+			}
+			index++;
+		}
 		return result;
 	}
-	
+
 	/**
      * Метод реализаущий удаление заявок в хранилище.
 	 * @param id уникальный ключ заяки.
      */
 	public boolean delete(String id) {
 		boolean result = false;
-		for (int i = 0; i != position; i++) {
-			if (items[i] != null && items[i].getId().equals(id)) {
-                System.arraycopy(this.items, i + 1, items, i, this.position - i);
-				position--;
+		int index = 0;
+		for (Item it : items) {
+			if (it != null && it.getId().equals(id)) {
+				items.remove(index);
 				result = true;
 				break;
 			}
+			index++;
 		}
 		return result;
 	}
@@ -71,37 +70,30 @@ public class Tracker {
      * Метод реализаущий получение списка всех заявок из хранилища.
 	 * @return - all elements by Tracker
      */
-	public Item[] findAll() {
-        return Arrays.copyOf(this.items, this.position);
-	}
+    public ArrayList<Item> findAll() {
+        ArrayList<Item>  findItems = new ArrayList<>();
+        Iterator<Item> it = items.iterator();
+        findItems.addAll(items);
+        return findItems;
+    }
 
-	
 	/**
      * Метод реализаущий получение списка по имени из хранилища.
 	 * @param key - ...
      */
-	public Item[] findByName(String key) {
-	    //Требуется реализовать метод
-		// думаю, что создавать пустой массив и пересоздавать новый массив - избыточно и расточительно
-		// по этому, сначала проверим, есть ли совпадения, а затем создадим новый массив
-		//Item[] result = new Item[position];
-		Item[] result = null;
-		if (items != null) {
-			int pos = 0;
-			for (int i = 0; i != position; i++) {
-				pos += this.items[i].getName().equals(key) ? 1 : 0;
-			}
-			result = new Item[pos];
-			pos = 0;
-			for (int i = 0; i != position; i++) {
-				if (this.items[i].getName().equals(key)) {
-					result[pos++] = this.items[i];
-				}
+	public ArrayList<Item> findByName(String key) {
+		ArrayList<Item> find = new ArrayList<>();
+		Iterator<Item> it = items.iterator();
+		while (it.hasNext()) {
+			Item i = it.next();
+			if (i.getName().equals(key)) {
+				find.add(i);
 			}
 		}
-		return result;
+		return find;
 	}
-	
+
+
 	/**
      * Метод реализаущий получение заявки по id из хранилища.
 	 * @param id - уникальный ключ заявки.

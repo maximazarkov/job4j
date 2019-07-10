@@ -10,7 +10,7 @@ public class TrackerStaticFinalField {
     private TrackerStaticFinalField() {
     }
 
-    public static TrackerStaticFinalField getInstance(){
+    public static TrackerStaticFinalField getInstance() {
         return INSTANCE;
     }
 }

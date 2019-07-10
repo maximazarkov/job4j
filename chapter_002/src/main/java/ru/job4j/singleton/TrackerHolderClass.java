@@ -9,7 +9,7 @@ public class TrackerHolderClass {
     private TrackerHolderClass() {
     }
 
-    public static TrackerHolderClass getInstance(){
+    public static TrackerHolderClass getInstance() {
         return Holder.INSTANCE;
     }
 

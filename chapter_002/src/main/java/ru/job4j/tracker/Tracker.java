@@ -54,11 +54,15 @@ public class Tracker {
      */
 	public boolean delete(String id) {
 		boolean result = false;
-		int index = items.indexOf(findById(id));
-		if (index > -1) {
-            items.remove(index);
-            result = true;
-        }
+		int index = 0;
+		for (Item it : items) {
+			if (it != null && it.getId().equals(id)) {
+				items.remove(index);
+				result = true;
+				break;
+			}
+			index++;
+		}
 		return result;
 	}
 	

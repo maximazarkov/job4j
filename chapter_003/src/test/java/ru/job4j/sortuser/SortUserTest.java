@@ -8,27 +8,27 @@ import java.util.*;
 public class SortUserTest {
     @Test
     public void whenSortingUserByName() {
-        List<ListExample.User> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         users.addAll(Arrays.asList(
-                new ListExample.User("Max", 55),
-                new ListExample.User("Timoha", 45),
-                new ListExample.User("Vera", 23),
-                new ListExample.User("Lev", 12)
+                new User("Max", 55),
+                new User("Timoha", 45),
+                new User("Vera", 23),
+                new User("Lev", 12)
                 )
         );
 
         SortUser sortUser = new SortUser();
-        Set<ListExample.User> result = sortUser.sort(users);
-        Set<ListExample.User> expect = new TreeSet<ListExample.User>();
+        Set<User> result = sortUser.sort(users);
+        Set<User> expect = new TreeSet<User>();
         expect.addAll(Arrays.asList(
-                new ListExample.User("Lev", 12),
-                new ListExample.User("Vera", 23),
-                new ListExample.User("Max", 55),
-                new ListExample.User("Timoha", 45)
+                new User("Lev", 12),
+                new User("Vera", 23),
+                new User("Max", 55),
+                new User("Timoha", 45)
             )
         );
         assertThat(expect, is(result));
-
     }
+
 
 }

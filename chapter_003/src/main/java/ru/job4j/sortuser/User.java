@@ -1,14 +1,15 @@
 package ru.job4j.sortuser;
 
-import java.util.Objects;
+import java.util.*;
 
-//    public class User {     // это сигнатура при листе
-public class User implements Comparable<User> { // это сигнатура при сет. необходимо расширить от
-    //интерфейчас Comparable
+/**
+ * @author Azarkov Maxim.
+ * @since 04.08.2019
+ */
+public class User implements Comparable<User> {
     private String name;    // имя пользователя
     private int age;        // возраст пользователя
 
-    // конструктор
     User(String name, int age) {
         this.name = name;
         this.age = age;
@@ -16,13 +17,22 @@ public class User implements Comparable<User> { // это сигнатура п�
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-        return age == ((User) o).age &&
-                Objects.equals(name, ((User) o).name);
+        return age == ((User) o).age
+                && Objects.equals(name, ((User) o).name);
     }
 
+    /**
+     * Переопределенный метод интерфейса Comparable для выполнения базовой сортировки
+     * @param o - передаваемый объект
+     * @return - результат ставнения возрастов
+     */
     @Override
     public int compareTo(User o) {
         return this.getAge() - o.getAge();
@@ -35,10 +45,14 @@ public class User implements Comparable<User> { // это сигнатура п�
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", age=" + age
+                + '}';
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getAge() {

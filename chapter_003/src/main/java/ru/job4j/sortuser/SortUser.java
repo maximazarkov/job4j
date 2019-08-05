@@ -35,10 +35,8 @@ public class SortUser {
      * @return - отсортированная коллекция типа List
      */
     public List<User> sortByAllFields(List<User> users) {
-        AgeCompare ac = new AgeCompare();
-        Collections.sort(users, ac);
-        NameCompare nc = new NameCompare();
-        Collections.sort(users, nc);
+        AllFieldsCompare afc = new AllFieldsCompare();
+        Collections.sort(users, afc);
         return users;
     }
 
@@ -49,17 +47,15 @@ public class SortUser {
         }
     }
 
-    // Класс, реализующий компаратор, для сортировки по имени в лексографическом порядке
-    private class NameCompare implements Comparator<User> {
-        public int compare(User frst, User scnd) {
-            return frst.getName().compareTo(scnd.getName());
-        }
-    }
 
-    // Класс, реализующий компаратор, для сортировки по разнице в дате
-    private class AgeCompare implements Comparator<User> {
+    // Класс, реализующий компаратор, для сортировки по разнице по всем полям
+    private class AllFieldsCompare implements Comparator<User> {
         public int compare(User frst, User scnd) {
-            return frst.getAge() - scnd.getAge();
+            int result = frst.getName().compareTo(scnd.getName());
+            if ( result == 0) {
+                result = frst.getAge() - scnd.getAge();
+            }
+            return result;
         }
     }
 }

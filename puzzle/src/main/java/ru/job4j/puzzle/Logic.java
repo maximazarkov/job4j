@@ -96,7 +96,7 @@ public class Logic {
         }
 */
        if (!result) {
-            for(int i = 0; i < table.length; i++) {
+            for (int i = 0; i < table.length; i++) {
                 if ((table[0][i] == 1)) {
                     result = true;
                     for (int j = 0; j < table[i].length - 1; j++) {

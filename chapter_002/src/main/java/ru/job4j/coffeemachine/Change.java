@@ -1,4 +1,4 @@
-package ru.job4j.coffeeMachine;
+package ru.job4j.coffeemachine;
 
 /**
  * экзаменационная задача "кофемащина":
@@ -22,8 +22,9 @@ public class Change {
      * @since 1.0
      */
     public int[] change(int price, int value) {
-        if (price > value)
+        if (price > value) {
             throw new NegativeArraySizeException("Недостаточно денежных средств");
+        }
         int change = value - price;
         // т.к. по умоляанию значения в "кассете" с монетами все монеты расположены по убыванию
         int count = 0;
@@ -44,8 +45,8 @@ public class Change {
         return coins;
     }
 
-    private void addCoin (int count, int Nx, int coinValue){
-        for (int i = count; i < count + Nx; i++) {
+    private void addCoin(int count, int nx, int coinValue) {
+        for (int i = count; i < count + nx; i++) {
             coins[i] = coinValue;
         }
 

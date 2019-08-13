@@ -13,10 +13,10 @@ public abstract class Bishop extends Figures {
         int routeX = Math.abs(source.x - dest.x);   //int routeY = source.y - dest.y; // по оси Y
         int courceX = chkCource(source.x, dest.x);
         int courceY = chkCource(source.y, dest.y);
-        steps = new Cell[routeX];// при движении по диагонали подойдет как X так и Y
-        if (routeX == routeY){
-            for (int i=0; i < steps.length; i++) {
-                steps[i] = checkCell(   source.x - courceX * i - courceX,
+        steps = new Cell[routeX];   // при движении по диагонали подойдет как X так и Y
+        if (routeX == routeY) {
+            for (int i = 0; i < steps.length; i++) {
+                steps[i] = checkCell(source.x - courceX * i - courceX,
                         source.y - courceY * i - courceY);
             }
         } else {

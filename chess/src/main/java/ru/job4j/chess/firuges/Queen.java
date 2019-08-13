@@ -16,8 +16,8 @@ public class Queen extends Figures {
         if (routeY == routeX || (routeX != 0 && routeY == 0) || (routeX == 0)) {
 //        if (routeY == routeX || (routeX != 0 && routeY == 0) || (routeY != 0 && routeX == 0)) {
             steps = new Cell[Math.abs(routeX >= routeY ? routeX : routeY)];
-            for (int i=0; i < steps.length; i++) {
-                steps[i] = checkCell(   source.x - courceX * i - courceX,
+            for (int i = 0; i < steps.length; i++) {
+                steps[i] = checkCell(source.x - courceX * i - courceX,
                         source.y - courceY * i - courceY);
             }
         } else {

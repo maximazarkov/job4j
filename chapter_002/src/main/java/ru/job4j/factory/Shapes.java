@@ -1,7 +1,7 @@
 package ru.job4j.factory;
 
-import ru.job4j.abstractFactory.ShapeAbstFactory;
-import ru.job4j.abstractFactory.ShapeAbstFactoryCreater;
+import ru.job4j.abstractfactory.ShapeAbstFactory;
+import ru.job4j.abstractfactory.ShapeAbstFactoryCreater;
 import ru.job4j.factory.factory.EmptyShapeCreate;
 import ru.job4j.factory.factory.RectangleCreate;
 import ru.job4j.factory.factory.ShapeFactory;
@@ -41,9 +41,9 @@ public class Shapes {
 
     static ShapeFactory createShapeByType(String name) {
         ShapeFactory shape = new EmptyShapeCreate();
-        if("triangle".equals(name)) {
+        if ("triangle".equals(name)) {
             shape = new TriangleCreate();
-        } else if("rectangle".equals(name)) {
+        } else if ("rectangle".equals(name)) {
             shape = new RectangleCreate();
         }
         return shape;

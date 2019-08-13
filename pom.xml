@@ -67,6 +67,29 @@
 	<!-- Петр обещал про плагины снять отдельное видео -->
 	<build>
         <plugins>
+            <!-- плагин JaCoCo -->
+            <plugin>
+                <!-- версия плагина -->
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.4</version>
+                <executions>
+                    <!-- настройка запуска задачи анализа кода на покрытие -->
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <!-- настройка запуска задачи проверки кода после запуска команды mvn test. -->
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 			<!-- плагин для сборки javadoc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

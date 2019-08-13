@@ -5,7 +5,7 @@ import java.util.TreeSet;
 import java.util.Collections;
 
 class DepartmentSortUp implements Service {
-    public DepartmentSortUp() {}
+    public DepartmentSortUp() { }
 
     /**
      * Сортирует соллекцию ArrayList типа String.

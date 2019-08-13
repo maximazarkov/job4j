@@ -1,7 +1,7 @@
 package ru.job4j.singleton;
 
 public class LoadOrder {
-    private static String static_field = echo("staic field");
+    private static String staticfield = echo("staic field");
 
     private static final String STATIC_FINAL_FIELD = echo("static final field");
 

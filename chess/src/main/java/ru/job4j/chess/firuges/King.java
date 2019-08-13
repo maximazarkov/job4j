@@ -12,7 +12,9 @@ public class King extends Figures {
         int routeY = Math.abs(source.y - dest.y);
         int routeX = Math.abs(source.x - dest.x);
         if ((routeY == 1 || routeY == 0) && (routeX == 1 || routeX == 0)) {
-            steps = new Cell[] { dest };
+            steps = new Cell[] {
+                    dest
+            };
         } else {
             throw new ImpossibleMoveException("Король не может двигаться в этом направлении");
         }

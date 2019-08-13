@@ -31,9 +31,9 @@ public class TrackerSingle {                        // [2][3][4]
     //private static final TrackerSingle INSTANCE = new TrackerSingle();  // [3]
 
     //Конструкторы и методы.
-    private TrackerSingle() {}                      // [2][3][4]
+    private TrackerSingle() { }                      // [2][3][4]
 
-    public static TrackerSingle getInstance(){      // [2][3]
+    public static TrackerSingle getInstance() {      // [2][3]
         //if(instance == null) {                      // [2]
         //    instance = new TrackerSingle();         // [2]
         //}                                           // [2]

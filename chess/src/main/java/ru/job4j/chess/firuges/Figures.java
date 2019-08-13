@@ -21,7 +21,7 @@ public abstract class Figures {
     }
 
     protected int chkCource(int source, int dest) {
-        return source >= dest ? ( source != dest ? 1 : 0 ) : -1;
+        return source >= dest ? (source != dest ? 1 : 0) : -1;
     }
 
     protected Cell checkCell(int x, int y) {

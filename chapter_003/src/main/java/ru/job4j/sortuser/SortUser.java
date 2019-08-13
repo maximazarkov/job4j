@@ -52,7 +52,7 @@ public class SortUser {
     private class AllFieldsCompare implements Comparator<User> {
         public int compare(User frst, User scnd) {
             int result = frst.getName().compareTo(scnd.getName());
-            if ( result == 0) {
+            if (result == 0) {
                 result = frst.getAge() - scnd.getAge();
             }
             return result;

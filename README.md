@@ -1,4 +1,7 @@
-# Репозиторий Максим Азаркова
+[![Build Status](https://travis-ci.org/maximazarkov/job4j.svg?branch=master)](https://travis-ci.org/maximazarkov/job4j)
+[![codecov](https://codecov.io/gh/maximazarkov/job4j/branch/master/graph/badge.svg)](https://codecov.io/gh/maximazarkov/job4j)
+
+# Репозиторий Максима Азаркова
 Я прохожу обучение по курсу Job4j. Планирую его пройти к сентябрю 2019 года.
 Ниже находятся наиболее проекты, которые я реализовывал во время обучения
 

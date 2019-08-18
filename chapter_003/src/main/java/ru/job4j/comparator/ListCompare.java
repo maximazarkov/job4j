@@ -9,21 +9,14 @@ public class ListCompare implements Comparator<String> {
         int result = 0;
         int minLnStr = (left.length() >= right.length()) ? right.length() : left.length();
         for (int i = 0; i < minLnStr; i++) {
-            if (left.charAt(i) > right.charAt(i)) {
-                result = 1;
+            result = Character.compare(left.charAt(i), right.charAt(i));
+            if (result != 0) {
                 break;
-            } else if (left.charAt(i) < right.charAt(i)) {
-                result = -1;
-                break;
-            } else {
-                if (left.length() > right.length()) {
-                    result = 1;
-                } else if (left.length() < right.length()) {
-                    result = -1;
-                }
             }
         }
-
+        if (result == 0) {
+            result = Integer.compare(left.length(), right.length());
+        }
         return result;
     }
 

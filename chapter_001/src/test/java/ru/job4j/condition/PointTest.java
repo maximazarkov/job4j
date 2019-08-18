@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 
+
 /**
  * Test.Point.
  * @author Maxim Azarkov (aza-maxim@yandex.ru).
@@ -17,6 +18,8 @@ import java.io.PrintStream;
  * @since 0.1 (24.02.2019).
  */
 public class PointTest {
+
+    public final static String LS = System.lineSeparator();
 
     /**
      * Test.Point.distanceTo.
@@ -45,7 +48,7 @@ public class PointTest {
                 out.toString(),
                 is(
                         String.format(
-                                "x1 = 0\r\ny1 = 1\r\nx2 = 2\r\ny2 = 5\r\nрасстояние между точками A и Б: 4.47213595499958\r\n",
+                                "x1 = 0" + LS + "y1 = 1" + LS + "x2 = 2" + LS + "y2 = 5" + LS + "расстояние между точками A и Б: 4.47213595499958" + LS,
                                 System.getProperty("line.separator")
 
                         )

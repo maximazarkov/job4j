@@ -4,28 +4,46 @@ package ru.job4j.bank;
 
 public class Account {
 
-    double values;
-    String reqs;
+    private double values;
+    private String requisites;
+
+    /**конструкторв
+     */
+    public Account() {
+    }
 
     /**
-     * метод создания аккаунта в виде объекта. принимает:
-     * @param values - значение суммы спедсив на счете;
-     * @param requisites - реквизиты пользователя
+     * Конструктор
+     * @param values - сумма денег
+     * @param requisites - реквизиты (номер) счета
      */
     public Account(double values, String requisites) {
         this.values = values;
-        this.reqs = requisites;
+        this.requisites = requisites;
     }
 
+    /**
+     * возвращает сумму счета
+     * @return сумма счета
+     */
     public double getValues() {
         return this.values;
     }
 
-
-    public String getReqs () {
-        return this.reqs;
+    /**
+     * Возвращает номер счета
+     * @return - реквизиты (номер) счета
+     */
+    public String getRequisites () {
+        return this.requisites;
     }
 
+    /**
+     * выполняет транзакцию межту счетами.
+     * @param destination - счет назначение,
+     * @param amount- сумма средств.
+     * @return - возвращает true, если перевод прошол успешно.
+     */
     boolean transfer(Account destination, double amount) {
         boolean success = false;
         if (amount > 0 && amount < this.values && destination != null) {
@@ -38,7 +56,7 @@ public class Account {
 
     public String toString() {
         String otvet;
-        otvet = "Account{" + "values=" + values + ", reqs='" + reqs + "\\" + "}";
+        otvet = "Account{" + "values=" + values + ", requisites='" + requisites + "\\" + "}";
         return otvet;
     }
 
@@ -52,10 +70,10 @@ public class Account {
 
         Account account = (Account) o;
 
-        return this.reqs.equals(account.reqs);
+        return this.requisites.equals(account.requisites);
     }
 
     public int hashCode() {
-        return this.reqs.hashCode();
+        return this.requisites.hashCode();
     }
 }

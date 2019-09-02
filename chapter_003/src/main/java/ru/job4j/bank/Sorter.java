@@ -2,11 +2,6 @@
 //package com;
 package ru.job4j.bank;
 
-
-
-
-import ru.job4j.sortuser.User;
-
 import java.util.*;
 
 public class Sorter {
@@ -57,7 +52,7 @@ public class Sorter {
         Comparator<User> compar2 = new Comparator<User>() {
             @Override
             public int compare (User o1, User o2) {
-                return o1.getAge() - o2.getAge();
+                return o1.getPasport().compareTo(o2.getPasport());
             }
         };
         list.sort(compar1.thenComparing(compar2));

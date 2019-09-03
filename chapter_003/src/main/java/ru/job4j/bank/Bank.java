@@ -3,8 +3,6 @@
 package ru.job4j.bank;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -95,7 +93,7 @@ public class Bank {
     public void deleteUserAccountFromUser(String pasport, Account account) {
         for (User user : this.users.keySet()) {
             if (user.getPassport().equals(pasport)) {
-                ArrayList<Account> accounts= this.users.get(user);
+                ArrayList<Account> accounts = this.users.get(user);
                 accounts.remove(account);
                 this.users.replace(user, accounts);
                 break;
@@ -139,7 +137,7 @@ public class Bank {
      * @return - возвращает результат успешности операции
      * @since 0.1
      */
-    public boolean transferMoney (String srcPassport, String srcRequisite,
+    public boolean transferMoney(String srcPassport, String srcRequisite,
                                   String destPassport, String dstRequisite, double amount) {
         User srcUser = getUser(srcPassport);
         ArrayList<Account> srcUsrAccLst = getUserAccounts(srcUser);

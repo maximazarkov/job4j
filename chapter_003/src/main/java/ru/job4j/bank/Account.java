@@ -7,7 +7,7 @@ public class Account {
     private double values;
     private String requisites;
 
-    /**конструкторв
+    /**конструктор
      */
     public Account() {
     }
@@ -34,7 +34,7 @@ public class Account {
      * Возвращает номер счета
      * @return - реквизиты (номер) счета
      */
-    public String getRequisites () {
+    public String getRequisites() {
         return this.requisites;
     }
 
@@ -46,7 +46,10 @@ public class Account {
      */
     boolean transfer(Account destination, double amount) {
         boolean success = false;
-        if (amount > 0 && amount < this.values && destination != null) {
+        if (amount > 0
+                && amount < this.values
+                && destination != null
+                && !this.requisites.equals(destination.requisites)) {
             success = true;
             this.values -= amount;
             destination.values += amount;

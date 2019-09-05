@@ -44,7 +44,7 @@ public class Account {
      * @param amount- сумма средств.
      * @return - возвращает true, если перевод прошол успешно.
      */
-    boolean transfer(Account destination, double amount) {
+    public boolean transfer(Account destination, double amount) {
         boolean success = false;
         if (amount > 0
                 && amount < this.values

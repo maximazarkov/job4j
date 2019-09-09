@@ -4,10 +4,11 @@ import java.util.Objects;
 
 /**
  * @author Azarkov Maxim.
- * @since 21.08.2019
+ * @since 0.4 10.09.2019
  */
-public class User {
-    private String name;    // имя пользователя
+public class User implements Comparable<User> {
+    // имя пользователя
+    private String name;
     private String pasport; // данные поспорта
 
     public User() {
@@ -58,4 +59,8 @@ public class User {
         return name;
     }
 
+    @Override
+    public int compareTo(User user) {
+        return this.pasport.compareTo(user.pasport);
+    }
 }

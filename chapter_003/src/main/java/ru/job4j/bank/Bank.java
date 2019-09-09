@@ -139,21 +139,9 @@ public class Bank {
      */
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                   String destPassport, String dstRequisite, double amount) {
-//        User srcUser = getUser(srcPassport);
-//        ArrayList<Account> srcUsrAccLst = getUserAccounts(srcUser);
-//        User destUser = getUser(destPassport);
-//        ArrayList<Account> destUsrAccLst = getUserAccounts(destUser);
-
-//        return this.users.get(srcUser).contains(srcUsrAccLst)
-//                && this.users.get(destUser).contains(destUsrAccLst)
-//                && getActualAccount(srcPassport, srcRequisite).transfer(
-//                getActualAccount(destPassport, dstRequisite), amount);
-
         Account srcUsrAcc = getActualAccount(srcPassport, srcRequisite);
         Account destUsrAcc = getActualAccount(destPassport, dstRequisite);
-
         return srcUsrAcc != null && destUsrAcc != null && srcUsrAcc.transfer(destUsrAcc, amount);
-
     }
 
     /**

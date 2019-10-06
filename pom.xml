@@ -40,9 +40,10 @@
         <module>chapter_002</module>
 		<module>chess</module>
         <module>chapter_003</module>
-		<!--
-		<module>tictactoe</module>
-		-->
+        <module>junior</module>
+        <!--
+        <module>tictactoe</module>
+        -->
     </modules>
 
 

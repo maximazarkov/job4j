@@ -29,7 +29,7 @@ public class Calculator {
         calc.multiple(
                 0, 10, 2,
                 (left, right) -> {
-                    int result = left * right;
+                    double result = left * right;
                     System.out.printf("Multiple %s * %s = %s %n", left, right, result);
                     return result;
                 },

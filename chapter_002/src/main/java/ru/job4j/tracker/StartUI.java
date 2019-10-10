@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author Azarkov Maxim
@@ -26,41 +27,40 @@ public class StartUI {
     private final Tracker tracker;
 
     /**
+     * Реализация вывода данных с помощью Consumer. С помощью лямбда будет передана функция println
+     * @since 11.10.2019 0.2
+     */
+    private final Consumer<String> output;
+
+    /**
      * Конструтор инициализирующий поля.
      * @param input ввод данных.
      * @param tracker хранилище заявок.
+     * @param output ...
+     * @since 11.10.2019 0.2
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
-        this.init();
+        this.output = output;
     }
 
     /**
      * Основой цикл программы.
      */
     private void init() {
-//        MenuTracker menu = new MenuTracker(this.input, this.tracker);
-//        menu.fillActions();
-//        do {
-//            menu.show();
-//            menu.select(Integer.valueOf(input.ask("select:")));
-//        } while (!"y".equals(this.input.ask("Exit?(y): ")));
-//    }
         boolean exit = false;
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        //List<Integer> range = new ArrayList<>();
+        MenuTracker menu = new MenuTracker(this.input, this.tracker, output);
         menu.fillActions();
         int[] range = new int[menu.getActionsLentgh()];
         for (int i = 0; i < menu.getActionsLentgh(); i++) {
-        //    range.add(i);
             range[i] = i;
         }
         while (!exit) {
             menu.show();
             //String answer = input.ask("Введите пункт меню : ");
             int answer = input.ask("Введите пункт меню : ", range);
-            menu.select(Integer.valueOf(answer));
+            menu.select(answer);
             //menu.select(input.ask("select:", range));
             if (EXIT == answer) {
                 exit = true;
@@ -71,6 +71,6 @@ public class StartUI {
     public static void main(String[] args) {
         //new StartUI(new ConsoleInput(), new Tracker()).init();
         //new StartUI(new ValidateInput(), new Tracker());
-        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker());
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println).init();
     }
 }

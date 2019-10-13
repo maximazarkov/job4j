@@ -15,10 +15,10 @@ public class StreamUsage {
 
         @Override
         public String toString() {
-            return "Task{" +
-                    "name='" + name + '\'' +
-                    ", spent=" + spent +
-                    '}';
+            return "Task{"
+                    + "name='" + name + '\''
+                    + ", spent=" + spent
+                    + '}';
         }
     }
 
@@ -28,7 +28,7 @@ public class StreamUsage {
                 new Task("Task #2", 100),
                 new Task("Bug #3", 100)
         );
-        List<Task> bugs = tasks.stream().filter(    // получаем объект типа Stream  и выполняе метод filter, который принимае лямбда выражение Predicate<Task>
+        List<Task> bugs = tasks.stream().filter(// получаем объект типа Stream  и выполняе метод filter, который принимае лямбда выражение Predicate<Task>
                 task -> task.name.contains("Bug")   // задаем условие, что пропускать только те  задачи, которые содержат слово Bug.
         ).collect(Collectors.toList());             // полученные результаты сохраняем в коллекции типа List.
         bugs.forEach(System.out::println);

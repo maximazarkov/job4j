@@ -10,21 +10,9 @@ import java.util.function.Consumer;
  * @since 0.1
  */
 public class StartUI {
-     /**
-     * Константа для выхода из цикла.
-     */
-    //private static final String EXIT = "6";
-     private static final int EXIT = 6;
-
-    /**
-     * Получение данных от пользователя.
-     */
-    private final Input input;
-
-    /**
-     * Хранилище заявок
-     */
-    private final Tracker tracker;
+    private static final int EXIT = 6; //Константа для выхода из цикла.
+    private final Input input; //  Получение данных от пользователя.
+    private final Tracker tracker; // Хранилище заявок
 
     /**
      * Реализация вывода данных с помощью Consumer. С помощью лямбда будет передана функция println
@@ -43,6 +31,7 @@ public class StartUI {
         this.input = input;
         this.tracker = tracker;
         this.output = output;
+        init();
     }
 
     /**
@@ -71,6 +60,6 @@ public class StartUI {
     public static void main(String[] args) {
         //new StartUI(new ConsoleInput(), new Tracker()).init();
         //new StartUI(new ValidateInput(), new Tracker());
-        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println).init();
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println);
     }
 }

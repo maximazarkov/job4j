@@ -5,17 +5,9 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class MenuTracker {
-    /**
-     * @param хранит ссылку на объект .
-     */
-    private Input input;
-    /**
-     * @param хранит ссылку на объект .
-     */
-    private Tracker tracker;
-    /**
-     * @param хранит ссылку на массив типа UserAction.
-     */
+    private Input input; // хранит ссылку на объект
+    private Tracker tracker; // хранит ссылку на объект
+    private List<UserAction> actions = new ArrayList<>(); // хранит ссылку на массив типа UserAction
 
     /**
      * Реализация вывода данных с помощью Consumer
@@ -23,14 +15,11 @@ public class MenuTracker {
      */
     private final Consumer<String> output;
 
-    private List<UserAction> actions = new ArrayList<>();
-
     /**
      * Конструктор.
-     *
      * @param input   объект типа Input
      * @param tracker объект типа Tracker
-     *
+     * @param output
      */
     public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
@@ -40,7 +29,6 @@ public class MenuTracker {
 
     /**
      * Метод для получения длинны массива меню.
-     *
      * @return длину массива
      */
     public int getActionsLentgh() {

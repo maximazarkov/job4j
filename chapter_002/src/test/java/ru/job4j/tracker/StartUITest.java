@@ -13,16 +13,19 @@ import static org.junit.Assert.assertThat;
 
 public class StartUITest {
 
-    // создадим буфер для результата
-    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-    private final Consumer<String> output = new Consumer<String>() {
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();  // буфер для результата
+    private final Consumer<String> output = new Consumer<String>() {        //...
         // сохраним дефолный вывод на консоль, чтобы потом к нему вернуться
         private final PrintStream stdout = new PrintStream(out);
-
         @Override
         public void accept(String s) {
             stdout.println(s);
+        }
+
+        @Override
+        public String toString() {
+            return out.toString();
         }
     };
 
@@ -36,6 +39,16 @@ public class StartUITest {
         .append("5. Find items by name").append(LS)
         .append("6. Exit Program").toString();
 
+    @Before
+    public void loadOutput() {
+        System.setOut(new PrintStream(this.out));
+    }
+//
+//    @After
+//    public void backOutput() {
+//        System.setOut(this.stdout);
+//    }
+
     @Test
     public void whenShowAllItems() {
         Tracker tracker = new Tracker();     // создаём Tracker
@@ -46,11 +59,10 @@ public class StartUITest {
         StringBuilder sb = new StringBuilder();
         sb.append(MENU).append(LS);
         sb.append("------------ Отображение всех заявки --------------").append(LS);
-        sb.append(String.format("Item{id='%S', name='%s', desc='%s', time=%s}",
-                item.getId(),
+        sb.append(String.format("Name: %s| Desc: %s| Id: %s",
                 item.getName(),
                 item.getDesc(),
-                item.getTime())).append(LS);
+                item.getId())).append(LS);
         sb.append("---------------------------------------------------").append(LS);
         sb.append(MENU).append(LS);
         //assertThat(new String(out.toByteArray()), is(sb.toString()));
@@ -62,20 +74,20 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = new Item("a", "a", 123L);
         tracker.add(item);
-        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
-        new StartUI(input, tracker, output);
-        StringBuilder sb = new StringBuilder();
-        sb.append(MENU).append(LS);
-        sb.append("---------------- Поиск заявки по Id ---------------").append(LS);
-        sb.append(String.format("Item{id='%S', name='%s', desc='%s', time=%s}",
-                item.getId(),
-                item.getName(),
-                item.getDesc(),
-                item.getTime())).append(LS);
-        sb.append("---------------------------------------------------").append(LS);
-        sb.append(MENU).append(LS);
+//      new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println).init();
+        new StartUI(new StubInput(new String[]{"4", item.getId(), "6"}), tracker, output);
         //assertThat(new String(out.toByteArray()), is(sb.toString()));
-        assertThat(this.output.toString(), is(sb.toString()));
+        String sb = MENU + LS
+                + "---------------- Поиск заявки по Id ---------------" + LS
+                + String.format("Item{id='%S', name='%s', desc='%s', time=%s}",
+                        item.getId(),
+                        item.getName(),
+                        item.getDesc(),
+                        item.getTime())
+                + LS
+                + "---------------------------------------------------" + LS
+                + MENU + LS;
+        assertThat(this.output.toString(), is(sb));
     }
 
     @Test

@@ -2,36 +2,33 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class MenuTracker {
+    private Input input; // хранит ссылку на объект
+    private Tracker tracker; // хранит ссылку на объект
+    private List<UserAction> actions = new ArrayList<>(); // хранит ссылку на массив типа UserAction
+
     /**
-     * @param хранит ссылку на объект .
+     * Реализация вывода данных с помощью Consumer
+     * @since 11.10.2019 0.2
      */
-    private Input input;
-    /**
-     * @param хранит ссылку на объект .
-     */
-    private Tracker tracker;
-    /**
-     * @param хранит ссылку на массив типа UserAction.
-     */
-    // изначально был создан в ArrayList<>
-    private List<UserAction> actions = new ArrayList<>();
+    private final Consumer<String> output;
 
     /**
      * Конструктор.
-     *
      * @param input   объект типа Input
      * @param tracker объект типа Tracker
+     * @param output
      */
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
 
     /**
      * Метод для получения длинны массива меню.
-     *
      * @return длину массива
      */
     public int getActionsLentgh() {
@@ -57,7 +54,7 @@ public class MenuTracker {
      * @param key ключ операции
      */
     public void select(int key) {
-        this.actions.get(key).execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker, output);
     }
 
     /**

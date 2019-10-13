@@ -7,16 +7,8 @@ import java.util.*;
  * @since 0.1
  */
 public class Tracker {
-    /**
-     * Массив для хранение заявок.
-     */
-    private final List<Item> items = new ArrayList<>();
-
-	 /**
-     * ссылка на объект, для генерации случайных чисел.
-     */
-
-	private static final Random RN = new Random();
+    private final List<Item> items = new ArrayList<>(); // массив для хранение заявок.
+	private static final Random RN = new Random(); // ссылка на объект, для генерации случайных чисел.
 	
     /**
      * Метод реализаущий добавление заявки в хранилище.

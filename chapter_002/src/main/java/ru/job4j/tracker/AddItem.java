@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Класс реализует добавленяи новый заявки в хранилище.
  */
@@ -25,12 +27,13 @@ public class AddItem extends BaseAction {
 //    }
 
     @Override
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
         System.out.println("------------ Добавление новой заявки --------------");
         String name = input.ask("Введите имя заявки :");
         String desc = input.ask("Введите описание заявки :");
         Item item = new Item(name, desc, System.currentTimeMillis());
         tracker.add(item);
         System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
+        output.accept("------------ Новая заявка с getId : " + item.getId() + "-----------");
     }
 }

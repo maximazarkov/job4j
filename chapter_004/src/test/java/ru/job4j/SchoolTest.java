@@ -14,10 +14,10 @@
 package ru.job4j;
 
 import org.junit.Test;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
-import java.beans.BeanProperty;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SchoolTest {
 
@@ -25,78 +25,48 @@ public class SchoolTest {
     public void whenScoreGreaterOrEqual70() {
         School school = new School();
         List<Student> students = students();
-        List<Student> A10 = students.stream().filter(
-                student -> student.getScore() > 70
-        ).collect(Collectors.toList());
-        A10.forEach(System.out::println);
-        //school.collect(students, );
+        List<Student> class10A = school.collect(students, student -> student.getScore() >= 70);
+        List<Student> expected = List.of(
+                new Student("Sturdent1", 95),
+                new Student("Sturdent2", 75),
+                new Student("Sturdent3", 70)
+        );
+        assertThat(class10A, is(expected));
     }
 
     @Test
     public void whenScoreGreaterOrEqual50Less70() {
         School school = new School();
         List<Student> students = students();
-        List<Student> B10 = students.stream().filter(
-                student -> (student.getScore() > 50) && (student.getScore() < 70)
-        ).collect(Collectors.toList());
-        B10.forEach(System.out::println);
-        //school.collect(students, );
+        List<Student> class10B = school.collect(students, student -> (student.getScore() >= 50) && (student.getScore() < 70));
+        List<Student> expected = List.of(
+                new Student("Sturdent4", 65),
+                new Student("Sturdent5", 50)
+        );
+        assertThat(class10B, is(expected));
     }
 
     @Test
     public void whenScoreLess50() {
         School school = new School();
         List<Student> students = students();
-        List<Student> C10 = students.stream().filter(
-                student -> student.getScore() < 50
-        ).collect(Collectors.toList());
-        C10.forEach(System.out::println);
-        //school.collect(students, );
+        List<Student> class10C = school.collect(students, student -> student.getScore() < 50);
+        List<Student> expected = List.of(
+                new Student("Sturdent1", 45),
+                new Student("Sturdent1", 40)
+        );
+        assertThat(class10C, is(expected));
     }
 
     private List<Student> students() {
         return List.of(
-                new Student(100),
-                new Student(95),
-                new Student(90),
-                new Student(85),
-                new Student(80),
-                new Student(75),
-                new Student(70),
-                new Student(65),
-                new Student(60),
-                new Student(55),
-                new Student(50),
-                new Student(45),
-                new Student(40)
+                new Student("Sturdent1", 95),
+                new Student("Sturdent2", 75),
+                new Student("Sturdent3", 70),
+                new Student("Sturdent4", 65),
+                new Student("Sturdent5", 50),
+                new Student("Sturdent1", 45),
+                new Student("Sturdent1", 40)
         );
     }
 }
-
-//package ru.job4j;
-//
-//import java.util.List;
-//import java.util.stream.Collectors;
-//
-//public class StreamUsage {
-//
-//    public static void main(String[] args) {
-//        List<Task> bugs = tasks.stream().filter(// получаем объект типа Stream  и выполняе метод filter, который принимае лямбда выражение Predicate<Task>
-//                task -> task.name.contains("Bug")   // задаем условие, что пропускать только те  задачи, которые содержат слово Bug.
-//        ).collect(Collectors.toList());             // полученные результаты сохраняем в коллекции типа List.
-//        bugs.forEach(System.out::println);
-//
-//        // Допустим, что на нужно получить только имена задач. Для этого нужно применить метод map.
-//        List<String> names = tasks.stream().map(
-//                task -> task.name
-//        ).collect(Collectors.toList());
-//        names.forEach(System.out::println);
-//
-//        // Давайте теперь посчитаем общую сумму потраченную на все задачи.
-//        long total = tasks.stream().map(
-//                task -> task.spent
-//        ).reduce(0L, Long::sum);   //каждое значение task.spent - нужно сложить с начальным значение 0L.
-//
-//        System.out.println(total);
-//    }
-//}

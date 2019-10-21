@@ -2,7 +2,7 @@ package ru.job4j;
 
 import java.util.Objects;
 
-public class Profile {
+public class Profile implements Comparable {
     private Address address;
 
     public Profile(Address address) {
@@ -28,5 +28,11 @@ public class Profile {
     @Override
     public int hashCode() {
         return Objects.hash(address);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Profile profile = (Profile) o;
+        return this.address.compareTo(profile.getAddress());
     }
 }

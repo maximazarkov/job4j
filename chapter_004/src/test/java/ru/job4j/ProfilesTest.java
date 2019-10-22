@@ -30,7 +30,9 @@ public class ProfilesTest {
 
     private List<Profile> profiles() {
         return List.of(
+                new Profile(new Address("city2", "Street3", 34, 145)),
                 new Profile(new Address("city1", "Street1", 5, 10)),
+                new Profile(new Address("city2", "Street3", 34, 145)),
                 new Profile(new Address("city2", "Street3", 34, 145)),
                 new Profile(new Address("city3", "Street4", 867, 234))
         );

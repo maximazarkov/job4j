@@ -6,6 +6,10 @@ public class Student {
     private String nameStudent;
     private int score;
 
+    public String getNameStudent() {
+        return nameStudent;
+    }
+
     /**
      * Класс содержит информацию о имени студента и его успеваемость в баллах
      * @param nameStudent - имя студента

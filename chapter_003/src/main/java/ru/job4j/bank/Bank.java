@@ -2,9 +2,8 @@
 //package com;
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Класс условного банка. Позволяет ввести пользователей и провести межжу ними перевод (транзакцию)
@@ -116,6 +115,7 @@ public class Bank {
      * @param passport - данные паспорта интересуемого пользователя
      * @return - список аккаутов (счетов), прикрепленных к пользователю
      * @since 0.1
+     * @deprecated
      */
     public ArrayList<Account> getUserAccounts(String passport) {
         ArrayList<Account> accounts = new ArrayList<>();
@@ -125,6 +125,27 @@ public class Bank {
             }
         }
         return accounts;
+    }
+
+//        public List<Student> collect(List<Student> students, Predicate<Student> predict) {
+//        return students.stream()
+//                .filter(predict)
+//                .collect(Collectors.toList());
+//    }
+    public ArrayList<Account> getUserAccountsStream(String passport) {
+        return this.users.keySet().stream()
+                .filter(e -> e.getPassport().equals(passport))
+                .map(e -> users.get(e))
+//                .peek(e -> (Account) e)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+//        ArrayList<Account> accounts = new ArrayList<>();
+//        for (User user : this.users.keySet()) {
+//            if (user.getPassport().equals(passport)) {
+//                accounts = this.users.get(user);
+//            }
+//        }
+//        return accounts;
     }
 
     /**

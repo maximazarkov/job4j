@@ -55,7 +55,8 @@ public class BankTest {
         bank.addAccountToUser("12 34 123456", new Account(10000, "1111 11111 1111 11111"));
         bank.addAccountToUser("12 34 123456", new Account(20000, "2222 11111 1111 11111"));
 
-        List<Account> result = bank.getUserAccounts("55 44 321321");
+//        List<Account> result = bank.getUserAccounts("55 44 321321");
+        List<Account> result = bank.getUserAccountsStream("55 44 321321");
         List<Account> expect = new ArrayList<Account>();
         assertThat(result, is(expect));
     }

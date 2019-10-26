@@ -127,25 +127,13 @@ public class Bank {
         return accounts;
     }
 
-//        public List<Student> collect(List<Student> students, Predicate<Student> predict) {
-//        return students.stream()
-//                .filter(predict)
-//                .collect(Collectors.toList());
-//    }
     public ArrayList<Account> getUserAccountsStream(String passport) {
-        return this.users.keySet().stream()
-                .filter(e -> e.getPassport().equals(passport))
-                .map(e -> users.get(e))
-//                .peek(e -> (Account) e)
-                .collect(Collectors.toCollection(ArrayList::new));
-
-//        ArrayList<Account> accounts = new ArrayList<>();
-//        for (User user : this.users.keySet()) {
-//            if (user.getPassport().equals(passport)) {
-//                accounts = this.users.get(user);
-//            }
-//        }
-//        return accounts;
+        ArrayList<Account> accounts = new ArrayList<>();
+        this.users.keySet().stream()
+                .filter(passpUser -> passpUser.getPassport().equals(passport))
+//                .forEach(user -> accounts.addAll(this.users.get(user)));
+                .collect(Collectors.toList());
+        return accounts;
     }
 
     /**

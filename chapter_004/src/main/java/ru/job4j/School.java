@@ -20,4 +20,12 @@ public class School {
                 .filter(predict)
                 .collect(Collectors.toList());
     }
+
+    List<Student> levelOf(List<Student> students, int bound) {
+//        - Отсортировать список.
+//        - Используя метод flatMap убрать null
+//        - Используя метод takeWhile получить нужный поток.
+//        - Сохранить поток в List.
+        return null;
+    }
 }

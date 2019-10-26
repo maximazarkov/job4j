@@ -7,6 +7,10 @@ public class Student implements Comparable {
     private String nameStudent;     //ФИО студента
     private int scope;              //Балл атестата
 
+    public String getNameStudent() {
+        return nameStudent;
+    }
+
     /**
      * Класс содержит информацию о имени студента и его успеваемость в баллах
      * @param nameStudent - имя студента

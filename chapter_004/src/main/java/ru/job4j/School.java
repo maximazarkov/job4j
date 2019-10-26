@@ -1,6 +1,8 @@
 package ru.job4j;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -21,6 +23,22 @@ public class School {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * преобразование списка в карту, с применением stream...Collectors.toMap.
+     * @param students - список студентов.
+     * @param predictKey - фамилия ученика.
+     * @param predictValue объект ученика.
+     * @return - список студентов (Map).
+     * @since v0.3 24.10.2019.
+     */
+    public Map<String, Student> collect(List<Student> students,
+                                        Function<Student, String> predictKey,
+                                        Function<Student, Student> predictValue) {
+        return students.stream()
+                .distinct()
+                .collect(Collectors.toMap(predictKey, predictValue));
+    }
+
     List<Student> levelOf(List<Student> students, int bound) {
 //        - Отсортировать список.
 //        - Используя метод flatMap убрать null
@@ -28,4 +46,5 @@ public class School {
 //        - Сохранить поток в List.
         return null;
     }
+
 }

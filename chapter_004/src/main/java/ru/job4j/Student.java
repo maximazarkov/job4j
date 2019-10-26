@@ -22,7 +22,7 @@ public class Student implements Comparable {
         this.scope = scope;
     }
 
-    public int getscope() {
+    public int getScope() {
         return scope;
     }
 
@@ -66,6 +66,13 @@ public class Student implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return 0;
+//        if (this == o) {
+//            return 0;
+//        }
+//        if (o == null || getClass() != o.getClass()) {
+//            return 0;
+//        }
+        Student student = (Student) o;
+        return student.getScope() - scope;
     }
 }

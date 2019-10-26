@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -40,11 +41,10 @@ public class School {
     }
 
     List<Student> levelOf(List<Student> students, int bound) {
-//        - Отсортировать список.
-//        - Используя метод flatMap убрать null
-//        - Используя метод takeWhile получить нужный поток.
-//        - Сохранить поток в List.
-        return null;
+        return students.stream()
+                .flatMap(Stream::ofNullable)
+                .takeWhile(b -> b.getScope() >= bound)
+                .collect(Collectors.toList());
     }
 
 }

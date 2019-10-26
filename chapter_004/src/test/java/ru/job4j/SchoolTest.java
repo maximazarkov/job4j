@@ -17,9 +17,9 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import ru.job4j.Student.*;
 
 public class SchoolTest {
 
@@ -27,7 +27,7 @@ public class SchoolTest {
     public void whenScoreGreaterOrEqual70() {
         School school = new School();
         List<Student> students = students();
-        List<Student> class10A = school.collect(students, student -> student.getScore() >= 70);
+        List<Student> class10A = school.collect(students, student -> student.getScope() >= 70);
         List<Student> expected = List.of(
                 new Student("Sturdent1", 95),
                 new Student("Sturdent2", 75),
@@ -40,7 +40,8 @@ public class SchoolTest {
     public void whenScoreGreaterOrEqual50Less70() {
         School school = new School();
         List<Student> students = students();
-        List<Student> class10B = school.collect(students, student -> (student.getScore() >= 50) && (student.getScore() < 70));
+        List<Student> class10B = school.collect(students, student -> (student.getScope() >= 50) && (student.getScope() < 70));
+        Collections.sort(class10B);
         List<Student> expected = List.of(
                 new Student("Sturdent4", 65),
                 new Student("Sturdent5", 50)
@@ -52,7 +53,7 @@ public class SchoolTest {
     public void whenScoreLess50() {
         School school = new School();
         List<Student> students = students();
-        List<Student> class10C = school.collect(students, student -> student.getScore() < 50);
+        List<Student> class10C = school.collect(students, student -> student.getScope() < 50);
         List<Student> expected = List.of(
                 new Student("Sturdent6", 45),
                 new Student("Sturdent7", 40)
@@ -79,14 +80,30 @@ public class SchoolTest {
         assertThat(classMap, is(expected));
     }
 
+    @Test
+    public void whenBound70() {
+        School school = new School();
+        List<Student> students = students();
+        Collections.sort(students);
+        List<Student> class10A = school.levelOf(students, 70);
+
+        List<Student> expected = List.of(
+                new Student("Sturdent1", 95),
+                new Student("Sturdent2", 75),
+                new Student("Sturdent3", 70)
+        );
+        assertThat(class10A, is(expected));
+
+    }
+
     private List<Student> students() {
         return List.of(
                 new Student("Sturdent1", 95),
                 new Student("Sturdent2", 75),
-                new Student("Sturdent3", 70),
-                new Student("Sturdent4", 65),
                 new Student("Sturdent5", 50),
+                new Student("Sturdent3", 70),
                 new Student("Sturdent6", 45),
+                new Student("Sturdent4", 65),
                 new Student("Sturdent7", 40)
         );
     }

@@ -28,6 +28,8 @@
                 <version>3.3</version>
                 <configuration>
                     <compilerVersion>1.8</compilerVersion>
+                    <source>13</source>
+                    <target>13</target>
                 </configuration>
             </plugin>
         </plugins>

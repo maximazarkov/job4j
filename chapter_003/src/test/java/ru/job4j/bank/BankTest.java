@@ -56,7 +56,7 @@ public class BankTest {
         bank.addAccountToUser("12 34 123456", new Account(20000, "2222 11111 1111 11111"));
 
 //        List<Account> result = bank.getUserAccounts("55 44 321321");
-        List<Account> result = bank.getUserAccountsStream("55 44 321321");
+        List<Account> result = bank.getUserAccounts("55 44 321321");
         List<Account> expect = new ArrayList<Account>();
         assertThat(result, is(expect));
     }
@@ -68,14 +68,22 @@ public class BankTest {
         Account accForDelete = new Account(10000, "1111 11111 1111 11111");
         bank.addAccountToUser("12 34 123456", accForDelete);
         bank.addAccountToUser("12 34 123456", new Account(20000, "2222 11111 1111 11111"));
+        System.out.println(bank);
 
         bank.deleteUserAccountFromUser("12 34 123456", accForDelete);
+        System.out.println(bank);
         List<Account> result = bank.getUserAccounts("12 34 123456");
 
         List<Account> expect = new ArrayList<Account>();
         expect.add(new Account(20000, "2222 11111 1111 11111"));
-
         assertThat(result, is(expect));
+        assertTrue(result.equals(expect));
+        expect.add(new Account(20000, "2222 1111 1111 11111"));
+        assertFalse(result.equals(expect));
+        expect.add(new Account(30000, "2222 11111 1111 11111"));
+        assertFalse(result.equals(expect));
+        expect.add(new Account(30000, "2222 1111 1111 11111"));
+        assertFalse(result.equals(expect));
     }
 
     @Test

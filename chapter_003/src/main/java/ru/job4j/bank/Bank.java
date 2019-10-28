@@ -41,16 +41,13 @@ public class Bank {
      * Метод подключнич пользователч к аккаунту.
      * @param passport - номер паспорта пользователя.
      * @param account - аккаунт пользователя.
-     * @since 0.1
+     * @since 0.3 28.10.2019
      */
     public void addAccountToUser(String passport, Account account) {
-        for (User user : this.users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                ArrayList<Account> usrAcc = getUserAccounts(user);
-                usrAcc.add(account);
-                break;
-            }
-        }
+        this.users.keySet().stream()
+                .filter(passpUser -> passpUser.getPassport().equals(passport))
+                .map(usrAcc -> getUserAccounts(usrAcc).add(account))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -74,30 +71,24 @@ public class Bank {
      */
     private Account getActualAccount(String passport, String srcRequisite) {
         ArrayList<Account> accounts = getUserAccounts(passport);
-        Account account = null;
-        for (Account acc : accounts) {
-            if (acc.getRequisites().equals(srcRequisite)) {
-                account = acc;
-            }
-        }
-        return account;
+        return accounts.stream()
+                .filter(acc -> acc.getRequisites().equals(srcRequisite))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
      * Удаляем аккаунь (отключаем аккаун от пользователя)
      * @param pasport- пользователь
      * @param account - отключаемый аккаунт
-     * @since 0.1
+     * @since 0.3
      */
     public void deleteUserAccountFromUser(String pasport, Account account) {
-        for (User user : this.users.keySet()) {
-            if (user.getPassport().equals(pasport)) {
-                ArrayList<Account> accounts = this.users.get(user);
-                accounts.remove(account);
-                this.users.replace(user, accounts);
-                break;
-            }
-        }
+        this.users.keySet().stream()
+                .filter(user -> user.getPassport().equals(pasport))
+                .map(user -> this.users.get(user).remove(account))
+//                .map(user -> user.replace(user, account))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -114,25 +105,14 @@ public class Bank {
      * получить список счетов (аккаунтов) пользователя
      * @param passport - данные паспорта интересуемого пользователя
      * @return - список аккаутов (счетов), прикрепленных к пользователю
-     * @since 0.1
-     * @deprecated
+     * @since 0.2 26.10.2019
      */
     public ArrayList<Account> getUserAccounts(String passport) {
         ArrayList<Account> accounts = new ArrayList<>();
-        for (User user : this.users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                accounts = this.users.get(user);
-            }
-        }
-        return accounts;
-    }
-
-    public ArrayList<Account> getUserAccountsStream(String passport) {
-        ArrayList<Account> accounts = new ArrayList<>();
         this.users.keySet().stream()
                 .filter(passpUser -> passpUser.getPassport().equals(passport))
-//                .forEach(user -> accounts.addAll(this.users.get(user)));
-                .collect(Collectors.toList());
+                .forEach(user -> accounts.addAll(this.users.get(user)));
+//                .collect(Collectors.toList());
         return accounts;
     }
 
@@ -160,14 +140,11 @@ public class Bank {
      * * @since 0.2
      */
     public User getUser(String passport) {
-        User result = new User();
-        for (User user : this.users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                result = user;
-                break;
-            }
-        }
-        return result;
+        final User user = this.users.keySet().stream()
+                .filter(u -> u.getPassport().equals(passport))
+                .findFirst()
+                .orElse(new User(null, null));
+        return user;
     }
 
     public String toString() {

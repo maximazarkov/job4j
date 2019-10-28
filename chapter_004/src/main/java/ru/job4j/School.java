@@ -29,13 +29,12 @@ public class School {
      * @param predictKey - фамилия ученика.
      * @param predictValue объект ученика.
      * @return - список студентов (Map).
-     * @since v0.3 24.10.2019.
+     * @since v0.4 28.10.2019.
      */
     public Map<String, Student> collect(List<Student> students,
                                         Function<Student, String> predictKey,
                                         Function<Student, Student> predictValue) {
         return students.stream()
-                .distinct()
                 .collect(Collectors.toMap(predictKey, predictValue));
     }
 }

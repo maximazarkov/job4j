@@ -84,7 +84,6 @@ public class SchoolTest {
     public void whenBound70() {
         School school = new School();
         List<Student> students = students();
-        Collections.sort(students);
         List<Student> class10A = school.levelOf(students, 70);
 
         List<Student> expected = List.of(

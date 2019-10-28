@@ -41,6 +41,7 @@ public class School {
 
     List<Student> levelOf(List<Student> students, int bound) {
         return students.stream()
+                .sorted()
                 .flatMap(Stream::ofNullable)
                 .takeWhile(b -> b.getScope() >= bound)
                 .collect(Collectors.toList());

@@ -49,6 +49,26 @@ public class BankTest {
     }
 
     @Test
+    public void whenAddTwoUserAndTwoAccaunstThenFindTwoAccaunts() {
+        Bank bank = new Bank();
+        bank.addUser(new User("Иван", "12 34 123456"));
+        bank.addAccountToUser("12 34 123456", new Account(10000, "1111 11111 1111 11111"));
+        bank.addUser(new User("Степан", "21 43 654321"));
+        bank.addAccountToUser("21 43 654321", new Account(20000, "2222 11111 1111 11111"));
+
+        List<Account> result = bank.getUserAccounts("12 34 123456");
+        List<Account> expect = new ArrayList<Account>();
+        expect.add(new Account(10000, "1111 11111 1111 11111"));
+        assertThat(result, is(expect));
+
+        result = bank.getUserAccounts("21 43 654321");
+        expect = new ArrayList<Account>();
+        expect.add(new Account(20000, "2222 11111 1111 11111"));
+
+        assertThat(result, is(expect));
+    }
+
+    @Test
     public void whenAddTwoAccaunstFromPassportNotFoundAccounts() {
         Bank bank = new Bank();
         bank.addUser(new User("Иван", "12 34 123456"));
@@ -84,6 +104,37 @@ public class BankTest {
         assertFalse(result.equals(expect));
         expect.add(new Account(30000, "2222 1111 1111 11111"));
         assertFalse(result.equals(expect));
+    }
+
+    @Test
+    public void whenDeletingTheAccountOfTheSecondUserOnThePassport() {
+        Bank bank = new Bank();
+        Account accForDelete = new Account(20000, "2222 11111 1111 11111");
+        bank.addUser(new User("Иван", "12 34 123456"));
+        bank.addUser(new User("Степан", "21 43 654321"));
+        bank.addAccountToUser("12 34 123456", new Account(10000, "1111 11111 1111 11111"));
+        bank.addAccountToUser("21 43 654321", accForDelete);
+
+        List<Account> result = bank.getUserAccounts("12 34 123456");
+        List<Account> expect = new ArrayList<>();
+        expect.add(new Account(10000, "1111 11111 1111 11111"));
+        assertThat(result, is(expect));
+
+        result = bank.getUserAccounts("21 43 654321");
+        expect = new ArrayList<>();
+        expect.add(accForDelete);
+        assertThat(result, is(expect));
+
+        bank.deleteUserAccountFromUser("21 43 654321", accForDelete);
+
+        result = bank.getUserAccounts("12 34 123456");
+        expect = new ArrayList<>();
+        expect.add(new Account(10000, "1111 11111 1111 11111"));
+        assertThat(result, is(expect));
+
+        result = bank.getUserAccounts("21 43 654321");
+        expect = new ArrayList<>();
+        assertThat(result, is(expect));
     }
 
     @Test

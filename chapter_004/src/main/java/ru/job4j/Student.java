@@ -1,31 +1,36 @@
 package ru.job4j;
 
+import java.util.List;
 import java.util.Objects;
 
-public class Student {
-    private String nameStudent;
-    private int score;
+public class Student implements Comparable {
+    private String nameStudent;     //ФИО студента
+    private int scope;              //Балл атестата
+
+    public String getNameStudent() {
+        return nameStudent;
+    }
 
     /**
      * Класс содержит информацию о имени студента и его успеваемость в баллах
      * @param nameStudent - имя студента
-     * @param score - успеваемость
+     * @param scope - успеваемость
      * @since v0.2 16.10.2019
      */
-    public Student(String nameStudent, int score) {
+    public Student(String nameStudent, int scope) {
         this.nameStudent = nameStudent;
-        this.score = score;
+        this.scope = scope;
     }
 
-    public int getScore() {
-        return score;
+    public int getScope() {
+        return scope;
     }
 
     @Override
     public String toString() {
         return "Student{"
                 + "nameStudent='" + nameStudent + '\''
-                + ", score=" + score
+                + ", scope=" + scope
                 + '}';
     }
 
@@ -45,7 +50,7 @@ public class Student {
             return false;
         }
         Student student = (Student) o;
-        return score == student.score
+        return scope == student.scope
                 && Objects.equals(nameStudent, student.nameStudent);
     }
 
@@ -56,6 +61,18 @@ public class Student {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(nameStudent, score);
+        return Objects.hash(nameStudent, scope);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+//        if (this == o) {
+//            return 0;
+//        }
+//        if (o == null || getClass() != o.getClass()) {
+//            return 0;
+//        }
+        Student student = (Student) o;
+        return student.getScope() - scope;
     }
 }

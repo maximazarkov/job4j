@@ -13,15 +13,15 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        int low = 0;
-        int high = tasks.size() - 1;
-        int mid = 0;
+        var low = 0;
+        var high = tasks.size() - 1;
+        var mid = 0;
         ListIterator<Task> lit;
         while (low <= high) {
             mid = (low + high) / 2;
             lit = tasks.listIterator(mid);
-            int tsksPriority = lit.next().getPriority();
-            int tskPriority = task.getPriority();
+            var tsksPriority = lit.next().getPriority();
+            var tskPriority = task.getPriority();
             if (tsksPriority == tskPriority) {
                 break;
             }

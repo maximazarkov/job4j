@@ -11,5 +11,9 @@
 
     <artifactId>tictactoe</artifactId>
 
+<!--
+    - -module-path C:\Tools\javafx-sdk-11.0.2\lib - -add-modules javafx.controls,javafx.fxml
+-->
+
 
 </project>

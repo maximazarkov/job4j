@@ -41,9 +41,7 @@
 		<module>chess</module>
         <module>chapter_003</module>
         <module>chapter_004</module>
-        <!--
         <module>tictactoe</module>
-        -->
     </modules>
 
 
@@ -67,25 +65,25 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>11</version>
+            <version>11.0.2</version>
         </dependency>
         <!-- библиотека для тестирования -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>11</version>
+            <version>11.0.2</version>
         </dependency>
         <!-- библиотека для тестирования -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>11</version>
+            <version>11.0.2</version>
         </dependency>
         <!-- библиотека для тестирования -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>11</version>
+            <version>11.0.2</version>
         </dependency>
     </dependencies>
 

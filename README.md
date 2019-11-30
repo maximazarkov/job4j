@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/maximazarkov/job4j.svg?branch=master)](https://travis-ci.org/maximazarkov/job4j)
 [![codecov](https://codecov.io/gh/maximazarkov/job4j/branch/master/graph/badge.svg)](https://codecov.io/gh/maximazarkov/job4j)
 
-# Репозиторий Максима Азаркова для обучения языку Java на [Job4j.ru](#Job4j.ru)
+# Репозиторий Максима Азаркова для обучения языку Java на [Job4j.ru](http://Job4j.ru)
 Здравствуйте, друзья. Меня зовут Азарков Максим. Представляю Вам результаты моего обучения на ресурсе Job4j.ru.
 Проект создан в целях обучения, и за использование Вами программ из данного проекта, я ответственности не несу.
 
@@ -72,20 +72,20 @@
 ### Игра Chess
 В данномм разделе был предоставленн проект игры в шахматы. По задаче, необходимо было дописать логику перемещения фигур. ИИ в данной игре не реализован.
 
-![Image of Chass](https://github.com/maximazarkov/job4j/tree/master/images/chess.jpg)
+![Image of Chass](https://github.com/maximazarkov/job4j/blob/master/images/shess.png)
  
 [к оглавлению](#Оглавление-проекта)
 
 ### Игра Puzzle
 В данномм разделе был предоставленн проект игры Puzzle. По задаче, необходимо было дописать логику перемещения фигур. ИИ в данной игре не реализован.
 
-![Image of puzzle](https://github.com/maximazarkov/job4j/tree/master/images/puzzle1.jpg)
+![Image of puzzle](https://github.com/maximazarkov/job4j/blob/master/images/puzzle1.png)
 [к оглавлению](#Оглавление-проекта)
 
 ### Игра TicTacToe
 В данномм разделе был предоставленн проект игры крестики-нолики. По задаче, необходимо было дописать логику определения победителя, играющего за крестики или нолики. Для игры за крестики необходимо нажимать левую кнопку мыши, за нолики - правую. ИИ в данной игре не реализован.
 
-![Image of TicTacToe](https://github.com/maximazarkov/job4j/tree/master/images/tictactoe.jpg)
+![Image of TicTacToe](https://github.com/maximazarkov/job4j/blob/master/images/TicTacToe.png)
 
 [к оглавлению](#Оглавление-проекта)
 

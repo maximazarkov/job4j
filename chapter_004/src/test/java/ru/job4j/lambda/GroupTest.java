@@ -27,10 +27,10 @@ public class GroupTest {
         expected.put("Student1 name", new HashSet<>());
         expected.put("Student2 name", new HashSet<>());
         expected.put("Student3 name", new HashSet<>());
-        List<String> students = new ArrayList<>();
-        students.add("Student1 name");
-        students.add("Student2 name");
-        students.add("Student3 name");
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("Student1 name", new HashSet<>()));
+        students.add(new Student("Student2 name", new HashSet<>()));
+        students.add(new Student("Student3 name", new HashSet<>()));
         assertThat(Group.sections(students), is(expected));
     }
 }

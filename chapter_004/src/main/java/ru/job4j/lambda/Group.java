@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 
 public class Group {
 
-    public static Map<String, Set<String>> sections(List<String> students) {
+    public static Map<String, Set<String>> sections(List<Student> students) {
         Set<String> units = new HashSet<>();
         return students.stream()
-//                .flatMap(String::lines)
-                .collect(Collectors.toMap(p -> p, t -> units));
+//                .flatMap(p -> p.)
+                .collect(Collectors.toMap(p -> p.getName(), t -> units));
     }
 
     /*Данная функция эксперементальная и может быть @Deprecated*/

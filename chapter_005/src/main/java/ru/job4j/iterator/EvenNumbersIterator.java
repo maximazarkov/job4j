@@ -45,10 +45,10 @@ public class EvenNumbersIterator implements Iterator {
      */
     @Override
     public Object next() throws NoSuchElementException {
-        if (hasNext()) {
-            return values[index++];
-        } else {
+        if (!hasNext()) {
             throw new NoSuchElementException("There are no even numbers");
+        } else {
+            return values[index++];
         }
     }
 }

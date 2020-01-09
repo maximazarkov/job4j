@@ -1,41 +1,30 @@
 package ru.job4j.iterator;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.function.Consumer;
 
-public class Converter<T> implements Iterator<T> {
-    private Iterator<Iterator<T>> iters;
-    private Iterator<T> itInt;
+public class Converter<T> {
 
-    @Override
-    public boolean hasNext() {
-        return itInt != null;
-    }
+    Iterator<T> convert(Iterator<Iterator<T>> iters) {
+        return new Iterator<T>() {
+            private Iterator<T> iterator = (new ArrayList<T>()).iterator();
 
-    @Override
-    public T next() throws NoSuchElementException {
-        T t = itInt.next();
+            @Override
+            public boolean hasNext() {
+                while (iters.hasNext() && !iterator.hasNext()) {
+                    iterator = iters.next();
+                }
+                return iterator.hasNext();
+            }
 
-        while (itInt != null && !itInt.hasNext()) {
-            itInt = this.iters.hasNext() ? this.iters.next() : null;
-        }
-
-        return t;
-    }
-
-    Iterator<Integer> convert(Iterator<T>... iters) {
-        this.iters = Arrays.asList(iters).iterator();
-        itInt = this.iters.hasNext() ? this.iters.hasNext() : null;
-
-        Iterator<Integer> result = null;
-        return result;
-    }
-
-    @Override
-    public void forEachRemaining(Consumer action) throws NullPointerException {
-        while (hasNext())
-            action.accept(next());
+            @Override
+            public T next() {
+                if (!this.hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return iterator.next();
+            }
+        };
     }
 }

@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
  * Универсальная обертка над массивом. Структура массива не динамическая.
  * @param <T>
  */
-public class SimpleArray<T> implements Iterator<T> {
+public class SimpleArray<T> implements Iterable<T> {
     private int size;
     private int count = 0;
     private int it = 0;
@@ -94,12 +94,27 @@ public class SimpleArray<T> implements Iterator<T> {
     }
 
     @Override
-    public boolean hasNext() {
-        return  size > it;
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            @Override
+            public boolean hasNext() {
+                return  size > it;
+            }
+
+            @Override
+            public T next() {
+                return (T) array[it++];
+            }
+        };
     }
 
-    @Override
-    public T next() {
-        return (T) this.array[it++];
-    }
+//    @Override
+//    public boolean hasNext() {
+//        return  size > it;
+//    }
+//
+//    @Override
+//    public T next() {
+//        return (T) this.array[it++];
+//    }
 }

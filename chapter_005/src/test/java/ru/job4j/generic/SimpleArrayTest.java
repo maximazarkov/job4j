@@ -2,6 +2,8 @@ package ru.job4j.generic;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -38,13 +40,26 @@ public class SimpleArrayTest {
         assertThat(result, is("test2"));
     }
 
+//    @Test
+//    public void whenIteratorStringArray() {
+//        SimpleArray simpleArray = new StackArray(40);
+//        simpleArray.add("test");
+//        String result = "";
+//        if (simpleArray.hasNext()) {
+//            result = (String) simpleArray.next();
+//        }
+
+//        assertThat(result, is("test"));
+//    }
+
     @Test
-    public void whenIteratorStringArray() {
+    public void whenIterableStringArray() {
         SimpleArray simpleArray = new StackArray(40);
         simpleArray.add("test");
+        Iterator it = simpleArray.iterator();
         String result = "";
-        if (simpleArray.hasNext()) {
-            result = (String) simpleArray.next();
+        if (it.hasNext()) {
+            result = (String) it.next();
         }
 
         assertThat(result, is("test"));

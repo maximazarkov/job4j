@@ -2,7 +2,6 @@ package ru.job4j.generic;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * Универсальная обертка над массивом. Структура массива не динамическая.
@@ -11,7 +10,6 @@ import java.util.NoSuchElementException;
 public class SimpleArray<T> implements Iterable<T> {
     private int size;
     private int count = 0;
-    private int it = 0;
 //    private T[] array;   // Вариант ,если применять рефлексию
     private Object[] array;
 
@@ -37,46 +35,33 @@ public class SimpleArray<T> implements Iterable<T> {
      * добавляет указанный элемент (model) в первую свободную ячейку;
      * Если идет переполнение надо выкинуть ошибку.
      * @param model
+     * @throws ArrayIndexOutOfBoundsException
      */
-    public void add(T model) throws NullPointerException {
-        if (count >= size) {
-            throw new NullPointerException("Array is full");
-        } else {
-            this.array[count] = model;
-            count++;
-        }
+    public void add(T model) throws ArrayIndexOutOfBoundsException {
+        this.array[count] = model;
+        count++;
     }
 
     /**
      * заменяет указанным элементом (model) элемент, находящийся по индексу index;
      * @param index
      * @param model
+     * @throws ArrayIndexOutOfBoundsException
      */
-    public void set(int index, T model) throws NullPointerException {
-        if (index >= size) {
-            throw new NullPointerException("index out of range ");
-        } else {
+    public void set(int index, T model) throws ArrayIndexOutOfBoundsException {
         this.array[index] = model;
         count++;
-        }
     }
 
     /**
      * удаляет элемент по указанному индексу, все находящиеся справа элементы при этом
      * необходимо сдвинуть на единицу влево (в середине массива не должно быть пустых ячеек);
      * @param index
+     * @throws ArrayIndexOutOfBoundsException
      */
-    public void remove(int index) {
-        if (index >= size) {
-            throw new NullPointerException("index out of range ");
-        } else {
-            this.array[index] = null;
-            for (int i = index; i < size - 1; i++) {
-                if (this.array[i + 1] == null) {
-                    continue;
-                }
-                this.array[i] = this.array[i + 1];
-            }
+    public void remove(int index) throws ArrayIndexOutOfBoundsException {
+        if (index < count) {
+            System.arraycopy(this.array, (index + 1), this.array, (index), (--count - index));
         }
     }
 
@@ -84,18 +69,16 @@ public class SimpleArray<T> implements Iterable<T> {
      * возвращает элемент, расположенный по указанному индексу;
      * @param index
      * @return
+     * @throws ArrayIndexOutOfBoundsException
      */
-    public T get(int index) throws NoSuchElementException {
-        if (index >= size) {
-            throw new NoSuchElementException("Index out of range Array");
-        } else {
+    public T get(int index) throws ArrayIndexOutOfBoundsException {
             return (T) this.array[index];
-        }
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
+            int it = 0;
             @Override
             public boolean hasNext() {
                 return  size > it;

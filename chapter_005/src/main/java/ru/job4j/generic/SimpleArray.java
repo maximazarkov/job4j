@@ -18,7 +18,7 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public SimpleArray(int size) {
         this.size = size;
-        this.array = new Object[size]; //реализуем пока через Object, т.к. относительно понятно все
+        this.array = new Object[size]; //реализуем пока через Object
 ////        нужно попробовать реализовать все через рефлексию. Первая попытка была неудачной:
 //        Class<T> t = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 //
@@ -38,8 +38,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * @throws ArrayIndexOutOfBoundsException
      */
     public void add(T model) throws ArrayIndexOutOfBoundsException {
-        this.array[count] = model;
-        count++;
+        this.array[count++] = model;
     }
 
     /**
@@ -50,7 +49,6 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public void set(int index, T model) throws ArrayIndexOutOfBoundsException {
         this.array[index] = model;
-        count++;
     }
 
     /**
@@ -61,7 +59,13 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public void remove(int index) throws ArrayIndexOutOfBoundsException {
         if (index < count) {
-            System.arraycopy(this.array, (index + 1), this.array, (index), (--count - index));
+            int lenNewArray = count - index - 1;
+            if (lenNewArray != 0) {
+                System.arraycopy(this.array, (index + 1), this.array, (index), lenNewArray);
+            } else {
+                this.array[index] = null;
+            }
+            count--;
         }
     }
 

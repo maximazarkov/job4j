@@ -49,10 +49,10 @@ public class SimpleArrayTest {
         simpleArray.add("test1");
         simpleArray.add("test2");
         simpleArray.add("test3");
-        simpleArray.remove(0);
+        simpleArray.remove(1);
 
         String result = (String) simpleArray.get(0);
-        assertThat(result, is("test2"));
+        assertThat(result, is("test1"));
 
         result = (String) simpleArray.get(1);
         assertThat(result, is("test3"));

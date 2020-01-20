@@ -3,8 +3,6 @@ package ru.job4j.generic;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Iterator;
-
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.is;
 

@@ -28,10 +28,13 @@ public class SimpleArrayList<E> {
      * @return - возвращает удаленный элемент
      */
     public E delete() {
-        Node<E> result = this.first;    // запоминае элемент для вывода
-        Node<E> next = this.first;      // созадем объект для выборки следующего элемента
-        this.first = next.next;         // смещаем ссылку первого элемента на следующий, при этом первый элемент уничтожается
-        return result.data;
+        E r = null;
+        if (this.first != null) {
+            r = this.first.data;    // запоминае элемент для вывода
+            Node<E> next = this.first;      // созадем объект для выборки следующего элемента
+            this.first = next.next;         // смещаем ссылку первого элемента на следующий, при этом первый элемент уничтожается
+        }
+        return r;
     }
 
     /**
@@ -40,11 +43,15 @@ public class SimpleArrayList<E> {
      * @return - найденный элемент
      */
     public E get(int index) {
-        Node<E> result = this.first;
-        for (int i = 0; i < index; i++) {
-            result = result.next;
+        E r = null;
+        if (this.first != null) {
+            Node<E> result = this.first;
+            for (int i = 0; i < index; i++) {
+                result = result.next;
+            }
+            r = result.data;
         }
-        return result.data;
+        return r;
     }
 
     /**

@@ -38,7 +38,9 @@ public class SimpleArray<T> implements Iterable<T> {
      * @throws ArrayIndexOutOfBoundsException
      */
     public void add(T model) throws ArrayIndexOutOfBoundsException {
-        this.array[count++] = model;
+        if (size >= count + 1) {
+            this.array[count++] = model;
+        }
     }
 
     /**
@@ -48,7 +50,9 @@ public class SimpleArray<T> implements Iterable<T> {
      * @throws ArrayIndexOutOfBoundsException
      */
     public void set(int index, T model) throws ArrayIndexOutOfBoundsException {
-        this.array[index] = model;
+        if (index < count) {
+            this.array[index] = model;
+        }
     }
 
     /**

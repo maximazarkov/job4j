@@ -73,10 +73,7 @@ public abstract class AbstractStore<T extends Base> implements Store<T>  {
 
         int index = 0;
         for (T t : this.store) {
-            if (t == null) {
-                break;
-            }
-            if (t.getId().equals(id)) {
+            if (Objects.equals(t.getId(), id)) {
                 result = index;
                 break;
             }

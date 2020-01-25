@@ -17,6 +17,17 @@ public class SimpleDynamicArrayListTest {
     }
 
     @Test
+    public void whenAdd20ElementsThenAutoResize() {
+        SimpleDynamicArrayList<Integer> sdal = new SimpleDynamicArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            sdal.add(i);
+        }
+
+        assertThat(sdal.get(18), is(18));
+        assertThat(sdal.getSize(), is(32));
+    }
+
+    @Test
     public void whenAddValueThenGetValue() {
         SimpleDynamicArrayList<Integer> sdal = new SimpleDynamicArrayList<>();
         sdal.add(123);

@@ -39,9 +39,12 @@ public class SimpleDynamicArrayList<E> implements SimpleContainer<E> {
     }
 
     public void add(E value) {
-        if (container.length >= modCount + 1) {
-            this.container[modCount++] = value;
+        if (container.length <= modCount) {
+            Object[] tmp = container;
+            container = new Object[tmp.length << 1];
+            System.arraycopy(container, 0, tmp, 0, tmp.length);
         }
+        this.container[modCount++] = value;
     }
 
     public E get(int index) {

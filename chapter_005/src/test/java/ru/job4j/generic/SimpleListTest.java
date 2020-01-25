@@ -2,6 +2,9 @@ package ru.job4j.generic;
 
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.is;
 
@@ -81,6 +84,20 @@ public class SimpleListTest {
 //        Integer result = simpleList.get(1);
 //
 //        assertThat(result, is(2));
+    }
+
+    @Test
+    public void showSet() {
+        Set<String> set = new HashSet<>();
+        set.add("first");
+        set.add("second");
+        set.add("zero");
+        set.add("zero");
+        set.add("third");
+        System.out.println(set);
+        for (String s : set) {
+            System.out.println(s + " " + s.hashCode());
+        }
     }
 
 }

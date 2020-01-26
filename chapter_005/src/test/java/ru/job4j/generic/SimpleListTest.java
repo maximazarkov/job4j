@@ -2,6 +2,10 @@ package ru.job4j.generic;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.is;
 
@@ -81,6 +85,12 @@ public class SimpleListTest {
 //        Integer result = simpleList.get(1);
 //
 //        assertThat(result, is(2));
+    }
+
+    public void showList() {
+        List<String> list = new ArrayList<>(100);
+        List<? super Integer> numbers = new LinkedList<>();  // ограничили снизу
+        numbers.add(1);
     }
 
 }

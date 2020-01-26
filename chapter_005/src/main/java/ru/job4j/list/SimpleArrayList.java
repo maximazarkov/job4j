@@ -34,6 +34,7 @@ public class SimpleArrayList<E> {
             Node<E> next = this.first;      // созадем объект для выборки следующего элемента
             this.first = next.next;         // смещаем ссылку первого элемента на следующий, при этом первый элемент уничтожается
         }
+        size--;
         return r;
     }
 

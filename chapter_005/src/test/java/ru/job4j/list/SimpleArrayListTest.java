@@ -36,11 +36,11 @@ public class SimpleArrayListTest {
     }
 
     @Test
-    public void whenDeleteAlllementsThenNull() {
+    public void whenDeleteAllElementsThenNull() {
         assertThat(list.delete(), is(3));
         assertThat(list.delete(), is(2));
         assertThat(list.delete(), is(1));
-        assertThat(list.getSize(), is(3));
+        assertThat(list.getSize(), is(0));
         assertNull(list.get(2));
         assertNull(list.get(1));
         assertNull(list.get(0));

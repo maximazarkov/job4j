@@ -37,10 +37,9 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param model
      * @throws ArrayIndexOutOfBoundsException
      */
-    public void add(T model) throws ArrayIndexOutOfBoundsException {
-        if (size >= count + 1) {
-            this.array[count++] = model;
-        }
+    public void add(T model) {
+        checkOutOfBounds(count + 1, "массив переполенн");
+        this.array[count++] = model;
     }
 
     /**
@@ -49,7 +48,8 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param model
      * @throws ArrayIndexOutOfBoundsException
      */
-    public void set(int index, T model) throws ArrayIndexOutOfBoundsException {
+    public void set(int index, T model) {
+        checkOutOfBounds(index, "попытка обратиться за пределы массива");
         if (index < count) {
             this.array[index] = model;
         }
@@ -61,7 +61,8 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param index
      * @throws ArrayIndexOutOfBoundsException
      */
-    public void remove(int index) throws ArrayIndexOutOfBoundsException {
+    public void remove(int index) {
+        checkOutOfBounds(index, "попытка обратиться за пределы массива");
         if (index < count) {
             int lenNewArray = count - index - 1;
             if (lenNewArray != 0) {
@@ -80,7 +81,8 @@ public class SimpleArray<T> implements Iterable<T> {
      * @throws ArrayIndexOutOfBoundsException
      */
     public T get(int index) throws ArrayIndexOutOfBoundsException {
-            return (T) this.array[index];
+        checkOutOfBounds(index, "попытка обратиться за пределы массива");
+        return (T) this.array[index];
     }
 
     @Override
@@ -97,6 +99,12 @@ public class SimpleArray<T> implements Iterable<T> {
                 return (T) array[it++];
             }
         };
+    }
+
+    private void checkOutOfBounds(int index, String s) {
+        if (index > size) {
+            throw new ArrayIndexOutOfBoundsException(s);
+        }
     }
 
 //    @Override

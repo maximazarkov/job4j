@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.is;
@@ -87,10 +89,26 @@ public class SimpleListTest {
 //        assertThat(result, is(2));
     }
 
+
     public void showList() {
         List<String> list = new ArrayList<>(100);
         List<? super Integer> numbers = new LinkedList<>();  // ограничили снизу
         numbers.add(1);
+    }
+
+    @Test
+    public void showSet() {
+        Set<String> set = new HashSet<>();
+        set.add("first");
+        set.add("second");
+        set.add("zero");
+        set.add("zero");
+        set.add("third");
+        System.out.println(set);
+        for (String s : set) {
+            System.out.println(s + " " + s.hashCode());
+        }
+
     }
 
 }

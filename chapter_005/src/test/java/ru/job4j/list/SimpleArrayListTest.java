@@ -35,7 +35,7 @@ public class SimpleArrayListTest {
         assertThat(list.get(1), is(1));
     }
 
-    @Test
+    @Test (expected = IndexOutOfBoundsException.class)
     public void whenDeleteAllElementsThenNull() {
         assertThat(list.delete(), is(3));
         assertThat(list.delete(), is(2));

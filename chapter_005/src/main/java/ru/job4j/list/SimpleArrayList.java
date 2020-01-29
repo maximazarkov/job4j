@@ -1,5 +1,7 @@
 package ru.job4j.list;
 
+import java.util.Objects;
+
 /**
  * Класс SimpleArrayList.
  * В этом задании необходимо реализовать метод delete для односвязного списка, в котором каждый элемент
@@ -28,12 +30,12 @@ public class SimpleArrayList<E> {
      * @return - возвращает удаленный элемент
      */
     public E delete() {
-        E r = null;
-        if (this.first != null) {
-            r = this.first.data;    // запоминае элемент для вывода
-            Node<E> next = this.first;      // созадем объект для выборки следующего элемента
-            this.first = next.next;         // смещаем ссылку первого элемента на следующий, при этом первый элемент уничтожается
-        }
+//  решил воспользоваться проверкой индекса из Object в замен if (isEmpty) throw
+//  при отсуствии данных (index = 0)  должно вывалиться исключение throw outOfBoundsCheckIndex(oobef, index, length)
+//  с помощью статического метода checkIndex(...) класса Preconditions
+        Objects.checkIndex(0, size);
+        E r = this.first.data;
+        this.first = this.first.next;
         size--;
         return r;
     }

@@ -46,7 +46,7 @@ public class SimpleArrayTest {
         assertThat(result, is(4));
     }
 
-    @Test
+    @Test (expected = ArrayIndexOutOfBoundsException.class)
     public void whenSetNewStringArrayShouldReturnTheString() {
         SimpleArray simpleArray = new StackArrayString(15);
         simpleArray.add("test");
@@ -82,7 +82,7 @@ public class SimpleArrayTest {
         simpleArray.add("test1");
         simpleArray.add("test2");
         simpleArray.add("test3");
-        simpleArray.remove(3);
+        simpleArray.remove(2);
 
         String result = (String) simpleArray.get(0);
         assertThat(result, is("test1"));

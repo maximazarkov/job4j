@@ -38,7 +38,6 @@ public class SimpleArray<T> implements Iterable<T> {
      * @throws ArrayIndexOutOfBoundsException
      */
     public void add(T model) {
-        checkOutOfBounds(count + 1, "массив переполенн");
         this.array[count++] = model;
     }
 
@@ -50,9 +49,7 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public void set(int index, T model) {
         checkOutOfBounds(index, "попытка обратиться за пределы массива");
-        if (index < count) {
             this.array[index] = model;
-        }
     }
 
     /**
@@ -63,7 +60,6 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public void remove(int index) {
         checkOutOfBounds(index, "попытка обратиться за пределы массива");
-        if (index < count) {
             int lenNewArray = count - index - 1;
             if (lenNewArray != 0) {
                 System.arraycopy(this.array, (index + 1), this.array, (index), lenNewArray);
@@ -71,7 +67,6 @@ public class SimpleArray<T> implements Iterable<T> {
                 this.array[index] = null;
             }
             count--;
-        }
     }
 
     /**
@@ -101,8 +96,11 @@ public class SimpleArray<T> implements Iterable<T> {
         };
     }
 
+// Не пойму, зачем менять size на count?
+//  В моем случае, например, в методе add() в индекс отправляется count + 1
+//
     private void checkOutOfBounds(int index, String s) {
-        if (index > size) {
+        if (index > count) {
             throw new ArrayIndexOutOfBoundsException(s);
         }
     }

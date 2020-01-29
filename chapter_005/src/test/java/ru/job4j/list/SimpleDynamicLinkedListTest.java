@@ -42,7 +42,7 @@ public class SimpleDynamicLinkedListTest {
         SimpleDynamicLinkedList<Integer> sdll = new SimpleDynamicLinkedList<>();
         sdll.add(123);
         sdll.add(321);
-        Iterator<Integer> it = sdll.iterator();
+        Iterator<Integer> it = sdll.iterator(0);
         int i = 0;
         while (it.hasNext()) {
             assertThat(it.next(), is(sdll.get(i++)));

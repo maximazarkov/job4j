@@ -2,25 +2,22 @@ package ru.job4j.list;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class SimpleDynamicLinkedList<E> implements SimpleContainer<E> {
+public class SimpleDynamicLinkedList<E> {
     private int size = 0;
     private int modCount = 0;
 
     /**
      * Pointer to first node.
      */
-    transient Node<E> first;
+    private Node<E> first;
 
     /**
      * Pointer to last node.
      */
-    transient Node<E> last;
+    private Node<E> last;
 
-    public SimpleDynamicLinkedList() {
-    }
-
-    @Override
     public void add(E value) {
         final Node<E> l = last;
         final Node<E> newNode = new Node<>(l, value, null);
@@ -35,7 +32,6 @@ public class SimpleDynamicLinkedList<E> implements SimpleContainer<E> {
 
     }
 
-    @Override
     public E get(int index) {
         E r = null;
         if (index < size) {
@@ -55,24 +51,91 @@ public class SimpleDynamicLinkedList<E> implements SimpleContainer<E> {
         return this.size;
     }
 
-    @Override
-    public Iterator<E> iterator() {
-        return new Iterator<E>() {
+    /**
+     * Tells if the argument is the index of a valid position for an
+     * iterator or an add operation.
+     */
+    private boolean isPositionIndex(int index) {
+        return index >= 0 && index <= size;
+    }
+
+    /**
+     * Constructs an IndexOutOfBoundsException detail message.
+     * Of the many possible refactorings of the error handling code,
+     * this "outlining" performs best with both server and client VMs.
+     */
+    private String outOfBoundsMsg(int index) {
+        return "Index: " + index + ", Size: " + size;
+    }
+
+
+    private void checkPositionIndex(int index) {
+        if (!isPositionIndex(index)) {
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+        }
+    }
+
+    public Iterator<E> iterator(int index) {
+        checkPositionIndex(index);
+        return new ListItr(index);
+    }
+
+    private class ListItr<E> implements Iterator<E> {
             int mc = modCount;
-            int it = 0;
+            private Node<E> lastReturned;
+            private Node<E> next;
+            private int nextIndex;
+
+            ListItr(int index) {
+                // assert isPositionIndex(index);
+                next = (index == size) ? null : (Node<E>) node(index);
+                nextIndex = index;
+            }
+
             @Override
             public boolean hasNext() {
-                if (modCount != mc) {
-                    throw new ConcurrentModificationException();
-                }
-                return  size > it;
+                return  size > nextIndex;
             }
 
             @Override
             public E next() {
-                return (E) get(it++);
+                checkForComodification();
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                lastReturned = next;
+                next = next.next;
+                nextIndex++;
+                return lastReturned.item;
+            }
+
+            final void checkForComodification() {
+                if (modCount != mc) {
+                    throw new ConcurrentModificationException();
+                }
             }
         };
+//    }
+
+    /**
+     * Returns the (non-null) Node at the specified element index.
+     */
+    Node<E> node(int index) {
+        // assert isElementIndex(index);
+
+        if (index < (size >> 1)) {
+            Node<E> x = first;
+            for (int i = 0; i < index; i++) {
+                x = x.next;
+            }
+            return x;
+        } else {
+            Node<E> x = last;
+            for (int i = size - 1; i > index; i--) {
+                x = x.prev;
+            }
+            return x;
+        }
     }
 
     private static class Node<E> {

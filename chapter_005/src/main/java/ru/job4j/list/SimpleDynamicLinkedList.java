@@ -46,6 +46,39 @@ public class SimpleDynamicLinkedList<E> {
         return r;
     }
 
+    /**
+     * Unlinks non-null last node l.
+     */
+    private E unlinkLast(Node<E> l) {
+        // assert l == last && l != null;
+        final E element = l.item;
+        final Node<E> prev = l.prev;
+        l.item = null;
+        l.prev = null; // help GC
+        last = prev;
+        if (prev == null) {
+            first = null;
+        } else {
+            prev.next = null;
+        }
+        size--;
+        modCount++;
+        return element;
+    }
+
+    /**
+     * Removes and returns the last element from this list.
+     *
+     * @return the last element from this list
+     * @throws NoSuchElementException if this list is empty
+     */
+    public E removeLast() {
+        final Node<E> l = last;
+        if (l == null) {
+            throw new NoSuchElementException();
+        }
+        return unlinkLast(l);
+    }
 
     public int getSize() {
         return this.size;

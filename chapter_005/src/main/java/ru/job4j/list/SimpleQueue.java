@@ -4,11 +4,10 @@ public class SimpleQueue<T> {
     private SimpleDynamicLinkedList<T> sdll;
 
     public SimpleQueue() {
-        this.sdll = new SimpleDynamicLinkedList<>();;
+        this.sdll = new SimpleDynamicLinkedList<>();
     }
 
     public T poll() {
-//        return null;
         return (T) sdll.removeFirst();
     }
 

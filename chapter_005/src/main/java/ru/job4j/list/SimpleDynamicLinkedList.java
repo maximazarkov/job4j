@@ -106,8 +106,9 @@ public class SimpleDynamicLinkedList<E> {
      */
     public E removeFirst() {
         final Node<E> f = first;
-        if (f == null)
+        if (f == null) {
             throw new NoSuchElementException();
+        }
         return unlinkFirst(f);
     }
 

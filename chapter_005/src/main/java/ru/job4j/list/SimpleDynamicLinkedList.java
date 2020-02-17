@@ -66,24 +66,6 @@ public class SimpleDynamicLinkedList<E> {
         return element;
     }
 
-
-    private E unlinkFirst(Node<E> f) {
-        // assert f == first && f != null;
-        final E element = f.item;
-        final Node<E> next = f.next;
-        f.item = null;
-        f.next = null; // help GC
-        first = next;
-        if (next == null) {
-            last = null;
-        } else {
-            next.prev = null;
-        }
-        size--;
-        modCount++;
-        return element;
-    }
-
     /**
      * Removes and returns the last element from this list.
      *
@@ -97,21 +79,6 @@ public class SimpleDynamicLinkedList<E> {
         }
         return unlinkLast(l);
     }
-
-    /**
-     * Removes and returns the first element from this list.
-     *
-     * @return the first element from this list
-     * @throws NoSuchElementException if this list is empty
-     */
-    public E removeFirst() {
-        final Node<E> f = first;
-        if (f == null) {
-            throw new NoSuchElementException();
-        }
-        return unlinkFirst(f);
-    }
-
 
      public int getSize() {
         return this.size;

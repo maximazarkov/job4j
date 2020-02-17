@@ -3,11 +3,7 @@ package ru.job4j.list;
 import java.util.Iterator;
 
 public class SimpleStack<T>  {
-    private SimpleDynamicLinkedList<T> sdll;
-
-    public SimpleStack() {
-        this.sdll = new SimpleDynamicLinkedList<>();
-    }
+    private SimpleDynamicLinkedList<T> sdll = new SimpleDynamicLinkedList<>();
 
     /**
      * Метод вставляет в начало списка данные.
@@ -18,6 +14,10 @@ public class SimpleStack<T>  {
         sdll.add(data);
     }
 
+    /**
+     * метод возвращает значение и удаляет его из коллекции
+     * @return
+     */
     public T poll() {
         return (T) sdll.removeLast();
     }

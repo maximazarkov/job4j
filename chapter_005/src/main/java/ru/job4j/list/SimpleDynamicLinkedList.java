@@ -4,7 +4,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class SimpleDynamicLinkedList<E> {
+public class SimpleDynamicLinkedList<E> implements Iterable<E> {
     private int size = 0;
     private int modCount = 0;
 
@@ -111,6 +111,26 @@ public class SimpleDynamicLinkedList<E> {
     public Iterator<E> iterator(int index) {
         checkPositionIndex(index);
         return new ListItr(index);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return null;
     }
 
     private class ListItr<E> implements Iterator<E> {

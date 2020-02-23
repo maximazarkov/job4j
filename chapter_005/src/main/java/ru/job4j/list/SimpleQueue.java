@@ -33,8 +33,13 @@ import java.util.Stack;
  * @param <T>
  */
 public class SimpleQueue<T> {
-    private SimpleDynamicLinkedList<T> sdllIn = new SimpleDynamicLinkedList<>();
-    private SimpleDynamicLinkedList<T> sdllOut = new SimpleDynamicLinkedList<>();
+//    Меня сбила в заджании вот эта строчка, по этому применил прямой вызов SimpleDynamicLinkedList<>().
+//    * Внутри очереди нужно использовать Стеки из задания 5.3.3. Используя контейнер на базе связанного списка создать контейнер Stack
+//    Удалим их.
+//    Применим немного иной подход. Создадим объекты SimpleDynamicLinkedList через SimpleStack
+    private SimpleStack<T> inputStack = new SimpleStack<>();
+    private SimpleStack<T> outputStack = new SimpleStack<>();
+
 
     /**
      * метод, прежде чем извлечь элемент, делать "переворот" второй коллекции путем сохранения ее в первой коллекции.
@@ -43,8 +48,18 @@ public class SimpleQueue<T> {
      * @return
      */
     public T poll() {
-        pushStackToStack(sdllOut, sdllIn);
-        return (T) sdllIn.removeLast();
+        // здесь применяется интересный метод.
+//        если второй стек пустой, то мы в него загружаем из первого все элементы, при том, что первый стек очищается
+//        повтоорное заполенение второго стека будет выполнено только при его полном очищении.
+//        при этом первый стек может беспрепятсвенно заполнятся параллельно до следующей "перекачки".
+        if (outputStack.isEmpty()) {
+            while (!inputStack.isEmpty()) {
+                outputStack.push(inputStack.poll());
+            }
+        }
+//        далее, пока не кончатся данные в обоих стеках, будет возвращать данные из второго стека.
+//        если оба стека буду очищены, то вернем null
+        return (outputStack.isEmpty()) ? null : outputStack.poll();
     }
 
     /**
@@ -54,22 +69,7 @@ public class SimpleQueue<T> {
      *              добавлении следующего элемента
      */
     public void push(T value) {
-        pushStackToStack(sdllIn, sdllOut);
-        sdllIn.add(value);
-    }
-
-    /**
-     * Данные метод осуществляет перенос данных из одной коллекции в другую для осуществелния переворота
-     * в зависимости от того, добавляются данные из стека или извлекаются источники могут менятся местами
-     * @see #push
-     * @see #poll
-     * @param from - коллекция, откуда нужно выполнить перенос данных
-     * @param to - коллекция, в которую нужно перенести данные
-     */
-    private void pushStackToStack(SimpleDynamicLinkedList<T> from, SimpleDynamicLinkedList<T> to) {
-        Iterator<T> it = from.iterator(0);
-        while (it.hasNext()) {
-            to.add(from.removeLast());
-        }
+        // не заморачиваясь все складываем в первый стек...
+        inputStack.push(value);
     }
 }

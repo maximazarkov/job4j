@@ -41,7 +41,6 @@ public class NodeTest {
     }
 
     @Test
-    @Ignore
     public void whenHasCycleThirdToTwo() {
 
         Node<Integer> first = new Node(1);
@@ -62,7 +61,6 @@ public class NodeTest {
     }
 
     @Test
-    @Ignore
     public void whenHasCycleIsFalse() {
 
         Node<Integer> first = new Node(1);
@@ -79,49 +77,15 @@ public class NodeTest {
     }
 
     private static boolean hasCircle(Node first) {
-        boolean result = false;      // по умолчанию, нет цикличности
-        Node nodeNext = first;  // временный контейнер для операции сверки при прогоне элементов
-        Node currentNode = nodeNext.next; // это маркер элементов. между элементом first и маркером будет осуществляться прогон
-        int maxNode = 1; // максимальный индекс количества контейнеров, получаемое при переборе
-        int countNode = 0; // текущий индекс количества контейнеров при итерации
-//        if (currentNode == first) {
-//            result = true;
-//        }
+        boolean result = false;      // по умолчанию, нет
+        Node nextNode = first;
+        Node nextNextNode = first;
 
-        // делаем зацикливание, но предусматриваем внутренний выход из цикла, присвоив result = true;
-        while (countNode < maxNode) {
-            // если еще есть элементы, переходим к перебору
-//            if  (countNode > maxNode) {
-//                break;
-//            }
-            if (currentNode != null) {
-                while (nodeNext != currentNode) {
-                    nodeNext = nodeNext.next;
-                    countNode++;
-                    if (nodeNext == currentNode) {
-//                        if (countNode < maxNode) {
-//                            result = true;
-//                            countNode = maxNode + 1;
-//                            break;
-//                        }
-                        currentNode = currentNode.next;
-                        nodeNext = first;
-                        if (countNode == maxNode) {
-                            maxNode++;
-                            countNode = 0;
-                        }
-
-                    }
-
-
-                }
-                if (currentNode == nodeNext) {
-                    result = true;
-//                    countNode = maxNode + 1;
-                    break;
-                }
-            } else {
-                //  зацикливания нет. выходим
+        while (nextNextNode != null) {
+            nextNode = nextNode.next;
+            nextNextNode = nextNextNode.next.next;
+            if (nextNextNode == nextNode) {
+                result = true;
                 break;
             }
         }

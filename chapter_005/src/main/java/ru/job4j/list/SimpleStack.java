@@ -21,4 +21,8 @@ public class SimpleStack<T>  {
     public T poll() {
         return (T) sdll.removeLast();
     }
+
+    public boolean isEmpty() {
+        return (sdll.getSize() > 0) ? false : true;
+    }
 }

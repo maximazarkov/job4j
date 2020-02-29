@@ -17,29 +17,14 @@ public class SimpleSet<E> implements Iterable<E> {
     public void add(E value) {
         if (count >= size) {
             this.size = size + 10;
-            SimpleList<E> newSl = new SimpleList<>(size);
-            Iterator<E> el = this.iterator();
-            while (el.hasNext()) {
-                E element = el.next();
-                if (!element.equals(value)) {
-                    newSl.add(element);
-                }
+            SimpleList<E> newSl = new SimpleList<>(this.size);
+            Iterator<E> it = this.iterator();
+            while (it.hasNext()) {
+                newSl.add(it.next());
             }
-//            System.arraycopy(sl, 0, newSl, 0, size);
             this.sl = newSl;
         }
-        boolean containValue = true;
-        if (modCount == 0) {
-            containValue = false;
-        } else {
-            Iterator<E> cont = this.iterator();
-            while (cont.hasNext()) {
-                if (!cont.next().equals(value)) {
-                    containValue = false;
-                }
-            }
-        }
-        if (!containValue) {
+        if (!contains(value)) {
             sl.add(value);
             modCount++;
             count++;

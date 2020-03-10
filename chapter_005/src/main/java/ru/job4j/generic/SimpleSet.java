@@ -11,11 +11,12 @@ public class SimpleSet<E> implements Iterable<E> {
 
     public SimpleSet(int size) {
         this.sl = new SimpleList<>(size);
+//        this.size = (size < 2) ?  10 :  size;
         this.size = size;
     }
 
-    public void add(E value) {
-        if (count >= size) {
+    private void checkForResize() {
+        if (this.count >= this.size) {
             this.size = size + 10;
             SimpleList<E> newSl = new SimpleList<>(this.size);
             Iterator<E> it = this.iterator();
@@ -24,6 +25,10 @@ public class SimpleSet<E> implements Iterable<E> {
             }
             this.sl = newSl;
         }
+    }
+
+    public void add(E value) {
+        checkForResize();
         if (!contains(value)) {
             sl.add(value);
             modCount++;
@@ -32,11 +37,16 @@ public class SimpleSet<E> implements Iterable<E> {
     }
 
     public boolean contains(E value) {
-        Iterator<E> cont = this.iterator();
         boolean result = false;
-        while (cont.hasNext()) {
-            if (cont.next().equals(value)) {
-                result = true;
+        if (value == null) {
+            result = true;
+        } else {
+            Iterator<E> cont = this.iterator();
+            while (cont.hasNext()) {
+                if (cont.next().equals(value)) {
+                    result = true;
+                    break;
+                }
             }
         }
         return result;

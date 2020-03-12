@@ -38,17 +38,13 @@ public class SimpleSet<E> implements Iterable<E> {
 
     public boolean contains(E value) {
         boolean result = false;
-        if (value == null) {
-            result = true;
-        } else {
             Iterator<E> cont = this.iterator();
             while (cont.hasNext()) {
-                if (cont.next().equals(value)) {
+                if (value == null || cont.next().equals(value)) {
                     result = true;
                     break;
                 }
             }
-        }
         return result;
     }
 

@@ -1,5 +1,3 @@
-// не правильно указан пакет. название не должно иметь имея домена верхнего уровня
-//package com;
 package ru.job4j.bank;
 
 public class Account {
@@ -39,10 +37,10 @@ public class Account {
     }
 
     /**
-     * выполняет транзакцию межту счетами.
+     * Выполняет транзакцию между счетами.
      * @param destination - счет назначение,
      * @param amount- сумма средств.
-     * @return - возвращает true, если перевод прошол успешно.
+     * @return - возвращает true, если перевод прошел успешно.
      */
     public boolean transfer(Account destination, double amount) {
         boolean success = false;
@@ -58,9 +56,7 @@ public class Account {
     }
 
     public String toString() {
-        String otvet;
-        otvet = "Account{" + "values=" + values + ", requisites='" + requisites + "\\" + "}";
-        return otvet;
+        return "Account{" + "values=" + values + ", requisites='" + requisites + "\\" + "}";
     }
 
     public boolean equals(Object o) {

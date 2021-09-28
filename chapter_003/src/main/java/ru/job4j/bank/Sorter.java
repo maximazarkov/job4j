@@ -1,5 +1,3 @@
-// не правильно указан пакет. название не должно иметь имея домена верхнего уровня
-//package com;
 package ru.job4j.bank;
 
 import java.util.*;
@@ -11,51 +9,37 @@ public class Sorter {
     }
 
     /**
-     * Сортировки спитска пользователей
-     * @param list
-     * @return
+     * Сортировки списка пользователей
+     * @param list список пользователей.
+     * @return возвращает отсортированный список
+     * @since 0.4 28.09.2021
      */
-    Set<User> sort(List<User> list) {
-        TreeSet<User> sortedList = new TreeSet<>();
-        sortedList.addAll(list);
-        return sortedList;
+    public Set<User> sort(List<User> list) {
+        return new TreeSet<>(list);
     }
 
     /**
-     * Сортировка пользователей по длинне имени.
-     * @param list
-     * @return
+     * Сортировка пользователей по длине имени.
+     * @param list список пользователей для сортировки
+     * @return отсортированный список
+     * @since 0.4 28.09.2021
      */
-    List<User> sortnamelength(List<User> list) {
-        Comparator<User> compar = new Comparator<User>() {
-            @Override
-            public int compare(User o1, User o2) {
-                return o1.getName().length() - o2.getName().length();
-            }
-        };
-        list.sort(compar);
+    private List<User> sortNmeLength(List<User> list) {
+        Comparator<User> comparator = Comparator.comparingInt(o -> o.getName().length());
+        list.sort(comparator);
         return list;
     }
 
     /**
-     * Сортировка по двум признакам - имя, затем возраст возраст.
-     * @param list
-     * @return
+     * Сортировка по двум признакам - имя, затем паспорт.
+     * @param list список пользователей
+     * @return список пользователей после сравнения
+     * @since 0.4 28.09.2021
      */
-    List<User> sortboth(List<User> list) {
-        Comparator<User> compar1 = new Comparator<User>() {
-            @Override
-            public int compare(User o1, User o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        };
-        Comparator<User> compar2 = new Comparator<User>() {
-            @Override
-            public int compare(User o1, User o2) {
-                return o1.getPassport().compareTo(o2.getPassport());
-            }
-        };
-        list.sort(compar1.thenComparing(compar2));
+    private List<User> sortBoth(List<User> list) {
+        Comparator<User> c1 = Comparator.comparing(User::getName);
+        Comparator<User> c2 = Comparator.comparing(User::getPassport);
+        list.sort(c1.thenComparing(c2));
         return list;
     }
 }

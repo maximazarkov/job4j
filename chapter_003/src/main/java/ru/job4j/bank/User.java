@@ -7,22 +7,21 @@ import java.util.Objects;
  * @since 0.4 10.09.2019
  */
 public class User implements Comparable<User> {
-    // имя пользователя
     private String name;
-    private String pasport; // данные поспорта
+    private String passport;
 
     public User() {
     }
 
-    public User(String name, String pasport) {
+    public User(String name, String passport) {
         this.name = name;
-        this.pasport = pasport;
+        this.passport = passport;
     }
 
     /**
      * Переопределенный метод интерфейса Comparable для выполнения базовой сортировки
      * @param o - передаваемый объект
-     * @return - результат ставнения возрастов
+     * @return - результат сравнения возрастов
      */
 
     @Override
@@ -35,23 +34,23 @@ public class User implements Comparable<User> {
         }
         User user = (User) o;
         return Objects.equals(name, user.name)
-                && Objects.equals(pasport, user.pasport);
+                && Objects.equals(passport, user.passport);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, pasport);
+        return Objects.hash(name, passport);
     }
 
     public String getPassport() {
-        return pasport;
+        return passport;
     }
 
     @Override
     public String toString() {
         return "User{"
                 + "name='" + name + '\''
-                + ", pasport=" + pasport
+                + ", passport=" + passport
                 + '}';
     }
 
@@ -61,6 +60,6 @@ public class User implements Comparable<User> {
 
     @Override
     public int compareTo(User user) {
-        return this.pasport.compareTo(user.pasport);
+        return this.passport.compareTo(user.passport);
     }
 }

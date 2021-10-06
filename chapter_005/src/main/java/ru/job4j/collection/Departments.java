@@ -1,6 +1,4 @@
 package ru.job4j.collection;
-
-import javax.sql.rowset.serial.SerialStruct;
 import java.util.*;
 
 /**
@@ -31,14 +29,10 @@ public class Departments {
      * @param orgs
      */
     public static void sortAsc(List<String> orgs) {
-        orgs.sort(new DepAskComp());
+        Collections.sort(orgs);
     }
 
     public static void sortDesc(List<String> orgs) {
-// - сравниваем первые элементы полученных массивов по убыванию с помощью compareTo(),
-// результат помещаем в переменную rsl
-// - если rsl равен 0 - то возвращаем такое сравнение: o1.compareTo(o2) -
-// иначе - переменную rsl
-        orgs.sort(new DepDescComp());
+        Collections.sort(orgs, new DepDescComp());
     }
 }

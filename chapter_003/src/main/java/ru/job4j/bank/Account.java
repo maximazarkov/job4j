@@ -1,31 +1,44 @@
 package ru.job4j.bank;
 
+import java.util.Objects;
+
+/**
+ * Класс аккаунт содержит номер счета (реквизитов) и баланс на данном счете.
+ * @author Azarkov Maxim.
+ * @version 1.0 07.10.2021
+ */
 public class Account {
-
-    private double values;
+    private double balance;
     private String requisites;
-
-    /**конструктор
-     */
-    public Account() {
-    }
 
     /**
      * Конструктор
-     * @param values - сумма денег
+     * @param balance - сумма денег
      * @param requisites - реквизиты (номер) счета
      */
-    public Account(double values, String requisites) {
-        this.values = values;
+    public Account(String requisites, double balance) {
+        this.balance = balance;
         this.requisites = requisites;
     }
 
     /**
-     * возвращает сумму счета
+     * Возвращает сумму денег на счете
      * @return сумма счета
      */
-    public double getValues() {
-        return this.values;
+    public double getBalance() {
+        return this.balance;
+    }
+
+    /**
+     * Вносит сумму денег на счет
+     * @param balance сносимая сумма денег
+     */
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public void setRequisites(String requisites) {
+        this.requisites = requisites;
     }
 
     /**
@@ -45,34 +58,36 @@ public class Account {
     public boolean transfer(Account destination, double amount) {
         boolean success = false;
         if (amount > 0
-                && amount < this.values
+                && amount < this.balance
                 && destination != null
                 && !this.requisites.equals(destination.requisites)) {
             success = true;
-            this.values -= amount;
-            destination.values += amount;
+            this.balance -= amount;
+            destination.balance += amount;
         }
         return success;
     }
 
+
+    @Override
     public String toString() {
-        return "Account{" + "values=" + values + ", requisites='" + requisites + "\\" + "}";
+        return "Account{" +
+                "balance=" + balance +
+                ", requisites='" + requisites + '\'' +
+                '}';
     }
 
+
+    @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-
-        return this.requisites.equals(account.requisites);
+        return Double.compare(account.balance, balance) == 0 && Objects.equals(requisites, account.requisites);
     }
 
+    @Override
     public int hashCode() {
-        return this.requisites.hashCode();
+        return Objects.hash(balance, requisites);
     }
 }

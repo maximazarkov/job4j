@@ -1,58 +1,35 @@
 package ru.job4j.bank;
 
+import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.core.Is.is;
 
 public class UserTest {
 
     @Test
-    public void whenEqualsTwoUsersAndFirstUserIsNullThenFalse() {
-        User first = new User();
-        User second = new User("Ivan", "4321 123456");
-        assertThat(first.equals(second), is(false));
-    }
-
-    @Test
     public void whenEqualsTwoUsersAndFirstUserNameIsNullThenFalse() {
-        User first = new User(null, "4321 123456");
-        User second = new User("Ivan", "4321 123456");
-        assertThat(first.equals(second), is(false));
+        User first = new User("4321 123456", null);
+        User second = new User("4321 123456", "Ivan");
+        Assert.assertNotEquals(first, second);
     }
 
     @Test
     public void whenEqualsTwoUsersAndFirstUserPassportIsNullThenFalse() {
-        User first = new User("Ivan", null);
-        User second = new User("Ivan", "4321 123456");
-        assertThat(first.equals(second), is(false));
-    }
-
-
-    @Test
-    public void whenEqualsTwoUsersAndSecondUserIsNullThenFalse() {
-        User second = new User();
-        User first = new User("Ivan", "4321 123456");
-        assertThat(first.equals(second), is(false));
+        User first = new User(null, "Ivan");
+        User second = new User("4321 123456", "Ivan");
+        Assert.assertNotEquals(first, second);
     }
 
     @Test
-    public void whenEqualsTwoUsersIsOneObjectThenTrue() {
-        User first = new User("Ivan", "4321 123456");
-        User second = first;
-        assertThat(first.equals(second), is(true));
+    public void whenEqualsTwoIdenticalUsersThenTrue() {
+        User second = new User("4321 123456", "Ivan");
+        User first = new User("4321 123456", "Ivan");
+        Assert.assertEquals(first, second);
     }
 
     @Test
-    public void whenEqualsTwoEdenticalUsersThenTrue() {
-        User second = new User("Ivan", "4321 123456");
-        User first = new User("Ivan", "4321 123456");
-        assertThat(first.equals(second), is(true));
-    }
-
-    @Test
-    public void whenEqualsTwoUsersIsDiferentPassportsThenFalse() {
-        User second = new User("Ivan", "4321 123456");
-        User first = new User("Ivan", "9876 123456");
-        assertThat(first.equals(second), is(false));
+    public void whenEqualsTwoUsersIsDifferentPassportsThenFalse() {
+        User second = new User("4321 123456", "Ivan");
+        User first = new User("9876 123456", "Ivan");
+        Assert.assertNotEquals(first, second);
     }
 }

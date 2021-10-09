@@ -4,24 +4,24 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * 3. Банковские переводы [#10038 #104495].
  * Класс условного банка. Позволяет ввести пользователей и провести между ними перевод (транзакцию)
  * @author Azarkov Maxim.
- * @version 0.3
+ * @version 1.0 07.10.2021
+ *
  */
-public class Bank {
-    /**
-     * список пользователей для обработки транзакций.
-     * @since 0.1
-     */
-    private final Map<User, ArrayList<Account>> users = new TreeMap<>();
+public class BankService {
+    private final Map<User, List<Account>> users = new HashMap<>();
 
     /**
      * Метод добавления пользователя. Создается мана с привязкой пользователя и его будущего аккаунта.
+     * По умолчанию к этому user добавляется пустой список - new ArrayList<Account>(). Если пользователь отсутствует
+     * в списке пользователей, то он вносится в список.
      * @param user - пользователь.
-     * @since 0.2
+     * @since 1.0 09.10.2021
      */
     public void addUser(User user) {
-            this.users.put(user, new ArrayList<>());
+        this.users.putIfAbsent(user, new ArrayList<>());
     }
 
     /**
@@ -34,13 +34,44 @@ public class Bank {
     }
 
     /**
-     * Метод подключим пользователя к аккаунту. Если и пользователь есть в списке клиентов, то для него создается
+     * Поиск по паспорту
+     * @param passport - паспорт клиента
+     * @return - найденный клиент
+     * @since 1.0 07.10.2021
+     */
+//  TODO реализовать поиск по паспорту. Этот метод ищет пользователя по номеру паспорта.
+//    Здесь нужно использовать перебор всех элементов через цикл for-earch и метод Map.keySet.
+//    Если ничего не найдено - метод должен вернуть null.
+
+    public User findByPassport(String passport) {
+        return null;
+    }
+
+    /**
+     * Возвращается счет по паспорту и реквизитам
+     * @param passport пасспорт.
+     * @param requisite реквизиты
+     * @return счет пользователя.
+     */
+//    TODO Следующий метод ищет счет пользователя по реквизитам. Сначала нужно найти пользователя по паспорту
+//     с помощью метода findByPassport. Потом получить список счетов этого пользователя и в нем найти нужный счет.
+//     Поскольку метод findByPassport может вернуть null, то прежде чем получать список аккаунтов,
+//     требуется проверить что метод findByPassport вернул отличное от null значение.
+    public Account findByRequisite(String passport, String requisite) {
+        return null;
+    }
+
+    /**
+     * Метод добавляет счет к пользователю
      * новый счет (аккаунт)
      * @param passport - номер паспорта пользователя.
      * @param account - аккаунт пользователя.
      * @since 0.3 28.10.2019
      */
-    public void addAccountToUser(String passport, Account account) {
+//    TODO Первоначально пользователя нужно найти по паспорту. Для этого нужно использовать метод findByPassport.
+//     После этого мы получим список всех счетов пользователя и добавим новый счет к ним. В этом методе должна
+//     быть проверка, что такого счета у пользователя еще нет.
+    public void addAccount(String passport, Account account) {
         this.users.keySet().stream()
                 .filter(passportUser -> passportUser.getPassport().equals(passport))
                 .map(usrAcc -> getUserAccounts(usrAcc).add(account))
@@ -55,7 +86,7 @@ public class Bank {
      * @since 0.3
      */
     private Account getActualAccount(User user, Account account) {
-        ArrayList<Account> accounts = this.users.get(user);
+        List<Account> accounts = this.users.get(user);
         return accounts != null ? accounts.get(accounts.indexOf(account)) : null;
     }
 
@@ -93,7 +124,7 @@ public class Bank {
      * @return - список аккаунтов (счетов), прикрепленных к пользователю
      * @since 0.1
      */
-    public ArrayList<Account> getUserAccounts(User user) {
+    public List<Account> getUserAccounts(User user) {
         return  users.get(user);
     }
 
@@ -121,6 +152,8 @@ public class Bank {
      * @return - возвращает результат успешности операции
      * @since 0.1
      */
+//    TODO Последний метод предназначен для перечисления денег с одного счёта на другой счёт.
+//     Если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят), то метод должен вернуть false.
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                   String destPassport, String dstRequisite, double amount) {
         Account srcUsrAcc = getActualAccount(srcPassport, srcRequisite);

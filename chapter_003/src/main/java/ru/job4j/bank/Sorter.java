@@ -25,7 +25,7 @@ public class Sorter {
      * @since 0.4 28.09.2021
      */
     private List<User> sortNmeLength(List<User> list) {
-        Comparator<User> comparator = Comparator.comparingInt(o -> o.getName().length());
+        Comparator<User> comparator = Comparator.comparingInt(o -> o.getUsername().length());
         list.sort(comparator);
         return list;
     }
@@ -37,7 +37,7 @@ public class Sorter {
      * @since 0.4 28.09.2021
      */
     private List<User> sortBoth(List<User> list) {
-        Comparator<User> c1 = Comparator.comparing(User::getName);
+        Comparator<User> c1 = Comparator.comparing(User::getUsername);
         Comparator<User> c2 = Comparator.comparing(User::getPassport);
         list.sort(c1.thenComparing(c2));
         return list;

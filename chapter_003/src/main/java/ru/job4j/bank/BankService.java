@@ -2,7 +2,6 @@ package ru.job4j.bank;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 3. Банковские переводы [#10038 #104495].
@@ -36,35 +35,15 @@ public class BankService {
 
     /**
      * Возвращается счет по паспорту и реквизитам
-     * @param passport пасспорт.
+     * @param passport паспорт.
      * @param requisite реквизиты
      * @return счет пользователя.
-     *
+     * @since v.1.0 12.10.2021
      */
-//    TODO Следующий метод ищет счет пользователя по реквизитам. Сначала нужно найти пользователя по паспорту
-//     с помощью метода findByPassport. Потом получить список счетов этого пользователя и в нем найти нужный счет.
-//     Поскольку метод findByPassport может вернуть null, то прежде чем получать список аккаунтов,
-//     требуется проверить что метод findByPassport вернул отличное от null значение.
     public Account findByRequisite(String passport, String requisite) {
         List<Account> accounts = getUserAccounts(passport);
         return accounts.stream()
                 .filter(acc -> acc.getRequisites().equals(requisite))
-                .findFirst()
-                .orElse(null);
-    }
-
-    /**
-     * Возвращает аккаунт пользователя по паспорту и реквизитам (номеру) счета.
-     * @param passport - паспорт пользователя.
-     * @param srcRequisite - реквизиты (номер) счета.
-     * @return - возвращает актуальный аккаунт.
-     * @since 0.3.
-     * @deprecated -  заменен методом public Account findByRequisite(String passport, String requisite)
-     */
-    private Account getActualAccount(String passport, String srcRequisite) {
-        ArrayList<Account> accounts = getUserAccounts(passport);
-        return accounts.stream()
-                .filter(acc -> acc.getRequisites().equals(srcRequisite))
                 .findFirst()
                 .orElse(null);
     }
@@ -76,9 +55,6 @@ public class BankService {
      * @param account - аккаунт пользователя.
      * @since 0.3 28.10.2019
      */
-//    TODO Первоначально пользователя нужно найти по паспорту. Для этого нужно использовать метод findByPassport.
-//     После этого мы получим список всех счетов пользователя и добавим новый счет к ним. В этом методе должна
-//     быть проверка, что такого счета у пользователя еще нет.
     public void addAccount(String passport, Account account) {
         this.users.keySet().stream()
                 .filter(passportUser -> passportUser.getPassport().equals(passport))
@@ -143,14 +119,12 @@ public class BankService {
      * @param dstRequisite - аккаунт получателя
      * @param amount - сумма трансфера
      * @return - возвращает результат успешности операции
-     * @since 0.1
+     * @since 1.0 12.10.2021
      */
-//    TODO Последний метод предназначен для перечисления денег с одного счёта на другой счёт.
-//     Если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят), то метод должен вернуть false.
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                   String destPassport, String dstRequisite, double amount) {
-        Account srcUsrAcc = getActualAccount(srcPassport, srcRequisite);
-        Account destUsrAcc = getActualAccount(destPassport, dstRequisite);
+        Account srcUsrAcc = findByRequisite(srcPassport, srcRequisite);
+        Account destUsrAcc = findByRequisite(destPassport, dstRequisite);
         return srcUsrAcc != null && destUsrAcc != null && srcUsrAcc.transfer(destUsrAcc, amount);
     }
 

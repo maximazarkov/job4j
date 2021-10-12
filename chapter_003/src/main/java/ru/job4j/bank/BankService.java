@@ -2,6 +2,7 @@ package ru.job4j.bank;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 3. Банковские переводы [#10038 #104495].
@@ -34,31 +35,38 @@ public class BankService {
     }
 
     /**
-     * Поиск по паспорту
-     * @param passport - паспорт клиента
-     * @return - найденный клиент
-     * @since 1.0 07.10.2021
-     */
-//  TODO реализовать поиск по паспорту. Этот метод ищет пользователя по номеру паспорта.
-//    Здесь нужно использовать перебор всех элементов через цикл for-earch и метод Map.keySet.
-//    Если ничего не найдено - метод должен вернуть null.
-
-    public User findByPassport(String passport) {
-        return null;
-    }
-
-    /**
      * Возвращается счет по паспорту и реквизитам
      * @param passport пасспорт.
      * @param requisite реквизиты
      * @return счет пользователя.
+     *
      */
 //    TODO Следующий метод ищет счет пользователя по реквизитам. Сначала нужно найти пользователя по паспорту
 //     с помощью метода findByPassport. Потом получить список счетов этого пользователя и в нем найти нужный счет.
 //     Поскольку метод findByPassport может вернуть null, то прежде чем получать список аккаунтов,
 //     требуется проверить что метод findByPassport вернул отличное от null значение.
     public Account findByRequisite(String passport, String requisite) {
-        return null;
+        List<Account> accounts = getUserAccounts(passport);
+        return accounts.stream()
+                .filter(acc -> acc.getRequisites().equals(requisite))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * Возвращает аккаунт пользователя по паспорту и реквизитам (номеру) счета.
+     * @param passport - паспорт пользователя.
+     * @param srcRequisite - реквизиты (номер) счета.
+     * @return - возвращает актуальный аккаунт.
+     * @since 0.3.
+     * @deprecated -  заменен методом public Account findByRequisite(String passport, String requisite)
+     */
+    private Account getActualAccount(String passport, String srcRequisite) {
+        ArrayList<Account> accounts = getUserAccounts(passport);
+        return accounts.stream()
+                .filter(acc -> acc.getRequisites().equals(srcRequisite))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -88,21 +96,6 @@ public class BankService {
     private Account getActualAccount(User user, Account account) {
         List<Account> accounts = this.users.get(user);
         return accounts != null ? accounts.get(accounts.indexOf(account)) : null;
-    }
-
-    /**
-     * Возвращает аккаунт пользователя по паспорту и реквизитам (номеру) счета.
-     * @param passport - паспорт пользователя.
-     * @param srcRequisite - реквизиты (номер) счета.
-     * @return - возвращает актуальный аккаунт.
-     * @since 0.3.
-     */
-    private Account getActualAccount(String passport, String srcRequisite) {
-        ArrayList<Account> accounts = getUserAccounts(passport);
-        return accounts.stream()
-                .filter(acc -> acc.getRequisites().equals(srcRequisite))
-                .findFirst()
-                .orElse(null);
     }
 
     /**
@@ -162,17 +155,16 @@ public class BankService {
     }
 
     /**
-     * Метод позволяет определить пользователя по паспорту
-     * @param passport - паспорт интересующего нас пользователя
-     * @return - найденный пользователь по введенному паспорту
-     * * @since 0.2
+     * Поиск по паспорту
+     * @param passport - паспорт клиента
+     * @return - найденный клиент
+     * @since 1.0 07.10.2021
      */
-    public User getUser(String passport) {
-        final User user = this.users.keySet().stream()
+    public User findByPassport(String passport) {
+        return this.users.keySet().stream()
                 .filter(u -> u.getPassport().equals(passport))
                 .findFirst()
-                .orElse(new User(null, null));
-        return user;
+                .orElse(null);
     }
 
     public String toString() {

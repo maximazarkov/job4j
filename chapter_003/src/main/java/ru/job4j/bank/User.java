@@ -33,8 +33,12 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return Objects.equals(username, user.username) && Objects.equals(passport, user.passport);
     }
@@ -46,14 +50,9 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", passport='" + passport + '\'' +
-                '}';
+        return "User{"
+                + "username='" + username + '\''
+                + ", passport='" + passport + '\''
+                + '}';
     }
-
-//    @Override
-//    public int compareTo(User user) {
-//        return this.passport.compareTo(user.passport);
-//    }
 }

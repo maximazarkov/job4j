@@ -57,13 +57,13 @@ public class Account {
      */
     public boolean transfer(Account destination, double amount) {
         boolean success = false;
-        if (amount > 0
-                && amount < this.balance
+        if (amount > 0D
+                && amount <= this.balance
                 && destination != null
                 && !this.requisites.equals(destination.requisites)) {
-            success = true;
             this.balance -= amount;
             destination.balance += amount;
+            success = true;
         }
         return success;
     }
@@ -71,17 +71,21 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "balance=" + balance +
-                ", requisites='" + requisites + '\'' +
-                '}';
+        return "Account{"
+                + "balance=" + balance
+                + ", requisites='" + requisites + '\''
+                + '}';
     }
 
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Account account = (Account) o;
         return Double.compare(account.balance, balance) == 0 && Objects.equals(requisites, account.requisites);
     }

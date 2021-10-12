@@ -48,16 +48,17 @@ public class BankServiceTest {
 //        assertThat(bank.findByRequisite(user.getPassport(), "113").getBalance(), is(200D));
     }
 
-    @Test
+    @Test (expected = NullPointerException.class)
     public void whenAddAndDeleteTwoUsers() {
         BankService bankService = new BankService();
         bankService.addUser(new User("12 34 123456", "Иван"));
         bankService.addUser(new User("21 43 654321", "Степан"));
-        Assert.assertEquals(bankService.getUser("12 34 123456").getUsername(), "Иван");
-        Assert.assertEquals(bankService.getUser("21 43 654321").getUsername(), "Степан");
-        bankService.deleteUser(bankService.getUser("12 34 123456"));
-        String result = bankService.getUser("12 34 123456").getUsername();
-        Assert.assertNull(result);
+        Assert.assertEquals(bankService.findByPassport("12 34 123456").getUsername(), "Иван");
+        Assert.assertEquals(bankService.findByPassport("21 43 654321").getUsername(), "Степан");
+        bankService.deleteUser(bankService.findByPassport("12 34 123456"));
+        Assert.assertNull(bankService.findByPassport("12 34 123456").getUsername());
+        bankService.deleteUser(bankService.findByPassport("21 43 654321"));
+        Assert.assertNull(bankService.findByPassport("21 43 654321").getUsername());
     }
 
     @Test
@@ -65,7 +66,7 @@ public class BankServiceTest {
         BankService bankService = new BankService();
         bankService.addUser(new User("12 34 123456", "Иван"));
         User u = new User("98 76 543210", "Степан");
-        Assert.assertEquals(bankService.getUser("12 34 123456").getUsername(), u.getUsername());
+        Assert.assertNotEquals(bankService.findByPassport("12 34 123456").getUsername(), u.getUsername());
     }
 
     @Test
@@ -94,7 +95,7 @@ public class BankServiceTest {
 
         List<Account> result = bankService.getUserAccounts("12 34 123456");
         List<Account> expect = new ArrayList<>();
-        expect.add(new Account( "1111", 10000));
+        expect.add(new Account("1111", 10000));
         Assert.assertEquals(result, expect);
 
         result = bankService.getUserAccounts("21 43 654321");
@@ -121,7 +122,7 @@ public class BankServiceTest {
         bankService.addUser(new User("12 34 123456", "Иван"));
         Account accForDelete = new Account("1111", 10000);
         bankService.addAccount("12 34 123456", accForDelete);
-        bankService.addAccount("12 34 123456", new Account( "2222", 20000));
+        bankService.addAccount("12 34 123456", new Account("2222", 20000));
         System.out.println(bankService);
 
         bankService.deleteUserAccountFromUser("12 34 123456", accForDelete);
@@ -138,7 +139,7 @@ public class BankServiceTest {
         BankService bankService = new BankService();
         Account accForDelete = new Account("2222", 20000);
         bankService.addUser(new User("12 34 123456", "Иван"));
-        bankService.addUser(new User( "21 43 654321", "Степан"));
+        bankService.addUser(new User("21 43 654321", "Степан"));
         bankService.addAccount("12 34 123456", new Account("1111", 10000));
         bankService.addAccount("21 43 654321", accForDelete);
 
@@ -172,7 +173,7 @@ public class BankServiceTest {
         String dstPassport = "21 43 654321";
         Account dstAccount = new Account("2222", 20000);
 
-        bankService.addUser(new User( srcPassport, "Иван"));
+        bankService.addUser(new User(srcPassport, "Иван"));
         bankService.addUser(new User(dstPassport, "Степан"));
 
         bankService.addAccount(srcPassport, srcAccount);

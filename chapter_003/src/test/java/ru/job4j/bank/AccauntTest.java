@@ -16,7 +16,7 @@ public class AccauntTest {
     @Test
     public void whenTransferEnoughFundsThenTrue() {
         Account first = new Account("1111", 1000d);
-        Account second = new Account( "5555", 1000d);
+        Account second = new Account("5555", 1000d);
         Assert.assertTrue(first.transfer(second, 500d));
         Assert.assertEquals(Double.valueOf(first.getBalance()), Double.valueOf(500d));
         Assert.assertEquals(Double.valueOf(second.getBalance()), Double.valueOf(1500d));
@@ -24,7 +24,7 @@ public class AccauntTest {
 
     @Test
     public void whenTransferNotEnoughFundsThenTrue() {
-        Account first = new Account("1111",1000d);
+        Account first = new Account("1111", 1000d);
         Account second = new Account("5555", 1000d);
         Assert.assertFalse(first.transfer(second, 2000d));
     }
@@ -32,7 +32,7 @@ public class AccauntTest {
     @Test
     public void whenTransferDuplicateAccountsThenFalse() {
         Account first = new Account("1111", 1000d);
-        Account second = new Account( "1111", 1000d);
+        Account second = new Account("1111", 1000d);
         Assert.assertFalse(first.transfer(second, 500d));
     }
 

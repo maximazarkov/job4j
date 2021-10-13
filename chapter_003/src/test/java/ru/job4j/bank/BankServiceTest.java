@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class BankServiceTest {
@@ -14,6 +15,38 @@ public class BankServiceTest {
         BankService bank = new BankService();
         bank.addUser(user);
         Assert.assertEquals(user, bank.findByPassport("3434"));
+    }
+
+    @Test
+    public void addUserAndFindByPassportImperativeOptional() {
+        BankService bank = new BankService();
+        bank.addUser(new User("321", "Petr Arsentev"));
+        Optional<User> user = bank.findByPassportImperativeOptional("3211");
+        Assert.assertFalse(user.isPresent());
+    }
+
+    @Test
+    public void addUserAndFindByPassportImperativeOptionalGetNull() {
+        BankService bank = new BankService();
+        bank.addUser(new User("321", "Petr Arsentev"));
+        Optional<User> user = bank.findByPassportImperativeOptional(null);
+        Assert.assertFalse(user.isPresent());
+    }
+
+    @Test
+    public void addUserAndFindByPassportFuncOptional() {
+        BankService bank = new BankService();
+        bank.addUser(new User("321", "Petr Arsentev"));
+        Optional<User> user = bank.findByPassportFuncOptional("3211");
+        Assert.assertFalse(user.isPresent());
+    }
+
+    @Test
+    public void addUserAndFindByPassportFuncOptionalGetNull() {
+        BankService bank = new BankService();
+        bank.addUser(new User("321", "Petr Arsentev"));
+        Optional<User> user = bank.findByPassportFuncOptional(null);
+        Assert.assertFalse(user.isPresent());
     }
 
     @Test

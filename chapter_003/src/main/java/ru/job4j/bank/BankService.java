@@ -5,9 +5,10 @@ import java.util.stream.Collectors;
 
 /**
  * 3. Банковские переводы [#10038 #104495].
+ * 3. Optional в банковских переводах. [#214711 #212170]
  * Класс условного банка. Позволяет ввести пользователей и провести между ними перевод (транзакцию)
  * @author Azarkov Maxim.
- * @version 1.0 07.10.2021
+ * @version 1.1 13.10.2021
  *
  */
 public class BankService {
@@ -129,10 +130,11 @@ public class BankService {
     }
 
     /**
-     * Поиск по паспорту
+     * Поиск по паспорту (базовая версия на основе потока)
      * @param passport - паспорт клиента
      * @return - найденный клиент
      * @since 1.0 07.10.2021
+     * @deprecated - не рекомендуется использовать, т.к. возвращает null. Применяется в демонстрационных целях
      */
     public User findByPassport(String passport) {
         return this.users.keySet().stream()
@@ -141,7 +143,40 @@ public class BankService {
                 .orElse(null);
     }
 
+    /**
+     * Поиск по паспорту (Императивный вариант обертки в Optional)
+     * @param passport - паспорт клиента
+     * @return - возвращает клиента, но обернутого в формат Optional
+     * @since 1.1 13.10.2021
+     * @deprecated - рекомендуется применять потоковую версию public Optional<User>
+     *     findByPassportOptional(String passport). Применяется в демонстрационных целях.
+     */
+    public Optional<User> findByPassportImperativeOptional(String passport) {
+        Optional<User> rsl = Optional.empty();
+        for (User user : users.keySet()) {
+            if (user.getPassport().equals(passport)) {
+                rsl = Optional.of(user);
+                break;
+            }
+        }
+        return rsl;
+    }
+
+    /**
+     * Поиск по паспорту (Функциональный вариант обертки в Optional)
+     * @param passport - паспорт клиента
+     * @return - возвращает клиента с помощью потоков, но обернутого в формат Optional
+     * @since 1.1 13.10.2021
+     */
+    public Optional<User> findByPassportFuncOptional(String passport) {
+        return this.users.keySet()
+                .stream()
+                .filter(u -> u.getPassport().equals(passport))
+                .findFirst();
+    }
+
     public String toString() {
         return "Bank{" + "accounts=" + users + "}";
     }
 }
+

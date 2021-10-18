@@ -1,5 +1,3 @@
-// не правильно указан пакет. название не должно иметь имея домена верхнего уровня
-//package com;
 package ru.job4j.bank;
 
 import java.util.*;
@@ -10,11 +8,8 @@ public class Convert {
 
     }
 
-    //для однотипных методов (по сути минающие get и put) не указаны модиикаторы доступа. применятся дефолтный доступ
-    //Converts array to list
-    List<Integer> makeList(int[][] array) {
+    public List<Integer> makeList(int[][] array) {
         ArrayList<Integer> list = new ArrayList<>();
-        // применяются очень простыне переменные i, j
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
                 list.add(array[i][j]);
@@ -24,7 +19,7 @@ public class Convert {
     }
 
 
-    //Converts list to array
+
     public int[][] makeArray(List<Integer> list, int rws) {
         Iterator<Integer> iterator = list.iterator();
         int cls = list.size() / rws + (list.size() % rws == 0 ? 0 : 1);

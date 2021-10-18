@@ -1,6 +1,6 @@
 /**
  * Package Tests for Bank system.
- * Тесты для пакета Банковсике переводы
+ * Тесты для пакета Банковские переводы
  *
  * @author Maxim Azarkov
  * @version $Id$

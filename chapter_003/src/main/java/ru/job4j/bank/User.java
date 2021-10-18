@@ -4,26 +4,32 @@ import java.util.Objects;
 
 /**
  * @author Azarkov Maxim.
- * @since 0.4 10.09.2019
+ * @version 1.0 07.10.2021
  */
-public class User implements Comparable<User> {
-    // имя пользователя
-    private String name;
-    private String pasport; // данные поспорта
+public class User {
+    private String username;
+    private String passport;
 
-    public User() {
+    public User(String passport, String username) {
+        this.username = username;
+        this.passport = passport;
     }
 
-    public User(String name, String pasport) {
-        this.name = name;
-        this.pasport = pasport;
+    public String getUsername() {
+        return username;
     }
 
-    /**
-     * Переопределенный метод интерфейса Comparable для выполнения базовой сортировки
-     * @param o - передаваемый объект
-     * @return - результат ставнения возрастов
-     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -34,33 +40,19 @@ public class User implements Comparable<User> {
             return false;
         }
         User user = (User) o;
-        return Objects.equals(name, user.name)
-                && Objects.equals(pasport, user.pasport);
+        return Objects.equals(username, user.username) && Objects.equals(passport, user.passport);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, pasport);
-    }
-
-    public String getPassport() {
-        return pasport;
+        return Objects.hash(username, passport);
     }
 
     @Override
     public String toString() {
         return "User{"
-                + "name='" + name + '\''
-                + ", pasport=" + pasport
+                + "username='" + username + '\''
+                + ", passport='" + passport + '\''
                 + '}';
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int compareTo(User user) {
-        return this.pasport.compareTo(user.pasport);
     }
 }

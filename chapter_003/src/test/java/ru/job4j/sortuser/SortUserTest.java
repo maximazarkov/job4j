@@ -1,8 +1,7 @@
 package ru.job4j.sortuser;
 
+import org.junit.Assert;
 import org.junit.Test;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import java.util.*;
 
 public class SortUserTest {
@@ -23,7 +22,7 @@ public class SortUserTest {
                 new User("Max", 55),
                 new User("Timoha", 45)
         );
-        assertThat(expect, is(result));
+        Assert.assertEquals(expect, result);
     }
 
 
@@ -52,7 +51,7 @@ public class SortUserTest {
                 new User("Сергей", 25),
                 new User("Сергей", 20)
         );
-        assertThat(expect, is(result));
+        Assert.assertEquals(expect, result);
     }
 
     @Test
@@ -71,6 +70,6 @@ public class SortUserTest {
                 new User("Иван", 30),
                 new User("Сергей", 20),
                 new User("Сергей", 25));
-        assertThat(expect, is(result));
+        Assert.assertEquals(expect, result);
     }
 }

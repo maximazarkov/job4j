@@ -1,5 +1,6 @@
 package ru.job4j.generic;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -24,6 +25,13 @@ public class SimpleSetTest {
         ss.add(1);
         ss.add(2);
         assertThat(ss.size(), is(12));
+    }
+
+    @Test
+    public void whenSizeOneItemContainNull() {
+        SimpleSet<Integer> ss = new SimpleSet<>(1);
+        ss.add(null);
+        assertTrue(ss.contains(null));
     }
 
 

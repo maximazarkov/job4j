@@ -14,30 +14,15 @@ public class BankServiceTest {
         User user = new User("3434", "Petr Arsentev");
         BankService bank = new BankService();
         bank.addUser(user);
-        Assert.assertEquals(user, bank.findByPassport("3434"));
+        Assert.assertEquals(user, bank.findByPassport("3434").get());
     }
 
-    @Test
-    public void addUserAndFindByPassportImperativeOptional() {
-        BankService bank = new BankService();
-        bank.addUser(new User("321", "Petr Arsentev"));
-        Optional<User> user = bank.findByPassportImperativeOptional("3211");
-        Assert.assertFalse(user.isPresent());
-    }
-
-    @Test
-    public void addUserAndFindByPassportImperativeOptionalGetNull() {
-        BankService bank = new BankService();
-        bank.addUser(new User("321", "Petr Arsentev"));
-        Optional<User> user = bank.findByPassportImperativeOptional(null);
-        Assert.assertFalse(user.isPresent());
-    }
 
     @Test
     public void addUserAndFindByPassportFuncOptional() {
         BankService bank = new BankService();
         bank.addUser(new User("321", "Petr Arsentev"));
-        Optional<User> user = bank.findByPassportFuncOptional("3211");
+        Optional<User> user = bank.findByPassport("3211");
         Assert.assertFalse(user.isPresent());
     }
 
@@ -45,7 +30,7 @@ public class BankServiceTest {
     public void addUserAndFindByPassportFuncOptionalGetNull() {
         BankService bank = new BankService();
         bank.addUser(new User("321", "Petr Arsentev"));
-        Optional<User> user = bank.findByPassportFuncOptional(null);
+        Optional<User> user = bank.findByPassport(null);
         Assert.assertFalse(user.isPresent());
     }
 
@@ -55,7 +40,7 @@ public class BankServiceTest {
         BankService bank = new BankService();
         bank.addUser(user);
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
-        Assert.assertNull(bank.findByRequisite("34", "5546"));
+        Assert.assertFalse(bank.findByRequisite("34", "5546").isPresent());
     }
 
     @Test
@@ -65,7 +50,7 @@ public class BankServiceTest {
         bank.addUser(user);
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
         Assert.assertEquals(Double.valueOf(150D),
-                Double.valueOf(bank.findByRequisite("3434", "5546").getBalance()));
+                Double.valueOf(bank.findByRequisite("3434", "5546").get().getBalance()));
     }
 
     @Test
@@ -77,21 +62,24 @@ public class BankServiceTest {
         bank.addAccount(user.getPassport(), new Account("113", 50D));
         bank.transferMoney(user.getPassport(), "5546", user.getPassport(), "113", 150D);
         Assert.assertEquals(Double.valueOf(200D),
-                Double.valueOf(bank.findByRequisite(user.getPassport(), "113").getBalance()));
+                Double.valueOf(bank.findByRequisite(user.getPassport(), "113").get().getBalance()));
 //        assertThat(bank.findByRequisite(user.getPassport(), "113").getBalance(), is(200D));
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test
     public void whenAddAndDeleteTwoUsers() {
         BankService bankService = new BankService();
         bankService.addUser(new User("12 34 123456", "Иван"));
         bankService.addUser(new User("21 43 654321", "Степан"));
-        Assert.assertEquals(bankService.findByPassport("12 34 123456").getUsername(), "Иван");
-        Assert.assertEquals(bankService.findByPassport("21 43 654321").getUsername(), "Степан");
-        bankService.deleteUser(bankService.findByPassport("12 34 123456"));
-        Assert.assertNull(bankService.findByPassport("12 34 123456").getUsername());
-        bankService.deleteUser(bankService.findByPassport("21 43 654321"));
-        Assert.assertNull(bankService.findByPassport("21 43 654321").getUsername());
+
+        Assert.assertEquals(bankService.findByPassport("12 34 123456").get().getUsername(), "Иван");
+        Assert.assertEquals(bankService.findByPassport("21 43 654321").get().getUsername(), "Степан");
+
+        bankService.deleteUser(bankService.findByPassport("12 34 123456").get());
+        Assert.assertFalse(bankService.findByPassport("12 34 123456").isPresent());
+
+        bankService.deleteUser(bankService.findByPassport("21 43 654321").get());
+        Assert.assertFalse(bankService.findByPassport("21 43 654321").isPresent());
     }
 
     @Test
@@ -99,7 +87,7 @@ public class BankServiceTest {
         BankService bankService = new BankService();
         bankService.addUser(new User("12 34 123456", "Иван"));
         User u = new User("98 76 543210", "Степан");
-        Assert.assertNotEquals(bankService.findByPassport("12 34 123456").getUsername(), u.getUsername());
+        Assert.assertNotEquals(bankService.findByPassport("12 34 123456").get().getUsername(), u.getUsername());
     }
 
     @Test

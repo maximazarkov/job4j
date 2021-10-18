@@ -41,12 +41,12 @@ public class BankService {
      * @return счет пользователя.
      * @since v.1.0 12.10.2021
      */
-    public Account findByRequisite(String passport, String requisite) {
+    public Optional<Account> findByRequisite(String passport, String requisite) {
         List<Account> accounts = getUserAccounts(passport);
         return accounts.stream()
                 .filter(acc -> acc.getRequisites().equals(requisite))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
+
     }
 
     /**
@@ -124,42 +124,9 @@ public class BankService {
      */
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                   String destPassport, String dstRequisite, double amount) {
-        Account srcUsrAcc = findByRequisite(srcPassport, srcRequisite);
-        Account destUsrAcc = findByRequisite(destPassport, dstRequisite);
+        Account srcUsrAcc = findByRequisite(srcPassport, srcRequisite).get();
+        Account destUsrAcc = findByRequisite(destPassport, dstRequisite).get();
         return srcUsrAcc != null && destUsrAcc != null && srcUsrAcc.transfer(destUsrAcc, amount);
-    }
-
-    /**
-     * Поиск по паспорту (базовая версия на основе потока)
-     * @param passport - паспорт клиента
-     * @return - найденный клиент
-     * @since 1.0 07.10.2021
-     * @deprecated - не рекомендуется использовать, т.к. возвращает null. Применяется в демонстрационных целях
-     */
-    public User findByPassport(String passport) {
-        return this.users.keySet().stream()
-                .filter(u -> u.getPassport().equals(passport))
-                .findFirst()
-                .orElse(null);
-    }
-
-    /**
-     * Поиск по паспорту (Императивный вариант обертки в Optional)
-     * @param passport - паспорт клиента
-     * @return - возвращает клиента, но обернутого в формат Optional
-     * @since 1.1 13.10.2021
-     * @deprecated - рекомендуется применять потоковую версию public Optional<User>
-     *     findByPassportOptional(String passport). Применяется в демонстрационных целях.
-     */
-    public Optional<User> findByPassportImperativeOptional(String passport) {
-        Optional<User> rsl = Optional.empty();
-        for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                rsl = Optional.of(user);
-                break;
-            }
-        }
-        return rsl;
     }
 
     /**
@@ -168,7 +135,7 @@ public class BankService {
      * @return - возвращает клиента с помощью потоков, но обернутого в формат Optional
      * @since 1.1 13.10.2021
      */
-    public Optional<User> findByPassportFuncOptional(String passport) {
+    public Optional<User> findByPassport(String passport) {
         return this.users.keySet()
                 .stream()
                 .filter(u -> u.getPassport().equals(passport))
